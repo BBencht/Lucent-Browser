@@ -1,11 +1,11 @@
 <div align="center">
 
-<img src="assets/lucent_horizontal_logo.png" alt="Lucent Browser" width="480" style="border-radius: 12px; margin-bottom: 16px;" />
+<img src="assets/lucent_horizontal_logo.png" alt="Lucent Browser" width="520" style="border-radius: 14px; margin-bottom: 20px; box-shadow: 0 16px 40px rgba(0,0,0,0.4);" />
 
 # Lucent Browser (v1.0.0)
 
 ### *Ultra-minimalist, floating Liquid Glass Spotlight browser.*
-**macOS Sequoia & visionOS esztétika • Villámgyors lebegő kereső és teljes értékű böngésző egyben**
+**macOS Sequoia & visionOS aesthetics • Lightning-fast floating search and full-featured web browser in one.**
 
 [![Version](https://img.shields.io/badge/version-1.0.0-00f0ff?style=for-the-badge)](https://github.com/BBencht/Lucent-Browser/releases)
 [![Platform](https://img.shields.io/badge/platform-macOS%20%7C%20Windows%20%7C%20Linux-blue?style=for-the-badge)](https://github.com/BBencht/Lucent-Browser)
@@ -16,81 +16,83 @@
 
 ---
 
-## 🌟 Mi az a Lucent Browser? / What is Lucent?
+## 🌟 What is Lucent Browser?
 
-A **Lucent Browser** egy új generációs, figyelemelterelés-mentes webböngésző, amely a macOS Spotlight gyorsaságát és a legmodernebb *Liquid Glass* (folyékony üveg) felületet ötvözi.
+**Lucent Browser** is a next-generation, distraction-free desktop web browser that merges the instantaneous responsiveness of macOS Spotlight with the state-of-the-art *Liquid Glass* design language of visionOS and macOS Sequoia.
 
-Egyetlen gyorsbillentyűvel (`Alt + Szóköz` vagy `⌥ + Space`) bármikor felugrik a képernyő közepén egy lebegő, áttetsző üvegkapszulaként. Beírod a keresést vagy az URL-t, és a kapszula zökkenőmentesen kinyílik egy teljes funkcionalitású, lebegő vagy akár natív teljes képernyős böngészővé. Ha végeztél, egy gombnyomással visszaugrik a kapszulába és elenyészik.
-
----
-
-## ✨ Főbb funkciók / Key Features
-
-- 🫧 **Valódi Liquid Glass felület (visionOS & macOS Sequoia):**  
-  Többrétegű `backdrop-filter` elmosás, prizmatikus él-csillanás, fényes üvegtükröződés és sötét, elegáns prémium megjelenés.
-- 🪄 **Folyékony átmenetek és rugalmas animációk:**  
-  A böngésző nem csak hirtelen megjelenik: kis folyékony üveggömbből nyúlik ki kapszulává, majd abból terül szét böngészővé, bezáráskor pedig látványosan visszahúzódik és elenyészik.
-- 🖥️ **Valódi natív macOS Teljes Képernyő (Dedicated Space):**  
-  Támogatja a valódi macOS Space-eket (`⌃⌘F` vagy `F11`): a menüsor és a Dock elcsúszik, zavartalan immerszív böngészést biztosítva. Kilépéskor azonnal visszavált a kompakt lebegő üvegablakba.
-- 🔍 **Spotlight Omnibox & Élő javaslatok:**  
-  Valós idejű Google keresési javaslatok, intelligens előzmény-kiegészítés és több keresőmotor közvetlen támogatása (Google, DuckDuckGo, Bing, Brave, Ecosia).
-- 📑 **Lapkezelés & Inkognitó mód:**  
-  Többlapos böngészés, privát / inkognitó fülek teljesen izolált munkamenettel, melyek bezáráskor automatikusan törlik a gyorsítótárat és sütiket.
-- 🛡️ **Beépített lopakodó védelem (Stealth & Anti-Detection):**  
-  - Harmadik féltől származó reklám- és telemetria-követők automatikus szűrése.
-  - Speciális User-Agent maszkolás, amely a Google bejelentkezési oldalakon modern Firefox identitást használ, így kiküszöböli a Google beágyazott böngészőkre vonatkozó tiltását!
-- 👆 **Trackpad gesztusvezérlés:**  
-  Kétujjas vízszintes csúsztatással (swipe) azonnali visszalépés vagy előrelépés az előzményekben.
-- ⚙️ **Testreszabható gyorsbillentyűk és témák:**  
-  Minden fontos billentyűkombináció (köztük a globális felugró hotkey) és a színvilág egy kattintással személyre szabható a beépített beállítások panelen.
+With a single customizable global keystroke (**`Alt + Space`** or **`⌥ + Space`**), Lucent floats into view from the center of your display as a sleek, translucent glass capsule. Type a query or URL, and the capsule smoothly expands into a high-performance floating glass browser — or seamlessly glides into a dedicated native macOS Fullscreen Space. When you are done, close it with a tap and watch it pull up, contract into a glowing liquid orb, and dissolve gracefully back into your desktop.
 
 ---
 
-## ⌨️ Gyorsbillentyűk / Keyboard Shortcuts
+## ✨ Key Features
 
-| Billentyű | Művelet / Action |
+- 🫧 **Authentic Liquid Glass UI (visionOS & macOS Sequoia):**  
+  Engineered with multi-layered `backdrop-filter` blur, chromatic dispersion, specular edge highlights, and deep glassmorphic refractions.
+- 🪄 **Fluid Morphing Animations & Physics:**  
+  Lucent does not simply pop onto your screen. It emerges as a frosted liquid glass circle, stretches horizontally into the 740px Spotlight capsule with spring physics, and unrolls into the browser. On close, it reverses into the capsule and dissolves effortlessly.
+- 🖥️ **True Native macOS Fullscreen (Dedicated Space):**  
+  Full support for native macOS Spaces (`⌃⌘F` or `F11`). The macOS menu bar and Dock slide away for an immersive, distraction-free canvas. Exiting fullscreen returns instantly to the compact floating glass window with rounded corners.
+- 🔍 **Spotlight Omnibox with Live Suggestions:**  
+  Instant Google search autocompletion, fuzzy history search, and one-click search engine switching across **Google, DuckDuckGo, Bing, Brave, and Ecosia**.
+- 📑 **Multi-Tab Architecture & Isolated Incognito Partitions:**  
+  Seamless tab management with keyboard shortcuts (`⌘T`, `⌘W`, `⌘1-9`). Incognito tabs run in isolated memory partitions that automatically purge all cache, storage, and cookies upon closure.
+- 🛡️ **Stealth Security & Anti-Detection Engine:**  
+  - Automatic filtering of third-party telemetry, ad trackers, and analytic beacons.
+  - Contextual User-Agent identity masking: automatically switches to a modern Firefox fingerprint on Google login domains, completely bypassing Google's embedded Chromium webview blocks.
+- 👆 **Precision Trackpad Gesture Navigation:**  
+  Natural two-finger horizontal swipe gestures for instantaneous page back and forward navigation in browsing history.
+- ⚙️ **Customizable Shortcuts & Visual Glass Themes:**  
+  Configure your global summon hotkey, in-app navigation shortcuts, and glass themes (Apple Liquid, Aurora Cyan, Dark Glass, Obsidian) directly through the built-in visual settings panel.
+
+---
+
+## ⌨️ Keyboard Shortcuts Reference
+
+| Shortcut | Action |
 | :--- | :--- |
-| **`Alt + Space`** *(vagy `⌥ + Space`)* | **Lucent megnyitása / elrejtése bárhonnan (Globális)** |
-| **`⌘ + T`** / `Ctrl + T` | Új fül nyitása (Spotlight keresőn keresztül) |
-| **`⌘ + Shift + N`** / `Ctrl + Shift + N` | Új inkognitó (privát) fül |
-| **`⌘ + W`** / `Ctrl + W` | Aktív fül bezárása |
-| **`⌘ + Shift + T`** / `Ctrl + Shift + T` | Legutóbb bezárt fül újranyitása |
-| **`⌘ + L`** / `Ctrl + L` | Kereső / URL sáv kijelölése |
-| **`⌘ + 1` ... `⌘ + 9`** | Váltás a fülek között |
-| **`⌃ + ⌘ + F`** vagy **`F11`** | Valódi macOS teljes képernyő ki/be |
-| **`⌘ + [`** / **`⌘ + ]`** | Vissza / Előre az előzményekben |
-| **`⌘ + R`** | Oldal újratöltése |
-| **`Esc`** | Teljes képernyő elhagyása / Keresés megszakítása |
+| **`Alt + Space`** *(or `⌥ + Space`)* | **Summon / Dismiss Lucent from anywhere (Global Hotkey)** |
+| **`⌘ + T`** / `Ctrl + T` | Open New Tab (via Spotlight Search) |
+| **`⌘ + Shift + N`** / `Ctrl + Shift + N` | Open New Private / Incognito Tab |
+| **`⌘ + W`** / `Ctrl + W` | Close Active Tab |
+| **`⌘ + Shift + T`** / `Ctrl + Shift + T` | Reopen Recently Closed Tab |
+| **`⌘ + L`** / `Ctrl + L` | Focus Search / URL Omnibox |
+| **`⌘ + 1` ... `⌘ + 9`** | Switch directly to Tab 1 through 9 |
+| **`⌃ + ⌘ + F`** or **`F11`** | Toggle True Native Fullscreen Mode |
+| **`⌘ + [`** / **`⌘ + ]`** | Navigate Back / Forward in History |
+| **`⌘ + R`** | Reload Current Web Page |
+| **`Escape`** | Exit Fullscreen / Dismiss Search Results / Close Settings |
 
 ---
 
-## 🚀 Telepítés és Futtatás / Installation & Quick Start
+## 🚀 Installation & Quick Start
 
-### Előfeltételek:
-- [Node.js](https://nodejs.org/) (v18 vagy újabb ajánlott)
-- `npm` vagy `yarn`
+### Prerequisites
+- [Node.js](https://nodejs.org/) (version 18 or higher recommended)
+- `npm` or `yarn`
 
-### 1. Klónozd a tárolót:
+### 1. Clone the repository
 ```bash
 git clone https://github.com/BBencht/Lucent-Browser.git
 cd Lucent-Browser
 ```
 
-### 2. Telepítsd a függőségeket:
+### 2. Install dependencies
 ```bash
 npm install
 ```
 
-### 3. Indítsd el a böngészőt:
+### 3. Launch Lucent Browser
 ```bash
 npm start
 ```
 
+Press **`Alt + Space`** (or **`⌥ + Space`**) to toggle the browser!
+
 ---
 
-## 📦 Futtatható alkalmazás fordítása / Building Binaries
+## 📦 Building Standalone Binaries
 
-Ha szeretnél telepítőcsomagot készíteni:
+Lucent is pre-configured with `electron-builder` to package standalone executable applications:
 
 - **macOS (.app / .zip):**
   ```bash
@@ -105,25 +107,25 @@ Ha szeretnél telepítőcsomagot készíteni:
   npm run dist:linux
   ```
 
-A kész binárisok a `dist/` mappában fognak megjelenni.
+Packaged distribution bundles will be generated in the `dist/` directory.
 
 ---
 
-## 🛠️ Technikai felépítés / Architecture
+## 🛠️ Architecture & Under the Hood
 
-- **Keretrendszer:** [Electron](https://www.electronjs.org/) + Chromium
-- **Frontend:** Pure Modern Vanilla JS (ES6+), High-performance Web Components, CSS Houdini & GPU-accelerated transforms
-- **Web tartalom izoláció:** Electron `<webview>` tag szeparált session partíciókkal és `contextIsolation`-nel
-- **Platformok:** macOS (Apple Silicon & Intel), Windows 10/11, Linux
+- **Core Engine:** [Electron](https://www.electronjs.org/) + Chromium
+- **User Interface:** Vanilla JavaScript (ES6+), GPU-accelerated CSS transforms, CSS Houdini backdrop filtering
+- **Content Isolation:** Electron `<webview>` tags running in partitioned sessions with strict `contextIsolation` and disabled node integration for bulletproof security
+- **Cross-Platform:** macOS (Apple Silicon M-Series & Intel x64), Windows 10/11, Linux
 
 ---
 
-## 📄 Licenc / License
+## 📄 License
 
-Ez a projekt a **MIT Licenc** alatt érhető el. Lásd a [LICENSE](LICENSE) fájlt a részletekért.
+This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for complete details.
 
 ---
 
 <div align="center">
-  <sub>Készítette: <b>Bence Bodori</b> • 2026</sub>
+  <sub>Crafted with passion by <b>Bence Bodori</b> • 2026</sub>
 </div>
