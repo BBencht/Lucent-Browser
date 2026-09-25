@@ -16,6 +16,20 @@
 
 ---
 
+## 📥 Download Ready-to-Run App
+
+Pre-built, standalone application packages for macOS, Windows, and Linux are available directly on the **[Releases Page](https://github.com/BBencht/Lucent-Browser/releases)**:
+
+| Operating System | Platform | Package Format | Download |
+| :--- | :--- | :--- | :--- |
+| 🍏 **macOS** | Apple Silicon (M1-M4) & Intel | `.dmg` installer / `.zip` | [**Download for macOS**](https://github.com/BBencht/Lucent-Browser/releases) |
+| 🪟 **Windows** | Windows 10 & 11 (64-bit) | `.exe` installer / `.zip` portable | [**Download for Windows**](https://github.com/BBencht/Lucent-Browser/releases) |
+| 🐧 **Linux** | Ubuntu, Fedora, Arch, etc. | `.AppImage` standalone / `.tar.gz` | [**Download for Linux**](https://github.com/BBencht/Lucent-Browser/releases) |
+
+> **Quick tip:** On macOS, download the `.dmg`, drag Lucent to your Applications folder, and launch! Press **`Alt + Space`** anytime to summon.
+
+---
+
 ## 🌟 What is Lucent Browser?
 
 **Lucent Browser** is a next-generation, distraction-free desktop web browser that merges the instantaneous responsiveness of macOS Spotlight with the state-of-the-art *Liquid Glass* design language of visionOS and macOS Sequoia.
