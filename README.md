@@ -4,11 +4,11 @@
 
 # Lucent Browser (v1.1.1)
 
-### *Ultra-minimalist, floating Liquid Glass Spotlight browser.*
-**macOS Sequoia & visionOS aesthetics • Lightning-fast floating search and full-featured web browser in one.**
+### *Ultra-minimalist, floating Liquid Glass HUD browser for Windows, macOS & Linux.*
+**Universal floating search capsule and full-featured desktop web browser in one sleek, modern translucent interface.**
 
 [![Version](https://img.shields.io/badge/version-1.1.1-00f0ff?style=for-the-badge)](https://github.com/BBencht/Lucent-Browser/releases)
-[![Platform](https://img.shields.io/badge/platform-macOS%20%7C%20Windows%20%7C%20Linux-blue?style=for-the-badge)](https://github.com/BBencht/Lucent-Browser)
+[![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-blue?style=for-the-badge)](https://github.com/BBencht/Lucent-Browser)
 [![License](https://img.shields.io/badge/license-MIT-0984e3?style=for-the-badge)](LICENSE)
 [![Electron](https://img.shields.io/badge/Electron-44.4.3-47a248?style=for-the-badge&logo=electron&logoColor=white)](https://electronjs.org)
 
@@ -16,142 +16,110 @@
 
 ---
 
-## 🆕 What's New in v1.1.1
-
-- 🎯 **Spotlight Capsule Settings Positioning & Alignment Fix:** Fixed an issue where opening Settings from the Spotlight capsule bar pushed the settings panel down to the bottom half of the screen and clipped theme options due to inactive flex items. When opened from Search mode, the capsule smoothly expands into a dedicated, draggable, beautifully aligned Settings window with full visibility of all theme cards, engine options, and shortcuts without vertical displacement.
-- 🛡️ **Frosted Glass Backing & Readability:** High-opacity frosted acrylic backing across all themes ensures zero background bleed-through from desktop windows.
-- 🎨 **Apple VisionOS Crystal & Liquid Glass Theme Overhaul:** High-contrast light themes with crisp card borders, dark text, and crystal glass accents.
-- 🌐 **Full English UI Localization:** Spotlight search bar, settings dialogs, shortcut configurator, navigation tooltips, contextual history popups, and notification toasts localized to English.
-
----
-
 ## 📥 Download & Install
 
-### ⚡ One-Line macOS Install (Recommended):
-To install and launch Lucent Browser on macOS instantly without Gatekeeper warnings, open Terminal and paste:
-```bash
-curl -fsSL https://raw.githubusercontent.com/BBencht/Lucent-Browser/main/install.sh | bash
-```
+Pre-built, standalone application packages for **Windows**, **macOS**, and **Linux** are available directly below and on the **[Releases Page](https://github.com/BBencht/Lucent-Browser/releases)**:
 
----
-
-### 📦 Manual Download Packages (from Releases):
-
-Pre-built, standalone application packages for macOS, Windows, and Linux are available directly on the **[Releases Page](https://github.com/BBencht/Lucent-Browser/releases)**:
-
-| Operating System | Platform | Package Format | Direct Download |
+| Operating System | Package Type | Direct Download Link | Details |
 | :--- | :--- | :--- | :--- |
-| 🪟 **Windows** | Windows 10 & 11 (64-bit) | `.exe` Setup Installer | [⬇️ **Download Installer (.exe)**](https://github.com/BBencht/Lucent-Browser/releases/download/v1.1.1/Lucent-Browser-Setup-1.1.1.exe) |
-| 🪟 **Windows** | Windows 10 & 11 (64-bit) | `.zip` Portable (No install required) | [⬇️ **Download Portable (.zip)**](https://github.com/BBencht/Lucent-Browser/releases/download/v1.1.1/Lucent-Browser-1.1.1-win.zip) |
-| 🍏 **macOS** | Apple Silicon (M1 / M2 / M3 / M4) | `.dmg` Installer | [⬇️ **Download for Apple Silicon (.dmg)**](https://github.com/BBencht/Lucent-Browser/releases/download/v1.1.1/Lucent-Browser-1.1.1-arm64.dmg) |
-| 🍏 **macOS** | Intel Macs | `.dmg` Installer | [⬇️ **Download for Intel Mac (.dmg)**](https://github.com/BBencht/Lucent-Browser/releases/download/v1.1.1/Lucent-Browser-1.1.1.dmg) |
-| 🐧 **Linux** | All distributions (x64) | `.AppImage` standalone | [⬇️ **Download AppImage**](https://github.com/BBencht/Lucent-Browser/releases/download/v1.1.1/Lucent-Browser-1.1.1.AppImage) |
+| 🪟 **Windows** | **`.exe` Setup Installer** | [⬇️ **Download Installer (.exe)**](https://github.com/BBencht/Lucent-Browser/releases/download/v1.1.1/Lucent-Browser-Setup-1.1.1.exe) | Standard Windows setup installer (64-bit) |
+| 🪟 **Windows** | **`.zip` Portable** | [⬇️ **Download Portable (.zip)**](https://github.com/BBencht/Lucent-Browser/releases/download/v1.1.1/Lucent-Browser-1.1.1-win.zip) | Standalone portable folder, no installation required |
+| 🍏 **macOS** | **`.dmg` Installer** | [⬇️ **Download Apple Silicon (.dmg)**](https://github.com/BBencht/Lucent-Browser/releases/download/v1.1.1/Lucent-Browser-1.1.1-arm64.dmg) | Apple Silicon (M1, M2, M3, M4) |
+| 🍏 **macOS** | **`.dmg` Installer** | [⬇️ **Download Intel Mac (.dmg)**](https://github.com/BBencht/Lucent-Browser/releases/download/v1.1.1/Lucent-Browser-1.1.1.dmg) | Intel 64-bit Macs |
+| 🐧 **Linux** | **`.AppImage`** | [⬇️ **Download AppImage**](https://github.com/BBencht/Lucent-Browser/releases/download/v1.1.1/Lucent-Browser-1.1.1.AppImage) | Universal Linux standalone package (Ubuntu, Fedora, Arch) |
+| 🐧 **Linux** | **`.tar.gz`** | [⬇️ **Download Tarball**](https://github.com/BBencht/Lucent-Browser/releases/download/v1.1.1/lucent-browser-1.1.1.tar.gz) | Source/pre-built Linux binary archive |
 
-> 💡 **Tip:** On the [GitHub Releases](https://github.com/BBencht/Lucent-Browser/releases) page, if you don't immediately see `.exe`, click **"Show all assets"** at the bottom of the assets list.
-
----
-
-## 🛡️ First-Time Launch & Permissions Guide
-
-Because Lucent Browser is an independent open-source project without a paid corporate signing certificate, modern operating systems (especially macOS Gatekeeper & Windows SmartScreen) may show a security prompt when opening downloaded files.
-
-Here is how to allow and open Lucent Browser in seconds:
-
-### 🍏 macOS ("App is damaged and can't be opened" / "Unidentified developer")
-
-> **Why this happens:** macOS Gatekeeper flags all apps downloaded via web browsers (Safari/Chrome) that do not have a paid ($99/year) Apple Developer ID certificate as *"damaged"* by default. The application is completely intact and safe.
-
-Choose whichever method you prefer:
-
-#### Option 1: Terminal Command (Fastest — 2 seconds)
-1. Drag **`Lucent Browser.app`** from the `.dmg` into your **Applications** (`/Applications`) folder.
-2. Open your **Terminal** app and run:
-   ```bash
-   xattr -cr "/Applications/Lucent Browser.app"
-   ```
-3. Press `Enter`. Done! Lucent Browser will now open immediately on double-click anytime.
-
-#### Option 2: System Settings (No Terminal required)
-1. Drag **`Lucent Browser.app`** into your **Applications** folder and double-click to open it once.
-2. When the warning appears, click **Cancel** *(Mégsem)*.
-3. Open **System Settings** *(Rendszerbeállítások)* $\rightarrow$ **Privacy & Security** *(Adatvédelem és biztonság)*.
-4. Scroll down to the **Security** *(Biztonság)* section.
-5. Next to *"Lucent Browser was blocked"*, click **"Open Anyway"** *(Megnyitás mindenesetre)*.
-6. Confirm with your password or Touch ID, then click **Open** *(Megnyitás)*.
-
-#### Option 3: Finder Right-Click
-1. In Finder, go to your **Applications** folder.
-2. **Right-click** *(or hold `Control` and click)* on **`Lucent Browser.app`**.
-3. Select **Open** *(Megnyitás)* from the menu, then click **Open** on the confirmation prompt.
+> ⚡ **Quick install on macOS:** You can also run `curl -fsSL https://raw.githubusercontent.com/BBencht/Lucent-Browser/main/install.sh | bash` in your Terminal.
 
 ---
+
+## 🛡️ First-Time Launch & Security Guide
+
+Because Lucent Browser is an independent open-source project without expensive corporate code-signing certificates, your operating system may display a standard security notice upon first launch. Here is how to open it in seconds:
 
 ### 🪟 Windows ("Windows protected your PC" / SmartScreen)
-1. When double-clicking the installer or `.exe`, Windows Defender SmartScreen may display a blue warning screen.
+1. When double-clicking the installer or `.exe`, Windows Defender SmartScreen may display a blue protection dialog.
 2. Click **"More info"** *(További információk)* under the warning text.
 3. Click the **"Run anyway"** *(Futtatás mindenesetre)* button at the bottom.
+4. The application will start immediately.
 
----
+### 🍏 macOS ("App is damaged and can't be opened" / "Unidentified developer")
+macOS Gatekeeper flags unsigned downloaded applications by default. Choose whichever option is easiest:
+* **Terminal (Fastest — 2 seconds):** After dragging `Lucent Browser.app` to `/Applications`, run:
+  ```bash
+  xattr -cr "/Applications/Lucent Browser.app"
+  ```
+* **System Settings:** Double-click the app $\rightarrow$ click **Cancel** on the alert $\rightarrow$ open **System Settings** $\rightarrow$ **Privacy & Security** $\rightarrow$ scroll to **Security** $\rightarrow$ click **"Open Anyway"**.
+* **Finder Right-Click:** Right-click (or `Control`-click) on **`Lucent Browser.app`** in your Applications folder $\rightarrow$ choose **Open** from the menu $\rightarrow$ click **Open** on the prompt.
 
 ### 🐧 Linux (.AppImage)
-1. Right-click the `.AppImage` file $\rightarrow$ **Properties** $\rightarrow$ **Permissions** $\rightarrow$ check **"Allow executing file as program"**.
-2. Or via terminal:
+1. Mark the downloaded `.AppImage` file as executable:
    ```bash
    chmod +x Lucent-Browser-*.AppImage
    ./Lucent-Browser-*.AppImage
    ```
+2. Or right-click the `.AppImage` $\rightarrow$ **Properties** $\rightarrow$ **Permissions** $\rightarrow$ check **"Allow executing file as program"**.
 
 ---
 
 ## 🌟 What is Lucent Browser?
 
-**Lucent Browser** is a next-generation, distraction-free desktop web browser that merges the instantaneous responsiveness of macOS Spotlight with the state-of-the-art *Liquid Glass* design language of visionOS and macOS Sequoia.
+**Lucent Browser** is a next-generation, distraction-free desktop web browser designed from the ground up for **Windows, macOS, and Linux**. It reimagines web browsing by merging the instant convenience of a floating command capsule with an ultra-modern, luminous Liquid Glass interface.
 
-With a single customizable global keystroke (**`Alt + Space`** or **`⌥ + Space`**), Lucent floats into view from the center of your display as a sleek, translucent glass capsule. Type a query or URL, and the capsule smoothly expands into a high-performance floating glass browser — or seamlessly glides into a dedicated native macOS Fullscreen Space. When you are done, close it with a tap and watch it pull up, contract into a glowing liquid orb, and dissolve gracefully back into your desktop.
+With a single global keystroke (**`Alt + Space`** on Windows/Linux or **`⌥ + Space`** on macOS), Lucent floats into view from the center of your display as a sleek, translucent search capsule. Type a query or web address, and the capsule smoothly expands into a high-performance floating glass browser — or seamlessly glides into full-screen mode for immersive deep work. When you're done, tap `Escape` or dismiss it, and it pulls up, contracts into a glowing liquid orb, and dissolves gracefully back into your desktop.
 
 ---
 
 ## ✨ Key Features
 
-- 🫧 **Authentic Liquid Glass UI (visionOS & macOS Sequoia):**  
-  Engineered with multi-layered `backdrop-filter` blur, chromatic dispersion, specular edge highlights, and deep glassmorphic refractions.
-- 🪄 **Fluid Morphing Animations & Physics:**  
-  Lucent does not simply pop onto your screen. It emerges as a frosted liquid glass circle, stretches horizontally into the 740px Spotlight capsule with spring physics, and unrolls into the browser. On close, it reverses into the capsule and dissolves effortlessly.
-- 🖥️ **True Native macOS Fullscreen (Dedicated Space):**  
-  Full support for native macOS Spaces (`⌃⌘F` or `F11`). The macOS menu bar and Dock slide away for an immersive, distraction-free canvas. Exiting fullscreen returns instantly to the compact floating glass window with rounded corners.
-- 🔍 **Spotlight Omnibox with Live Suggestions:**  
-  Instant Google search autocompletion, fuzzy history search, and one-click search engine switching across **Google, DuckDuckGo, Bing, Brave, and Ecosia**.
+- 🫧 **Modern Liquid Glass & Acrylic Aesthetics:**  
+  Engineered with multi-layered `backdrop-filter` blur, chromatic diffusion, specular edge highlights, and deep glassmorphic refractions that feel right at home on modern desktop interfaces (Windows 11 Acrylic & Mica, macOS Liquid Glass, and Linux desktop environments).
+- 🪄 **Fluid Morphing Physics:**  
+  Lucent does not simply pop onto your screen. It emerges as a glowing frosted glass circle, stretches horizontally into the floating search capsule with spring physics, and unrolls into the browser workspace.
+- 🖥️ **Floating & Fullscreen Modes:**  
+  Toggle between a focused floating glass window and an immersive distraction-free fullscreen canvas with a single key (`F11` on Windows/Linux or `⌃⌘F` on macOS).
+- 🔍 **Universal Search Omnibox with Live Suggestions:**  
+  Instant Google search autocompletion, fuzzy browsing history search, and one-click search engine switching across **Google, DuckDuckGo, Bing, Brave, and Ecosia**.
 - 📑 **Multi-Tab Architecture & Isolated Incognito Partitions:**  
-  Seamless tab management with keyboard shortcuts (`⌘T`, `⌘W`, `⌘1-9`). Incognito tabs run in isolated memory partitions that automatically purge all cache, storage, and cookies upon closure.
+  Seamless tab management with standard keyboard shortcuts (`Ctrl+T` / `⌘T`, `Ctrl+W` / `⌘W`, `Ctrl+1-9` / `⌘1-9`). Private tabs run in isolated memory partitions that automatically purge all cache, storage, and cookies upon closure.
 - 🛡️ **Stealth Security & Anti-Detection Engine:**  
   - Automatic filtering of third-party telemetry, ad trackers, and analytic beacons.
-  - Contextual User-Agent identity masking: automatically switches to a modern Firefox fingerprint on Google login domains, completely bypassing Google's embedded Chromium webview blocks.
-- 👆 **Precision Trackpad Gesture Navigation:**  
-  Natural two-finger horizontal swipe gestures for instantaneous page back and forward navigation in browsing history.
-- ⚙️ **Customizable Shortcuts & Visual Glass Themes:**  
-  Configure your global summon hotkey, in-app navigation shortcuts, and glass themes (Apple Liquid, Aurora Cyan, Dark Glass, Obsidian) directly through the built-in visual settings panel.
+  - Contextual User-Agent identity masking: automatically switches to a modern Firefox fingerprint on Google login domains, bypassing embedded Chromium webview blocks.
+- 👆 **Precision Touchpad & Gesture Navigation:**  
+  Natural two-finger horizontal swipe navigation on Windows precision touchpads and Mac trackpads for fluid back and forward history navigation.
+- ⚙️ **Customizable Shortcuts & Glass Themes:**  
+  Configure your global summon hotkey, in-app navigation shortcuts, and choose between 5 glass themes (Deep Obsidian Frost, Apple Liquid Glass, Apple VisionOS Crystal, Midnight Neon Aurora, Pure OLED Minimal) through the built-in visual settings panel.
 
 ---
 
 ## ⌨️ Keyboard Shortcuts Reference
 
-| Shortcut | Action |
-| :--- | :--- |
-| **`Alt + Space`** *(or `⌥ + Space`)* | **Summon / Dismiss Lucent from anywhere (Global Hotkey)** |
-| **`⌘ + T`** / `Ctrl + T` | Open New Tab (via Spotlight Search) |
-| **`⌘ + Shift + N`** / `Ctrl + Shift + N` | Open New Private / Incognito Tab |
-| **`⌘ + W`** / `Ctrl + W` | Close Active Tab |
-| **`⌘ + Shift + T`** / `Ctrl + Shift + T` | Reopen Recently Closed Tab |
-| **`⌘ + L`** / `Ctrl + L` | Focus Search / URL Omnibox |
-| **`⌘ + 1` ... `⌘ + 9`** | Switch directly to Tab 1 through 9 |
-| **`⌃ + ⌘ + F`** or **`F11`** | Toggle True Native Fullscreen Mode |
-| **`⌘ + [`** / **`⌘ + ]`** | Navigate Back / Forward in History |
-| **`⌘ + R`** | Reload Current Web Page |
-| **`Escape`** | Exit Fullscreen / Dismiss Search Results / Close Settings |
+| Windows / Linux | macOS | Action |
+| :--- | :--- | :--- |
+| **`Alt + Space`** | **`⌥ + Space`** | **Summon / Dismiss Lucent from anywhere (Global Hotkey)** |
+| **`Ctrl + T`** | **`⌘ + T`** | Open New Tab (via Search Capsule) |
+| **`Ctrl + Shift + N`** | **`⌘ + Shift + N`** | Open New Private / Incognito Tab |
+| **`Ctrl + W`** | **`⌘ + W`** | Close Active Tab |
+| **`Ctrl + Shift + T`** | **`⌘ + Shift + T`** | Reopen Recently Closed Tab |
+| **`Ctrl + L`** | **`⌘ + L`** | Focus Search / URL Address Bar |
+| **`Ctrl + 1` ... `Ctrl + 9`** | **`⌘ + 1` ... `⌘ + 9`** | Switch directly to Tab 1 through 9 |
+| **`F11`** | **`⌃ + ⌘ + F`** | Toggle Fullscreen Mode |
+| **`Alt + Left`** / **`Alt + Right`** | **`⌘ + [`** / **`⌘ + ]`** | Navigate Back / Forward in History |
+| **`Ctrl + R`** or **`F5`** | **`⌘ + R`** | Reload Current Web Page |
+| **`Escape`** | **`Escape`** | Dismiss Search Results / Close Settings / Exit Fullscreen |
 
 ---
 
-## 🚀 Installation & Quick Start
+## 🆕 What's New in v1.1.1
+
+- 🎯 **Floating Capsule Settings Positioning & Alignment Fix:** Fixed an issue where opening Settings from the capsule search bar pushed the settings panel down to the bottom half of the screen. When opened from Search mode, the capsule smoothly expands into a dedicated, draggable, beautifully aligned Settings window with full visibility of all theme cards, engine options, and shortcuts without vertical displacement.
+- 🛡️ **Frosted Glass Backing & Readability:** High-opacity frosted acrylic backing across all themes ensures zero background bleed-through from desktop windows or wallpaper.
+- 🎨 **Universal Glass Themes:** High-contrast light and dark themes with crisp card borders, dark text, and crystal glass accents.
+- 🌐 **Full English UI Localization:** Search bar, settings dialogs, shortcut configurator, navigation tooltips, contextual history popups, and notification toasts localized to English.
+
+---
+
+## 🚀 Development & Build from Source
 
 ### Prerequisites
 - [Node.js](https://nodejs.org/) (version 18 or higher recommended)
@@ -179,17 +147,17 @@ Press **`Alt + Space`** (or **`⌥ + Space`**) to toggle the browser!
 
 ## 📦 Building Standalone Binaries
 
-Lucent is pre-configured with `electron-builder` to package standalone executable applications:
+Lucent is pre-configured with `electron-builder` to package standalone executable applications for all major desktop platforms:
 
-- **macOS (.app / .zip):**
-  ```bash
-  npm run dist:mac
-  ```
-- **Windows (.zip):**
+- **Windows (.exe installer & .zip portable):**
   ```bash
   npm run dist:win
   ```
-- **Linux (AppImage / .tar.gz):**
+- **macOS (.dmg installer & .zip):**
+  ```bash
+  npm run dist:mac
+  ```
+- **Linux (.AppImage & .tar.gz):**
   ```bash
   npm run dist:linux
   ```
@@ -201,9 +169,9 @@ Packaged distribution bundles will be generated in the `dist/` directory.
 ## 🛠️ Architecture & Under the Hood
 
 - **Core Engine:** [Electron](https://www.electronjs.org/) + Chromium
-- **User Interface:** Vanilla JavaScript (ES6+), GPU-accelerated CSS transforms, CSS Houdini backdrop filtering
+- **User Interface:** Vanilla JavaScript (ES6+), GPU-accelerated CSS transforms, CSS backdrop filtering
 - **Content Isolation:** Electron `<webview>` tags running in partitioned sessions with strict `contextIsolation` and disabled node integration for bulletproof security
-- **Cross-Platform:** macOS (Apple Silicon M-Series & Intel x64), Windows 10/11, Linux
+- **Cross-Platform:** Windows 10/11 (64-bit), macOS (Apple Silicon M-Series & Intel x64), Linux (all major distributions)
 
 ---
 
