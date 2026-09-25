@@ -16,7 +16,17 @@
 
 ---
 
-## 📥 Download Ready-to-Run App
+## 📥 Download & Install
+
+### ⚡ One-Line macOS Install (Recommended):
+To install and launch Lucent Browser on macOS instantly without Gatekeeper warnings, open Terminal and paste:
+```bash
+curl -fsSL https://raw.githubusercontent.com/BBencht/Lucent-Browser/main/install.sh | bash
+```
+
+---
+
+### 📦 Manual Download Packages (from Releases):
 
 Pre-built, standalone application packages for macOS, Windows, and Linux are available directly on the **[Releases Page](https://github.com/BBencht/Lucent-Browser/releases)**:
 
