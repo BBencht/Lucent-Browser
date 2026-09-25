@@ -39,11 +39,15 @@ curl -fsSL https://raw.githubusercontent.com/BBencht/Lucent-Browser/main/install
 
 Pre-built, standalone application packages for macOS, Windows, and Linux are available directly on the **[Releases Page](https://github.com/BBencht/Lucent-Browser/releases)**:
 
-| Operating System | Platform | Package Format | Download |
+| Operating System | Platform | Package Format | Direct Download |
 | :--- | :--- | :--- | :--- |
-| 🍏 **macOS** | Apple Silicon (M1-M4) & Intel | `.dmg` installer / `.zip` | [**Download for macOS**](https://github.com/BBencht/Lucent-Browser/releases) |
-| 🪟 **Windows** | Windows 10 & 11 (64-bit) | `.exe` installer / `.zip` portable | [**Download for Windows**](https://github.com/BBencht/Lucent-Browser/releases) |
-| 🐧 **Linux** | Ubuntu, Fedora, Arch, etc. | `.AppImage` standalone / `.tar.gz` | [**Download for Linux**](https://github.com/BBencht/Lucent-Browser/releases) |
+| 🪟 **Windows** | Windows 10 & 11 (64-bit) | `.exe` Setup Installer | [⬇️ **Download Installer (.exe)**](https://github.com/BBencht/Lucent-Browser/releases/download/v1.1.1/Lucent-Browser-Setup-1.1.1.exe) |
+| 🪟 **Windows** | Windows 10 & 11 (64-bit) | `.zip` Portable (No install required) | [⬇️ **Download Portable (.zip)**](https://github.com/BBencht/Lucent-Browser/releases/download/v1.1.1/Lucent-Browser-1.1.1-win.zip) |
+| 🍏 **macOS** | Apple Silicon (M1 / M2 / M3 / M4) | `.dmg` Installer | [⬇️ **Download for Apple Silicon (.dmg)**](https://github.com/BBencht/Lucent-Browser/releases/download/v1.1.1/Lucent-Browser-1.1.1-arm64.dmg) |
+| 🍏 **macOS** | Intel Macs | `.dmg` Installer | [⬇️ **Download for Intel Mac (.dmg)**](https://github.com/BBencht/Lucent-Browser/releases/download/v1.1.1/Lucent-Browser-1.1.1.dmg) |
+| 🐧 **Linux** | All distributions (x64) | `.AppImage` standalone | [⬇️ **Download AppImage**](https://github.com/BBencht/Lucent-Browser/releases/download/v1.1.1/Lucent-Browser-1.1.1.AppImage) |
+
+> 💡 **Tip:** On the [GitHub Releases](https://github.com/BBencht/Lucent-Browser/releases) page, if you don't immediately see `.exe`, click **"Show all assets"** at the bottom of the assets list.
 
 ---
 
