@@ -178,7 +178,7 @@ function layout(mode, count = 0) {
   }
 
   if (mode === 'settings') {
-    return { x: cx, y: cy, width: W_SEARCH, height: 500 };
+    return { x: cx, y: cy, width: W_SEARCH, height: 520 };
   }
 
   // Exact pill dimensions with padding for spring bounce in search mode
