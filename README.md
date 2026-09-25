@@ -36,14 +36,57 @@ Pre-built, standalone application packages for macOS, Windows, and Linux are ava
 | 🪟 **Windows** | Windows 10 & 11 (64-bit) | `.exe` installer / `.zip` portable | [**Download for Windows**](https://github.com/BBencht/Lucent-Browser/releases) |
 | 🐧 **Linux** | Ubuntu, Fedora, Arch, etc. | `.AppImage` standalone / `.tar.gz` | [**Download for Linux**](https://github.com/BBencht/Lucent-Browser/releases) |
 
-> **Quick tip:** On macOS, download the `.dmg`, drag Lucent to your Applications folder, and launch! Press **`Alt + Space`** anytime to summon.
->
-> **First-time launch on macOS (Gatekeeper bypass):**  
-> As an independent open-source project not signed with a paid Apple Developer ID, macOS may flag downloaded apps with a *"damaged / unverified"* warning. To open it in one second, drag it to Applications and run this in Terminal:  
-> ```bash
-> xattr -cr "/Applications/Lucent Browser.app"
-> ```  
-> *(Or open **System Settings $\rightarrow$ Privacy & Security** and click **"Open Anyway"**).*
+---
+
+## 🛡️ First-Time Launch & Permissions Guide
+
+Because Lucent Browser is an independent open-source project without a paid corporate signing certificate, modern operating systems (especially macOS Gatekeeper & Windows SmartScreen) may show a security prompt when opening downloaded files.
+
+Here is how to allow and open Lucent Browser in seconds:
+
+### 🍏 macOS ("App is damaged and can't be opened" / "Unidentified developer")
+
+> **Why this happens:** macOS Gatekeeper flags all apps downloaded via web browsers (Safari/Chrome) that do not have a paid ($99/year) Apple Developer ID certificate as *"damaged"* by default. The application is completely intact and safe.
+
+Choose whichever method you prefer:
+
+#### Option 1: Terminal Command (Fastest — 2 seconds)
+1. Drag **`Lucent Browser.app`** from the `.dmg` into your **Applications** (`/Applications`) folder.
+2. Open your **Terminal** app and run:
+   ```bash
+   xattr -cr "/Applications/Lucent Browser.app"
+   ```
+3. Press `Enter`. Done! Lucent Browser will now open immediately on double-click anytime.
+
+#### Option 2: System Settings (No Terminal required)
+1. Drag **`Lucent Browser.app`** into your **Applications** folder and double-click to open it once.
+2. When the warning appears, click **Cancel** *(Mégsem)*.
+3. Open **System Settings** *(Rendszerbeállítások)* $\rightarrow$ **Privacy & Security** *(Adatvédelem és biztonság)*.
+4. Scroll down to the **Security** *(Biztonság)* section.
+5. Next to *"Lucent Browser was blocked"*, click **"Open Anyway"** *(Megnyitás mindenesetre)*.
+6. Confirm with your password or Touch ID, then click **Open** *(Megnyitás)*.
+
+#### Option 3: Finder Right-Click
+1. In Finder, go to your **Applications** folder.
+2. **Right-click** *(or hold `Control` and click)* on **`Lucent Browser.app`**.
+3. Select **Open** *(Megnyitás)* from the menu, then click **Open** on the confirmation prompt.
+
+---
+
+### 🪟 Windows ("Windows protected your PC" / SmartScreen)
+1. When double-clicking the installer or `.exe`, Windows Defender SmartScreen may display a blue warning screen.
+2. Click **"More info"** *(További információk)* under the warning text.
+3. Click the **"Run anyway"** *(Futtatás mindenesetre)* button at the bottom.
+
+---
+
+### 🐧 Linux (.AppImage)
+1. Right-click the `.AppImage` file $\rightarrow$ **Properties** $\rightarrow$ **Permissions** $\rightarrow$ check **"Allow executing file as program"**.
+2. Or via terminal:
+   ```bash
+   chmod +x Lucent-Browser-*.AppImage
+   ./Lucent-Browser-*.AppImage
+   ```
 
 ---
 
