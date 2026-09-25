@@ -27,6 +27,13 @@ Pre-built, standalone application packages for macOS, Windows, and Linux are ava
 | 🐧 **Linux** | Ubuntu, Fedora, Arch, etc. | `.AppImage` standalone / `.tar.gz` | [**Download for Linux**](https://github.com/BBencht/Lucent-Browser/releases) |
 
 > **Quick tip:** On macOS, download the `.dmg`, drag Lucent to your Applications folder, and launch! Press **`Alt + Space`** anytime to summon.
+>
+> **First-time launch on macOS (Gatekeeper bypass):**  
+> As an independent open-source project not signed with a paid Apple Developer ID, macOS may flag downloaded apps with a *"damaged / unverified"* warning. To open it in one second, drag it to Applications and run this in Terminal:  
+> ```bash
+> xattr -cr "/Applications/Lucent Browser.app"
+> ```  
+> *(Or open **System Settings $\rightarrow$ Privacy & Security** and click **"Open Anyway"**).*
 
 ---
 
