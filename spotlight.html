@@ -35,21 +35,21 @@
    THEMES (APPLE LIQUID, DEEP FROST, MIDNIGHT AURORA, OLED, SUNSET)
 ═════════════════════════════════════════════════════════════ */
 
-/* 1. Deep Liquid Frost (Alapértelmezett, mélykék obszidián üveg) */
+/* 1. Deep Liquid Frost (Default, obsidian glass with indigo & violet glow) */
 body, body[data-theme="deep-frost"] {
   --accent: #7c8fff;
   --accent-glow: rgba(124, 143, 255, 0.38);
   --accent2: #c4aaff;
   --cyan: #38bdf8;
   --text-main: rgba(255, 255, 255, 0.96);
-  --text-muted: rgba(255, 255, 255, 0.48);
-  --glass-bg: rgba(22, 26, 44, 0.88);
+  --text-muted: rgba(255, 255, 255, 0.58);
+  --glass-bg: rgba(18, 22, 38, 0.96);
   --glass-border: rgba(255, 255, 255, 0.18);
   --glass-shine: rgba(255, 255, 255, 0.30);
   --browser-bg: #11121c;
-  --browser-toolbar-bg: rgba(20, 24, 38, 0.94);
-  --card-bg: rgba(255, 255, 255, 0.05);
-  --card-border: rgba(255, 255, 255, 0.09);
+  --browser-toolbar-bg: rgba(20, 24, 38, 0.96);
+  --card-bg: rgba(255, 255, 255, 0.07);
+  --card-border: rgba(255, 255, 255, 0.12);
 }
 
 /* 2. Apple Liquid Glass (macOS Sequoia / visionOS luminous translucent liquid glass) */
@@ -58,15 +58,15 @@ body[data-theme="apple-liquid"] {
   --accent-glow: rgba(0, 122, 255, 0.40);
   --accent2: #5ac8fa;
   --cyan: #34c759;
-  --text-main: #1d1d1f;
-  --text-muted: rgba(29, 29, 31, 0.62);
-  --glass-bg: rgba(255, 255, 255, 0.45);
-  --glass-border: rgba(255, 255, 255, 0.75);
-  --glass-shine: rgba(255, 255, 255, 0.95);
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --glass-bg: rgba(252, 253, 255, 0.96);
+  --glass-border: rgba(0, 0, 0, 0.12);
+  --glass-shine: rgba(255, 255, 255, 0.98);
   --browser-bg: #f8fafc;
-  --browser-toolbar-bg: rgba(255, 255, 255, 0.62);
-  --card-bg: rgba(255, 255, 255, 0.55);
-  --card-border: rgba(255, 255, 255, 0.70);
+  --browser-toolbar-bg: rgba(255, 255, 255, 0.96);
+  --card-bg: rgba(255, 255, 255, 0.92);
+  --card-border: rgba(0, 0, 0, 0.09);
 }
 
 body[data-theme="apple-liquid"] #search-input {
@@ -166,93 +166,174 @@ body[data-theme="apple-liquid"] .action-close-btn:hover {
   color: #ef4444 !important;
   border-color: rgba(239, 68, 68, 0.35) !important;
 }
-body[data-theme="apple-liquid"] #shell.search-mode {
+body[data-theme="apple-liquid"] #shell.search-mode,
+body[data-theme="apple-vision-light"] #shell.search-mode {
   box-shadow:
-    inset 0 1.5px 2px rgba(255, 255, 255, 0.95),
-    inset 0 -1px 1.5px rgba(0, 0, 0, 0.08),
-    0 12px 32px rgba(0, 0, 0, 0.16) !important;
+    inset 0 1.5px 2px #ffffff,
+    inset 0 -1px 1.5px rgba(0, 0, 0, 0.06),
+    0 16px 44px rgba(0, 0, 0, 0.16) !important;
 }
-body[data-theme="apple-liquid"] #shell.browser-mode {
+body[data-theme="apple-liquid"] #shell.browser-mode,
+body[data-theme="apple-vision-light"] #shell.browser-mode {
   box-shadow:
-    inset 0 1.5px 2px rgba(255, 255, 255, 0.95),
-    inset 0 -1px 1.5px rgba(0, 0, 0, 0.08) !important;
+    inset 0 1.5px 2px #ffffff,
+    inset 0 -1px 1.5px rgba(0, 0, 0, 0.06) !important;
+}
+body[data-theme="apple-liquid"] #settings-panel,
+body[data-theme="apple-vision-light"] #settings-panel {
+  background: rgba(246, 248, 254, 0.94) !important;
+  border-top: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+body[data-theme="apple-liquid"] #results-panel,
+body[data-theme="apple-vision-light"] #results-panel {
+  background: rgba(246, 248, 254, 0.94) !important;
 }
 body[data-theme="apple-liquid"] .settings-header-wrap,
+body[data-theme="apple-vision-light"] .settings-header-wrap,
 body[data-theme="apple-liquid"] .settings-tabs-bar,
-body[data-theme="apple-liquid"] .settings-footer-bar {
+body[data-theme="apple-vision-light"] .settings-tabs-bar,
+body[data-theme="apple-liquid"] .settings-footer-bar,
+body[data-theme="apple-vision-light"] .settings-footer-bar {
   border-bottom-color: rgba(0, 0, 0, 0.08) !important;
   border-top-color: rgba(0, 0, 0, 0.08) !important;
 }
-body[data-theme="apple-liquid"] .settings-nav-tab {
-  color: #64748b !important;
+body[data-theme="apple-liquid"] .settings-header-title,
+body[data-theme="apple-vision-light"] .settings-header-title {
+  color: #0f172a !important;
 }
-body[data-theme="apple-liquid"] .settings-nav-tab:hover {
+body[data-theme="apple-liquid"] .settings-section-title,
+body[data-theme="apple-vision-light"] .settings-section-title {
+  color: #475569 !important;
+  font-weight: 700 !important;
+}
+body[data-theme="apple-liquid"] .settings-nav-tab,
+body[data-theme="apple-vision-light"] .settings-nav-tab {
+  color: #64748b !important;
+  font-weight: 500 !important;
+}
+body[data-theme="apple-liquid"] .settings-nav-tab:hover,
+body[data-theme="apple-vision-light"] .settings-nav-tab:hover {
   color: #0f172a !important;
   background: rgba(0, 0, 0, 0.05) !important;
 }
-body[data-theme="apple-liquid"] .settings-nav-tab.active {
-  color: #007aff !important;
-  background: rgba(0, 122, 255, 0.12) !important;
+body[data-theme="apple-liquid"] .settings-nav-tab.active,
+body[data-theme="apple-vision-light"] .settings-nav-tab.active {
+  color: #0071e3 !important;
+  background: rgba(0, 113, 227, 0.10) !important;
+  border-bottom: 2px solid #0071e3 !important;
+  font-weight: 600 !important;
 }
-body[data-theme="apple-liquid"] .settings-modal-close-btn {
+body[data-theme="apple-liquid"] .settings-modal-close-btn,
+body[data-theme="apple-vision-light"] .settings-modal-close-btn {
   background: rgba(0, 0, 0, 0.06) !important;
-  border-color: rgba(0, 0, 0, 0.10) !important;
+  border-color: rgba(0, 0, 0, 0.12) !important;
   color: #475569 !important;
 }
-body[data-theme="apple-liquid"] .settings-modal-close-btn:hover {
+body[data-theme="apple-liquid"] .settings-modal-close-btn:hover,
+body[data-theme="apple-vision-light"] .settings-modal-close-btn:hover {
   background: rgba(0, 0, 0, 0.12) !important;
   color: #0f172a !important;
 }
-body[data-theme="apple-liquid"] .theme-option-card,
-body[data-theme="apple-liquid"] .engine-option-card,
-body[data-theme="apple-liquid"] .setting-toggle-row,
-body[data-theme="apple-liquid"] .shortcut-config-row {
-  background: rgba(255, 255, 255, 0.70) !important;
+body[data-theme="apple-liquid"] .theme-card,
+body[data-theme="apple-vision-light"] .theme-card {
+  background: rgba(255, 255, 255, 0.92) !important;
+  border-color: rgba(0, 0, 0, 0.10) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+}
+body[data-theme="apple-liquid"] .theme-card:hover,
+body[data-theme="apple-vision-light"] .theme-card:hover {
+  background: #ffffff !important;
+  border-color: rgba(0, 113, 227, 0.35) !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08) !important;
+}
+body[data-theme="apple-liquid"] .theme-card.active,
+body[data-theme="apple-vision-light"] .theme-card.active {
+  background: #ffffff !important;
+  border-color: #0071e3 !important;
+  box-shadow: 0 0 0 2px rgba(0, 113, 227, 0.25), 0 4px 12px rgba(0, 113, 227, 0.12) !important;
+}
+body[data-theme="apple-liquid"] .theme-card-title,
+body[data-theme="apple-vision-light"] .theme-card-title {
+  color: #0f172a !important;
+  font-weight: 600 !important;
+}
+body[data-theme="apple-liquid"] .theme-card-desc,
+body[data-theme="apple-vision-light"] .theme-card-desc {
+  color: #64748b !important;
+}
+body[data-theme="apple-liquid"] .engine-card,
+body[data-theme="apple-vision-light"] .engine-card,
+body[data-theme="apple-liquid"] .shortcut-config-row,
+body[data-theme="apple-vision-light"] .shortcut-config-row,
+body[data-theme="apple-liquid"] .general-option-row,
+body[data-theme="apple-vision-light"] .general-option-row {
+  background: rgba(255, 255, 255, 0.88) !important;
   border-color: rgba(0, 0, 0, 0.08) !important;
-  color: #1d1d1f !important;
+  color: #0f172a !important;
 }
-body[data-theme="apple-liquid"] .theme-option-card:hover,
-body[data-theme="apple-liquid"] .engine-option-card:hover,
-body[data-theme="apple-liquid"] .setting-toggle-row:hover,
-body[data-theme="apple-liquid"] .shortcut-config-row:hover {
-  background: rgba(255, 255, 255, 0.95) !important;
-  border-color: rgba(0, 122, 255, 0.35) !important;
+body[data-theme="apple-liquid"] .engine-card:hover,
+body[data-theme="apple-vision-light"] .engine-card:hover,
+body[data-theme="apple-liquid"] .shortcut-config-row:hover,
+body[data-theme="apple-vision-light"] .shortcut-config-row:hover,
+body[data-theme="apple-liquid"] .general-option-row:hover,
+body[data-theme="apple-vision-light"] .general-option-row:hover {
+  background: #ffffff !important;
+  border-color: rgba(0, 113, 227, 0.35) !important;
 }
-body[data-theme="apple-liquid"] .theme-option-card.active,
-body[data-theme="apple-liquid"] .engine-option-card.active {
-  background: rgba(255, 255, 255, 0.98) !important;
-  border-color: #007aff !important;
-  box-shadow: 0 0 0 2px rgba(0, 122, 255, 0.20) !important;
+body[data-theme="apple-liquid"] .engine-card.active,
+body[data-theme="apple-vision-light"] .engine-card.active {
+  background: #ffffff !important;
+  border-color: #0071e3 !important;
+  box-shadow: 0 0 0 2px rgba(0, 113, 227, 0.20) !important;
 }
-body[data-theme="apple-liquid"] .shortcut-record-btn {
+body[data-theme="apple-liquid"] .engine-name,
+body[data-theme="apple-vision-light"] .engine-name,
+body[data-theme="apple-liquid"] .shortcut-config-label,
+body[data-theme="apple-vision-light"] .shortcut-config-label,
+body[data-theme="apple-liquid"] .general-option-label,
+body[data-theme="apple-vision-light"] .general-option-label {
+  color: #0f172a !important;
+}
+body[data-theme="apple-liquid"] .engine-desc,
+body[data-theme="apple-vision-light"] .engine-desc,
+body[data-theme="apple-liquid"] .shortcut-config-scope,
+body[data-theme="apple-vision-light"] .shortcut-config-scope,
+body[data-theme="apple-liquid"] .general-option-hint,
+body[data-theme="apple-vision-light"] .general-option-hint {
+  color: #64748b !important;
+}
+body[data-theme="apple-liquid"] .shortcut-record-btn,
+body[data-theme="apple-vision-light"] .shortcut-record-btn {
   background: rgba(0, 0, 0, 0.06) !important;
   border-color: rgba(0, 0, 0, 0.12) !important;
-  color: #1d1d1f !important;
+  color: #0f172a !important;
 }
-body[data-theme="apple-liquid"] .shortcut-record-btn:hover {
-  background: rgba(0, 122, 255, 0.12) !important;
-  border-color: #007aff !important;
-  color: #007aff !important;
+body[data-theme="apple-liquid"] .shortcut-record-btn:hover,
+body[data-theme="apple-vision-light"] .shortcut-record-btn:hover {
+  background: rgba(0, 113, 227, 0.12) !important;
+  border-color: #0071e3 !important;
+  color: #0071e3 !important;
 }
-body[data-theme="apple-liquid"] .settings-modal-card {
+body[data-theme="apple-liquid"] .settings-modal-card,
+body[data-theme="apple-vision-light"] .settings-modal-card {
   box-shadow: 0 28px 70px rgba(0, 0, 0, 0.18), inset 0 1px 2px #fff !important;
 }
 
-/* 3. Apple VisionOS Crystal (Világos tiszta kristályüveg) */
+/* 3. Apple VisionOS Crystal (Pure crystal luminous glass) */
 body[data-theme="apple-vision-light"] {
   --accent: #0071e3;
   --accent-glow: rgba(0, 113, 227, 0.35);
   --accent2: #0284c7;
   --cyan: #059669;
   --text-main: #0f172a;
-  --text-muted: rgba(15, 23, 42, 0.65);
-  --glass-bg: rgba(246, 248, 254, 0.86);
-  --glass-border: rgba(255, 255, 255, 0.85);
-  --glass-shine: rgba(255, 255, 255, 0.95);
+  --text-muted: #64748b;
+  --glass-bg: rgba(246, 248, 254, 0.97);
+  --glass-border: rgba(0, 0, 0, 0.10);
+  --glass-shine: rgba(255, 255, 255, 0.98);
   --browser-bg: #f1f5f9;
-  --browser-toolbar-bg: rgba(255, 255, 255, 0.92);
-  --card-bg: rgba(255, 255, 255, 0.80);
-  --card-border: rgba(0, 0, 0, 0.09);
+  --browser-toolbar-bg: rgba(255, 255, 255, 0.96);
+  --card-bg: rgba(255, 255, 255, 0.92);
+  --card-border: rgba(0, 0, 0, 0.08);
 }
 
 body[data-theme="apple-vision-light"] #search-input {
@@ -277,55 +358,55 @@ body[data-theme="apple-vision-light"] .search-settings-btn:hover {
   background: rgba(0, 0, 0, 0.06) !important;
 }
 
-/* 3. Midnight Aurora (Északi fény / Éjkék tenger, türkiz & smaragd ragyogás) */
+/* 4. Midnight Aurora (Northern Lights, emerald & cyan luminous deep glass) */
 body[data-theme="midnight-aurora"] {
   --accent: #2dd4bf;
   --accent-glow: rgba(45, 212, 191, 0.45);
   --accent2: #34d399;
   --cyan: #22d3ee;
   --text-main: rgba(240, 253, 250, 0.98);
-  --text-muted: rgba(204, 251, 241, 0.52);
-  --glass-bg: rgba(8, 26, 30, 0.88);
-  --glass-border: rgba(45, 212, 191, 0.30);
+  --text-muted: rgba(204, 251, 241, 0.60);
+  --glass-bg: rgba(8, 24, 28, 0.96);
+  --glass-border: rgba(45, 212, 191, 0.32);
   --glass-shine: rgba(153, 246, 228, 0.45);
   --browser-bg: #09171b;
-  --browser-toolbar-bg: rgba(10, 30, 36, 0.95);
-  --card-bg: rgba(45, 212, 191, 0.06);
-  --card-border: rgba(45, 212, 191, 0.18);
+  --browser-toolbar-bg: rgba(10, 28, 34, 0.96);
+  --card-bg: rgba(45, 212, 191, 0.08);
+  --card-border: rgba(45, 212, 191, 0.22);
 }
 
-/* 4. OLED Titanium Minimal (Koromfekete OLED & Monokróm jégfehér) */
+/* 5. OLED Titanium Minimal (Deep OLED black & monochrome ice contrast) */
 body[data-theme="oled-minimal"] {
   --accent: #f8fafc;
   --accent-glow: rgba(255, 255, 255, 0.28);
   --accent2: #cbd5e1;
   --cyan: #94a3b8;
   --text-main: #ffffff;
-  --text-muted: rgba(255, 255, 255, 0.42);
-  --glass-bg: rgba(8, 8, 12, 0.94);
-  --glass-border: rgba(255, 255, 255, 0.14);
-  --glass-shine: rgba(255, 255, 255, 0.25);
+  --text-muted: rgba(255, 255, 255, 0.52);
+  --glass-bg: rgba(10, 10, 14, 0.98);
+  --glass-border: rgba(255, 255, 255, 0.16);
+  --glass-shine: rgba(255, 255, 255, 0.28);
   --browser-bg: #040406;
-  --browser-toolbar-bg: rgba(12, 12, 16, 0.96);
-  --card-bg: rgba(255, 255, 255, 0.04);
-  --card-border: rgba(255, 255, 255, 0.09);
+  --browser-toolbar-bg: rgba(12, 12, 16, 0.98);
+  --card-bg: rgba(255, 255, 255, 0.06);
+  --card-border: rgba(255, 255, 255, 0.12);
 }
 
-/* 5. Sunset Amber (Meleg borostyán arany & rózsaarany üveg) */
+/* 6. Sunset Amber (Warm honey & amber gold frosted glass) */
 body[data-theme="sunset-amber"] {
   --accent: #f59e0b;
   --accent-glow: rgba(245, 158, 11, 0.42);
   --accent2: #fbbf24;
   --cyan: #f97316;
   --text-main: rgba(255, 251, 235, 0.98);
-  --text-muted: rgba(253, 230, 138, 0.55);
-  --glass-bg: rgba(32, 20, 15, 0.88);
-  --glass-border: rgba(245, 158, 11, 0.28);
+  --text-muted: rgba(253, 230, 138, 0.62);
+  --glass-bg: rgba(28, 18, 14, 0.96);
+  --glass-border: rgba(245, 158, 11, 0.32);
   --glass-shine: rgba(254, 243, 199, 0.45);
   --browser-bg: #140d0a;
-  --browser-toolbar-bg: rgba(36, 20, 15, 0.95);
-  --card-bg: rgba(245, 158, 11, 0.06);
-  --card-border: rgba(245, 158, 11, 0.18);
+  --browser-toolbar-bg: rgba(32, 20, 15, 0.96);
+  --card-bg: rgba(245, 158, 11, 0.08);
+  --card-border: rgba(245, 158, 11, 0.22);
 }
 
 
@@ -953,6 +1034,7 @@ html, body {
   pointer-events: none;
   transform: translateY(-8px);
   transition: opacity 0.22s ease, transform 0.25s var(--spring);
+  background: rgba(0, 0, 0, 0.16);
 }
 #shell.search-mode.has-results #results-panel,
 #results-panel.visible {
@@ -1136,6 +1218,7 @@ mark,
   overflow: hidden;
   position: relative;
   border-top: 1px solid rgba(255, 255, 255, 0.09);
+  background: rgba(0, 0, 0, 0.20);
 }
 #settings-panel.hidden {
   display: none !important;
@@ -2801,7 +2884,7 @@ body[data-theme="oled-black"] .loader-label {
           <input
             id="search-input"
             type="text"
-            placeholder="Keresés vagy webcím beírása..."
+            placeholder="Search Google or enter a web address..."
             autocomplete="off"
             spellcheck="false"
           />
@@ -2809,11 +2892,11 @@ body[data-theme="oled-black"] .loader-label {
         </div>
 
         <div class="search-trailing">
-          <button class="resume-pill-btn" id="btn-resume-page" title="Vissza a nyitott lapokhoz (Esc)">
+          <button class="resume-pill-btn" id="btn-resume-page" title="Resume open tabs (Esc)">
             <span class="pulse-indicator"></span>
-            <span id="resume-page-label">Vissza a lapokhoz</span>
+            <span id="resume-page-label">Resume tabs</span>
           </button>
-          <button class="search-settings-btn" id="btn-settings-search" title="Beállítások (⌘,)">
+          <button class="search-settings-btn" id="btn-settings-search" title="Settings (⌘,)">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="3"/>
               <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
@@ -2828,10 +2911,10 @@ body[data-theme="oled-black"] .loader-label {
       <div id="results-divider"></div>
       <div id="results-list"></div>
       <div id="results-footer">
-        <span class="footer-hint"><kbd>↵</kbd> megnyitás</span>
-        <span class="footer-hint" id="footer-tab-hint" style="display: none;"><kbd>Tab</kbd> kiegészítés</span>
-        <span class="footer-hint"><kbd>↑</kbd><kbd>↓</kbd> navigálás</span>
-        <span class="footer-hint"><kbd>Esc</kbd> bezárás</span>
+        <span class="footer-hint"><kbd>↵</kbd> open</span>
+        <span class="footer-hint" id="footer-tab-hint" style="display: none;"><kbd>Tab</kbd> complete</span>
+        <span class="footer-hint"><kbd>↑</kbd><kbd>↓</kbd> navigate</span>
+        <span class="footer-hint"><kbd>Esc</kbd> close</span>
       </div>
     </div>
 
@@ -2846,23 +2929,23 @@ body[data-theme="oled-black"] .loader-label {
 
       <div class="toolbar-tabs-tier">
         <div class="nav-buttons-group">
-          <button class="nav-icon-btn" id="btn-nav-back" title="Vissza (⌘[)">
+          <button class="nav-icon-btn" id="btn-nav-back" title="Back (⌘[)">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
           </button>
-          <button class="nav-icon-btn" id="btn-nav-fwd" title="Előre (⌘])">
+          <button class="nav-icon-btn" id="btn-nav-fwd" title="Forward (⌘])">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </button>
-          <button class="nav-icon-btn" id="btn-nav-reload" title="Frissítés (⌘R)">
+          <button class="nav-icon-btn" id="btn-nav-reload" title="Reload (⌘R)">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
           </button>
         </div>
 
         <div id="tabs-strip"></div>
 
-        <button class="btn-tab-add" id="btn-add-tab" title="Új lap megnyitása (⌘T)">
+        <button class="btn-tab-add" id="btn-add-tab" title="New Tab (⌘T)">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
         </button>
-        <button class="btn-tab-add btn-incognito-add" id="btn-add-incognito" title="Új privát lap megnyitása (⌘⇧N)">
+        <button class="btn-tab-add btn-incognito-add" id="btn-add-incognito" title="New Incognito Tab (⌘⇧N)">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M2 10h20M7 10l2-6h6l2 6"/>
             <circle cx="7" cy="16" r="3.5"/>
@@ -2872,11 +2955,11 @@ body[data-theme="oled-black"] .loader-label {
         </button>
 
         <div class="toolbar-actions">
-          <button class="action-search-btn" id="btn-action-search" title="Új keresés (⌘K vagy Esc)">
+          <button class="action-search-btn" id="btn-action-search" title="New Search (⌘K or Esc)">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
             <span>Keresés</span>
           </button>
-          <button class="action-fullscreen-btn" id="btn-action-fullscreen" title="Teljes képernyő (⌃⌘F vagy F11)">
+          <button class="action-fullscreen-btn" id="btn-action-fullscreen" title="Toggle Fullscreen (F11)">
             <svg id="icon-fs-enter" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
             </svg>
@@ -2884,19 +2967,19 @@ body[data-theme="oled-black"] .loader-label {
               <path d="M4 14h6m0 0v6m0-6L3 21m17-7h-6m0 0v6m0-6l7 7M14 4v6m0 0h6m-6 0l7-7M10 4v6m0 0H4m6 0L3 3"/>
             </svg>
           </button>
-          <button class="action-fullscreen-btn" id="btn-settings-browser" title="Beállítások (⌘,)">
+          <button class="action-fullscreen-btn" id="btn-settings-browser" title="Settings (⌘,)">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="3"/>
               <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
             </svg>
           </button>
-          <button class="action-close-btn" id="btn-action-close" title="Ablak elrejtése (⌥ Space)">✕</button>
+          <button class="action-close-btn" id="btn-action-close" title="Hide Window (⌥ Space)">✕</button>
         </div>
       </div>
 
       <div class="toolbar-url-tier">
-        <div id="browser-url-bar" title="Kattints a kereséshez vagy webcím beírásához">
-          <span id="incognito-badge" class="incognito-badge hidden" title="Privát böngészés">
+        <div id="browser-url-bar" title="Click to search or enter URL">
+          <span id="incognito-badge" class="incognito-badge hidden" title="Private Browsing">
             <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M2 10h20M7 10l2-6h6l2 6"/><circle cx="7" cy="16" r="3.5"/><circle cx="17" cy="16" r="3.5"/><path d="M10.5 16h3"/>
             </svg>
@@ -2904,8 +2987,8 @@ body[data-theme="oled-black"] .loader-label {
           </span>
           <svg class="lock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
           <span id="url-text">https://...</span>
-          <input type="text" id="browser-url-input" class="browser-url-input" spellcheck="false" autocomplete="off" placeholder="Keresés vagy webcím beírása..." />
-          <button class="btn-copy-url" id="btn-copy-url" title="Webcím másolása a vágólapra">
+          <input type="text" id="browser-url-input" class="browser-url-input" spellcheck="false" autocomplete="off" placeholder="Search Google or enter a web address..." />
+          <button class="btn-copy-url" id="btn-copy-url" title="Copy page link">
             <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
             <span class="copy-label">Másolás</span>
           </button>
@@ -2945,10 +3028,10 @@ body[data-theme="oled-black"] .loader-label {
     </div>
 
     <!-- Gesture Navigation Indicators (Two-finger swipe) -->
-    <div id="gesture-indicator-back" class="gesture-swipe-indicator left" title="Vissza">
+    <div id="gesture-indicator-back" class="gesture-swipe-indicator left" title="Back">
       <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
     </div>
-    <div id="gesture-indicator-fwd" class="gesture-swipe-indicator right" title="Előre">
+    <div id="gesture-indicator-fwd" class="gesture-swipe-indicator right" title="Forward">
       <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
     </div>
 
@@ -3019,37 +3102,37 @@ const THEMES_DATA = [
   {
     id: 'apple-liquid',
     name: 'Apple Liquid Glass',
-    desc: 'macOS Sequoia & visionOS ragyogó áttetsző folyékony üveg',
+    desc: 'macOS Sequoia & visionOS luminous liquid glass',
     colors: ['#007aff', '#eef4ff', '#5ac8fa']
   },
   {
     id: 'deep-frost',
-    name: 'Mély Obszidián Jég',
-    desc: 'Obszidián üveg indigó és lila ragyogással (Klasszikus)',
+    name: 'Obsidian Ice (Classic)',
+    desc: 'Obsidian glass with indigo & violet glow',
     colors: ['#7c8fff', '#161a2c', '#c4aaff']
   },
   {
     id: 'apple-vision-light',
     name: 'Apple VisionOS Crystal',
-    desc: 'Világos kristályüveg ragyogás fehér tónusokkal',
+    desc: 'Luminous crystal glass with crisp contrast',
     colors: ['#0071e3', '#f8fafc', '#38bdf8']
   },
   {
     id: 'midnight-aurora',
     name: 'Midnight Aurora',
-    desc: 'Sarki fény smaragd és türkiz tónusokkal',
+    desc: 'Northern lights with emerald & cyan glow',
     colors: ['#2dd4bf', '#081a1e', '#34d399']
   },
   {
     id: 'oled-minimal',
     name: 'OLED Titanium',
-    desc: 'Mélyfekete OLED monokróm jégfehér kontraszttal',
+    desc: 'Deep OLED black with monochrome contrast',
     colors: ['#f8fafc', '#08080c', '#94a3b8']
   },
   {
     id: 'sunset-amber',
     name: 'Sunset Amber',
-    desc: 'Meleg méz és borostyán arany fényű prémium üveg',
+    desc: 'Warm honey & amber gold frosted glass',
     colors: ['#f59e0b', '#20140f', '#f97316']
   }
 ];
@@ -3059,35 +3142,35 @@ const SEARCH_ENGINES = {
   google: {
     id: 'google',
     name: 'Google',
-    desc: 'A világ legnépszerűbb keresőmotorja (alapértelmezett)',
+    desc: 'Fast global web search and smart suggestions (Default)',
     icon: '🔍',
     url: (q) => `https://www.google.com/search?q=${encodeURIComponent(q)}`
   },
   duckduckgo: {
     id: 'duckduckgo',
     name: 'DuckDuckGo',
-    desc: 'Adatvédelem és privát keresés nyomkövetés nélkül',
+    desc: 'Privacy-first search with zero tracking',
     icon: '🦆',
     url: (q) => `https://duckduckgo.com/?q=${encodeURIComponent(q)}`
   },
   perplexity: {
     id: 'perplexity',
     name: 'Perplexity AI',
-    desc: 'Mesterséges intelligencia alapú válaszok és források',
+    desc: 'AI-powered answers with cited web sources',
     icon: '✦',
     url: (q) => `https://www.perplexity.ai/search?q=${encodeURIComponent(q)}`
   },
   bing: {
     id: 'bing',
     name: 'Microsoft Bing',
-    desc: 'Microsoft intelligens webes keresőrendszere',
+    desc: 'Microsoft web search with smart index',
     icon: '🌐',
     url: (q) => `https://www.bing.com/search?q=${encodeURIComponent(q)}`
   },
   ecosia: {
     id: 'ecosia',
     name: 'Ecosia',
-    desc: 'Környezettudatos keresőmotor faültetésekkel',
+    desc: 'Eco-friendly search engine planting trees',
     icon: '🌱',
     url: (q) => `https://www.ecosia.org/search?q=${encodeURIComponent(q)}`
   }
@@ -3097,57 +3180,57 @@ const SEARCH_ENGINES = {
 const SHORTCUT_DEFINITIONS = [
   {
     id: 'toggleWindow',
-    name: 'Spotlight megjelenítése / elrejtése',
-    scope: 'Rendszerszintű globális gyorsbillentyű (mindenhol működik)',
+    name: 'Show / Hide Spotlight Bar',
+    scope: 'System-wide global shortcut (works everywhere)',
     isGlobal: true,
     defaultKey: 'Alt+Space',
   },
   {
     id: 'openSettings',
-    name: 'Beállítások megnyitása / bezárása',
-    scope: 'Alkalmazáson belüli gyorsbillentyű',
+    name: 'Open / Close Settings',
+    scope: 'In-app keyboard shortcut',
     isGlobal: false,
     defaultKey: 'CommandOrControl+,',
   },
   {
     id: 'newTab',
-    name: 'Új böngészőlap nyitása',
-    scope: 'Böngésző / Kereső gyorsbillentyű',
+    name: 'New Browser Tab',
+    scope: 'Browser & Search shortcut',
     isGlobal: false,
     defaultKey: 'CommandOrControl+T',
   },
   {
     id: 'closeTab',
-    name: 'Aktív lap bezárása',
-    scope: 'Böngésző gyorsbillentyű',
+    name: 'Close Active Tab',
+    scope: 'Browser shortcut',
     isGlobal: false,
     defaultKey: 'CommandOrControl+W',
   },
   {
     id: 'focusSearch',
-    name: 'Keresősáv / URL fókuszálása',
-    scope: 'Böngésző nézetből visszaváltás keresésre',
+    name: 'Focus Search / Address Bar',
+    scope: 'Switch from browser view back to search',
     isGlobal: false,
     defaultKey: 'CommandOrControl+L',
   },
   {
     id: 'toggleFullscreen',
-    name: 'Teljes képernyős mód ki/be',
-    scope: 'Böngésző nézet kiterjesztése teljes kijelzőre',
+    name: 'Toggle Fullscreen Mode',
+    scope: 'Expand browser view to entire screen',
     isGlobal: false,
     defaultKey: 'F11',
   },
   {
     id: 'reopenTab',
-    name: 'Bezárt lap újranyitása (Visszavonás)',
-    scope: 'Legutóbb bezárt fül újbóli megnyitása',
+    name: 'Reopen Closed Tab (Undo)',
+    scope: 'Restore the most recently closed tab',
     isGlobal: false,
     defaultKey: 'CommandOrControl+Z',
   },
   {
     id: 'newPrivateTab',
-    name: 'Új privát lap (Incognito)',
-    scope: 'Böngésző / Kereső privát mód',
+    name: 'New Incognito / Private Tab',
+    scope: 'Private browsing mode',
     isGlobal: false,
     defaultKey: 'CommandOrControl+Shift+N',
   }
@@ -3560,7 +3643,7 @@ function buildResults(query) {
     const searchTerm = query.replace(/^(yt|youtube)\s+/i, '').trim();
     if (searchTerm) {
       results.push({
-        name: `YouTube keresés: „${searchTerm}”`,
+        name: `YouTube search: “${searchTerm}”`,
         url: `https://www.youtube.com/results?search_query=${encodeURIComponent(searchTerm)}`,
         icon: '🎬',
         badge: 'top',
@@ -3572,11 +3655,11 @@ function buildResults(query) {
   const selectedEngineKey = state.settings?.searchEngine || 'google';
   const engine = SEARCH_ENGINES[selectedEngineKey] || SEARCH_ENGINES.google;
   const engineSearchItem = {
-    name: `${engine.name} keresés: „${query}”`,
+    name: `${engine.name} search: “${query}”`,
     url: engine.url(query),
     icon: engine.icon,
     badge: 'web',
-    subtitle: `${engine.name} Webes keresés`,
+    subtitle: `${engine.name} Web Search`,
     isSearch: true,
   };
   results.push(engineSearchItem);
@@ -3631,7 +3714,7 @@ function buildResults(query) {
   // 6. YouTube search option if not already handled
   if (!q.startsWith('yt ') && !q.startsWith('youtube ') && !isUrl && q.length >= 2 && !results.some(r => r.url && r.url.includes('youtube.com/results'))) {
     results.push({
-      name: `YouTube keresés: „${query}”`,
+      name: `YouTube search: “${query}”`,
       url: `https://www.youtube.com/results?search_query=${encodeURIComponent(query)}`,
       icon: '🎬',
       badge: 'web',
@@ -3765,7 +3848,7 @@ function scheduleSpotlightLiveSearch(rawQuery) {
           url: engine.url(cleanSug),
           icon: '🔍',
           badge: 'google',
-          subtitle: `${engine.name} intelligens keresés`,
+          subtitle: `${engine.name} smart suggestions`,
           isGoogleSuggestion: true,
         });
         added++;
@@ -3796,7 +3879,7 @@ function updateResumeButton() {
   if (activeTab && state.mode === 'search' && !q && !state.isSettingsOpen) {
     $btnResume.style.display = 'flex';
     const shortTitle = activeTab.title.length > 18 ? activeTab.title.slice(0, 16) + '…' : activeTab.title;
-    $lblResume.textContent = `Vissza: ${shortTitle}`;
+    $lblResume.textContent = `Resume: ${shortTitle}`;
   } else {
     $btnResume.style.display = 'none';
   }
@@ -4285,7 +4368,7 @@ function closeTab(id, e) {
 
 function reopenLastClosedTab() {
   if (!state.recentlyClosed || state.recentlyClosed.length === 0) {
-    showToast('Nincs nemrég bezárt lap');
+    showToast('No recently closed tabs');
     return;
   }
   const last = state.recentlyClosed.pop();
@@ -4297,7 +4380,7 @@ function reopenLastClosedTab() {
       newTab.historyIndex = last.historyIndex;
     }
     renderTabs();
-    showToast(`Újranyitva: ${last.title || last.url}`);
+    showToast(`Reopened: ${last.title || last.url}`);
   }
 }
 
@@ -4334,14 +4417,14 @@ function renderTabs() {
     if (tab.isPrivate) {
       const pBadge = document.createElement('span');
       pBadge.className = 'tab-private-badge';
-      pBadge.textContent = 'Privát';
+      pBadge.textContent = 'Private';
       el.appendChild(pBadge);
     }
 
     const closeBtn = document.createElement('div');
     closeBtn.className = 'tab-close-btn';
     closeBtn.textContent = '✕';
-    closeBtn.title = 'Lap bezárása (⌘W)';
+    closeBtn.title = 'Close tab (⌘W)';
     closeBtn.addEventListener('click', (ev) => closeTab(tab.id, ev));
 
     el.appendChild(closeBtn);
@@ -4786,10 +4869,10 @@ function buildUrlBarBaseSuggestions(rawQuery) {
   const selectedEngineKey = state.settings?.searchEngine || 'google';
   const engine = SEARCH_ENGINES[selectedEngineKey] || SEARCH_ENGINES.google;
   suggestions.push({
-    title: `${engine.name} keresés: „${q}”`,
+    title: `${engine.name} search: “${q}”`,
     url: engine.url(q),
     icon: engine.icon,
-    badge: 'Keresés',
+    badge: 'Search',
     domain: engine.name,
   });
 
@@ -4997,7 +5080,7 @@ function copyCurrentUrl(e) {
         if (label) label.textContent = 'Másolás';
       }, 2000);
     }
-    showToast('📋 Webcím kimásolva a vágólapra!');
+    showToast('📋 Link copied to clipboard!');
   };
 
   if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -5035,12 +5118,12 @@ function showNavHistory(direction, mouseEvent) {
 
   let entries = [];
   if (direction === 'back') {
-    $navHistoryTitle.textContent = '← Vissza előzmények';
+    $navHistoryTitle.textContent = '← Back History';
     for (let i = tab.historyIndex - 1; i >= 0; i--) {
       entries.push({ item: tab.history[i], index: i });
     }
   } else {
-    $navHistoryTitle.textContent = '→ Előre előzmények';
+    $navHistoryTitle.textContent = '→ Forward History';
     for (let i = tab.historyIndex + 1; i < tab.history.length; i++) {
       entries.push({ item: tab.history[i], index: i });
     }
@@ -5049,7 +5132,7 @@ function showNavHistory(direction, mouseEvent) {
   if (entries.length === 0) {
     const empty = document.createElement('div');
     empty.className = 'nav-history-empty';
-    empty.textContent = (direction === 'back') ? 'Nincs korábbi előzmény ezen a lapon' : 'Nincs előre mutató előzmény';
+    empty.textContent = (direction === 'back') ? 'No previous history on this tab' : 'No forward history';
     $navHistoryItems.appendChild(empty);
   } else {
     entries.forEach(({ item, index }) => {
@@ -5143,7 +5226,7 @@ function handleGestureSwipe(direction) {
 
     if (canBack) {
       flashGestureIndicator('back', false);
-      showToast('‹ Vissza', 800);
+      showToast('‹ Back', 800);
       if (tab.historyIndex > 0 && tab.history && tab.history[tab.historyIndex - 1]) {
         navigateTabToHistoryIndex(tab, tab.historyIndex - 1);
       } else {
@@ -5153,7 +5236,7 @@ function handleGestureSwipe(direction) {
       }
     } else {
       flashGestureIndicator('back', true);
-      showToast('Nincs korábbi lap', 800);
+      showToast('No previous page', 800);
     }
   } else if (direction === 'fwd') {
     let canFwd = false;
@@ -5162,7 +5245,7 @@ function handleGestureSwipe(direction) {
 
     if (canFwd) {
       flashGestureIndicator('fwd', false);
-      showToast('Előre ›', 800);
+      showToast('Forward ›', 800);
       if (tab.history && tab.historyIndex < tab.history.length - 1 && tab.history[tab.historyIndex + 1]) {
         navigateTabToHistoryIndex(tab, tab.historyIndex + 1);
       } else {
@@ -5172,7 +5255,7 @@ function handleGestureSwipe(direction) {
       }
     } else {
       flashGestureIndicator('fwd', true);
-      showToast('Nincs előre mutató lap', 800);
+      showToast('No forward page', 800);
     }
   }
 }
@@ -5283,7 +5366,7 @@ if ($btnReopenClosedMenu) {
 $urlBar.addEventListener('click', (e) => {
   if (e.target.closest('.lock-icon')) {
     e.stopPropagation();
-    showToast('🛡️ Biztonságos kapcsolat (SSL) | Nyomkövetők blokkolva | Google Stealth aktív');
+    showToast('🛡️ Secure Connection (SSL) | Trackers Blocked | Google Stealth Active');
     return;
   }
   if (e.target.closest('#btn-copy-url')) {
@@ -5424,7 +5507,7 @@ function renderSettingsInto(container, onClose) {
         <div class="theme-preview-dots">
           ${t.colors.map(c => `<span class="theme-dot" style="background:${c}"></span>`).join('')}
         </div>
-        <span class="theme-active-badge">Aktív</span>
+        <span class="theme-active-badge">Active</span>
       </div>
       <div class="theme-card-title">${t.name}</div>
       <div class="theme-card-desc">${t.desc}</div>
@@ -5453,7 +5536,7 @@ function renderSettingsInto(container, onClose) {
           <span class="shortcut-config-label">${sc.name}</span>
           <span class="shortcut-config-scope">${sc.scope}</span>
         </div>
-        <button class="shortcut-record-btn" data-shortcut-id="${sc.id}" title="Kattints az új billentyűkombináció rögzítéséhez">
+        <button class="shortcut-record-btn" data-shortcut-id="${sc.id}" title="Click to record new keybinding">
           <kbd>${formatShortcutForDisplay(keyVal)}</kbd>
         </button>
       </div>
@@ -5466,38 +5549,38 @@ function renderSettingsInto(container, onClose) {
         <div class="settings-header-title">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="3"/>
-            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
           </svg>
-          Beállítások
+          Settings
         </div>
-        <button class="settings-modal-close-btn" title="Bezárás (Esc)">✕</button>
+        <button class="settings-modal-close-btn" title="Close (Esc)">✕</button>
       </div>
 
       <div class="settings-tabs-bar">
-        <button class="settings-nav-tab active" data-tab="themes">🎨 Témák</button>
-        <button class="settings-nav-tab" data-tab="search">🔍 Keresőmotor</button>
-        <button class="settings-nav-tab" data-tab="general">⚙️ Általános</button>
-        <button class="settings-nav-tab" data-tab="shortcuts">⌨️ Gyorsbillentyűk</button>
-        <button class="settings-nav-tab" data-tab="security">🛡️ Biztonság</button>
+        <button class="settings-nav-tab active" data-tab="themes">🎨 Themes</button>
+        <button class="settings-nav-tab" data-tab="search">🔍 Search Engine</button>
+        <button class="settings-nav-tab" data-tab="general">⚙️ General</button>
+        <button class="settings-nav-tab" data-tab="shortcuts">⌨️ Shortcuts</button>
+        <button class="settings-nav-tab" data-tab="security">🛡️ Security</button>
       </div>
 
       <div class="settings-content-area">
         <div class="settings-tab-pane active" data-tab-content="themes">
-          <div class="settings-section-title">Válassz felületi témát</div>
+          <div class="settings-section-title">Select Interface Theme</div>
           <div class="theme-options-grid">${themesHtml}</div>
         </div>
 
         <div class="settings-tab-pane" data-tab-content="search">
-          <div class="settings-section-title">Alapértelmezett keresőmotor</div>
+          <div class="settings-section-title">Default Search Engine</div>
           <div class="engine-options-list">${enginesHtml}</div>
         </div>
 
         <div class="settings-tab-pane" data-tab-content="general">
-          <div class="settings-section-title">Keresési beállítások</div>
+          <div class="settings-section-title">Search & History Preferences</div>
           <div class="general-option-row">
             <div class="general-option-info">
-              <span class="general-option-label">Mező automatikus törlése</span>
-              <span class="general-option-hint">A keresősáv megnyitásakor üríti az előző keresést</span>
+              <span class="general-option-label">Auto-clear search input</span>
+              <span class="general-option-hint">Clears the search input when opening Spotlight bar</span>
             </div>
             <label class="toggle-switch">
               <input type="checkbox" id="setting-autoclear" ${state.settings?.autoClearOnOpen ? 'checked' : ''}>
@@ -5507,8 +5590,8 @@ function renderSettingsInto(container, onClose) {
 
           <div class="general-option-row">
             <div class="general-option-info">
-              <span class="general-option-label">Keresési előzmények mentése</span>
-              <span class="general-option-hint">Gyakran látogatott oldalak és javaslatok rangsorolása</span>
+              <span class="general-option-label">Save search history</span>
+              <span class="general-option-hint">Ranks frequently visited sites and search suggestions</span>
             </div>
             <label class="toggle-switch">
               <input type="checkbox" id="setting-savehistory" ${state.settings?.saveHistory ? 'checked' : ''}>
@@ -5518,20 +5601,20 @@ function renderSettingsInto(container, onClose) {
 
           <div class="general-option-row">
             <div class="general-option-info">
-              <span class="general-option-label">Előzmények törlése</span>
-              <span class="general-option-hint">Minden elmentett webhely-előzmény azonnali törlése</span>
+              <span class="general-option-label">Clear search history</span>
+              <span class="general-option-hint">Removes all local query suggestions immediately</span>
             </div>
-            <button class="btn-clear-history" id="setting-clear-history-btn">Előzmények törlése</button>
+            <button class="btn-clear-history" id="setting-clear-history-btn">Clear History</button>
           </div>
         </div>
 
         <div class="settings-tab-pane" data-tab-content="shortcuts">
           <div class="shortcuts-actions-bar">
             <div>
-              <div class="settings-section-title" style="margin-bottom: 2px;">Gyorsbillentyűk testreszabása</div>
-              <div class="shortcut-config-scope">Kattints a gombra, majd nyomd le a kívánt billentyűkombinációt.</div>
+              <div class="settings-section-title" style="margin-bottom: 2px;">Customize Keybindings</div>
+              <div class="shortcut-config-scope">Click a button, then press the desired keyboard combination.</div>
             </div>
-            <button class="btn-reset-shortcuts" id="btn-reset-all-shortcuts" title="Gyorsbillentyűk visszaállítása gyári értékekre">Alaphelyzet</button>
+            <button class="btn-reset-shortcuts" id="btn-reset-all-shortcuts" title="Reset shortcuts to factory defaults">Reset</button>
           </div>
           <div class="shortcuts-config-list">
             ${shortcutsHtml}
@@ -5539,38 +5622,38 @@ function renderSettingsInto(container, onClose) {
         </div>
 
         <div class="settings-tab-pane" data-tab-content="security">
-          <div class="settings-section-title">Biztonság és Adatvédelem</div>
+          <div class="settings-section-title">Privacy & Security</div>
 
           <div class="general-option-row">
             <div class="general-option-info">
-              <span class="general-option-label">Google Stealth & Bejelentkezés védelem</span>
-              <span class="general-option-hint">Megkerüli az „Alkalmazás nem biztonságos” tiltást a Google / YouTube fiókoknál</span>
+              <span class="general-option-label">Google Stealth & Sign-in Protection</span>
+              <span class="general-option-hint">Bypasses embedded browser blocks for Google & YouTube accounts</span>
             </div>
-            <span class="status-pill active-pill">Aktív</span>
+            <span class="status-pill active-pill">Active</span>
           </div>
 
           <div class="general-option-row">
             <div class="general-option-info">
-              <span class="general-option-label">Harmadik féltől származó nyomkövetők tiltása</span>
-              <span class="general-option-hint">Blokkolja a telemetriát és hirdetési adatgyűjtőket (Analytics, Facebook Pixel, Criteo)</span>
+              <span class="general-option-label">Third-Party Tracker Blocking</span>
+              <span class="general-option-hint">Blocks telemetry, trackers, and ad scripts (Analytics, Meta, Criteo)</span>
             </div>
-            <span class="status-pill active-pill">Védve</span>
+            <span class="status-pill active-pill">Protected</span>
           </div>
 
           <div class="general-option-row">
             <div class="general-option-info">
-              <span class="general-option-label">Fokozott adatvédelmi fejlécek (DNT & GPC)</span>
-              <span class="general-option-hint">Do Not Track és Global Privacy Control kérések küldése minden webhelynek</span>
+              <span class="general-option-label">Enhanced Privacy Headers (DNT & GPC)</span>
+              <span class="general-option-hint">Sends Do Not Track and Global Privacy Control signals</span>
             </div>
-            <span class="status-pill active-pill">Bekapcsolva</span>
+            <span class="status-pill active-pill">Enabled</span>
           </div>
 
           <div class="general-option-row">
             <div class="general-option-info">
-              <span class="general-option-label">Böngészési adatok & Cookie-k törlése</span>
-              <span class="general-option-hint">Törli a tárolt sütiket, gyorsítótárat és bejelentkezési munkameneteket</span>
+              <span class="general-option-label">Clear Browsing Data & Cookies</span>
+              <span class="general-option-hint">Removes stored cookies, cache, and active browsing sessions</span>
             </div>
-            <button class="btn-clear-history" id="setting-clear-data-btn">Minden adat törlése</button>
+            <button class="btn-clear-history" id="setting-clear-data-btn">Clear All Data</button>
           </div>
         </div>
       </div>
@@ -5674,7 +5757,7 @@ function renderSettingsInto(container, onClose) {
         clearDataBtn.textContent = '✓ Adatok törölve!';
         clearDataBtn.style.borderColor = '#10b981';
         clearDataBtn.style.color = '#34d399';
-        showToast('🛡️ Böngészési adatok, sütik és gyorsítótár sikeresen törölve');
+        showToast('🛡️ Browsing data, cookies, and cache cleared successfully');
       } catch (err) {
         clearDataBtn.textContent = 'Hiba történt';
       }

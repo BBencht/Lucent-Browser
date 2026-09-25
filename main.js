@@ -243,7 +243,7 @@ function registerGlobalHotkey(shortcut) {
       return { success: true, shortcut };
     } else {
       globalShortcut.register(currentGlobalShortcut, toggle);
-      return { success: false, error: 'A gyorsbillentyű foglalt vagy nem használható.' };
+      return { success: false, error: 'The shortcut is already in use or unavailable.' };
     }
   } catch (err) {
     globalShortcut.register(currentGlobalShortcut, toggle);

@@ -4,10 +4,11 @@ set -e
 echo "🫧 Installing Lucent Browser..."
 
 ARCH=$(uname -m)
+VERSION="1.1.0"
 if [ "$ARCH" = "arm64" ]; then
-  FILE_URL="https://github.com/BBencht/Lucent-Browser/releases/download/v1.0.0/Lucent.Browser-1.0.0-arm64-mac.zip"
+  FILE_URL="https://github.com/BBencht/Lucent-Browser/releases/download/v${VERSION}/Lucent.Browser-${VERSION}-arm64-mac.zip"
 else
-  FILE_URL="https://github.com/BBencht/Lucent-Browser/releases/download/v1.0.0/Lucent.Browser-1.0.0-mac.zip"
+  FILE_URL="https://github.com/BBencht/Lucent-Browser/releases/download/v${VERSION}/Lucent.Browser-${VERSION}-mac.zip"
 fi
 
 TMP_DIR=$(mktemp -d)

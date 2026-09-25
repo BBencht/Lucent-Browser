@@ -2,17 +2,26 @@
 
 <img src="assets/lucent_horizontal_logo.png" alt="Lucent Browser" width="520" style="border-radius: 14px; margin-bottom: 20px; box-shadow: 0 16px 40px rgba(0,0,0,0.4);" />
 
-# Lucent Browser (v1.0.0)
+# Lucent Browser (v1.1.0)
 
 ### *Ultra-minimalist, floating Liquid Glass Spotlight browser.*
 **macOS Sequoia & visionOS aesthetics • Lightning-fast floating search and full-featured web browser in one.**
 
-[![Version](https://img.shields.io/badge/version-1.0.0-00f0ff?style=for-the-badge)](https://github.com/BBencht/Lucent-Browser/releases)
+[![Version](https://img.shields.io/badge/version-1.1.0-00f0ff?style=for-the-badge)](https://github.com/BBencht/Lucent-Browser/releases)
 [![Platform](https://img.shields.io/badge/platform-macOS%20%7C%20Windows%20%7C%20Linux-blue?style=for-the-badge)](https://github.com/BBencht/Lucent-Browser)
 [![License](https://img.shields.io/badge/license-MIT-0984e3?style=for-the-badge)](LICENSE)
 [![Electron](https://img.shields.io/badge/Electron-44.4.3-47a248?style=for-the-badge&logo=electron&logoColor=white)](https://electronjs.org)
 
 </div>
+
+---
+
+## 🆕 What's New in v1.1.0
+
+- 🛡️ **Frosted Glass Backing & Readability Fix:** Eliminated transparent background bleed-through in Spotlight search and settings modals. The floating shell and dialogs now feature high-opacity frosted acrylic backing that prevents background windows or desktop text from interfering with Lucent's UI.
+- 🎨 **Apple VisionOS Crystal & Liquid Glass Theme Overhaul:** Fixed contrast for navigation tabs, titles, card borders, and settings panes in light themes so every control is sharp, high-contrast, and clearly visible.
+- 🎛️ **Card & Settings Layout Consistency:** Fixed mismatched CSS class selectors on theme cards, search engines, and shortcut rows.
+- 🌐 **Full English UI Localization:** The complete user interface—including Spotlight search bar, settings dialogs, shortcut configurator, navigation tooltips, contextual history popups, and notification toasts—is now fully localized in English.
 
 ---
 
