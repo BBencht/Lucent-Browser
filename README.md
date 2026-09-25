@@ -22,6 +22,25 @@
 
 With a single global keystroke (**`Alt + Space`** on Windows/Linux or **`⌥ + Space`** on macOS), Lucent floats into view from the center of your screen as a sleek glass capsule. Type a query or web address, and the capsule smoothly expands into a high-performance floating glass browser — or seamlessly glides into full-screen mode for immersive deep work. When you're done, tap `Escape` or dismiss it, and it pulls up, contracts into a glowing liquid orb, and dissolves gracefully back into your desktop.
 
+### 💭 Stop opening a cluttered browser just to check one quick thing.
+
+We’ve all been there: You’re studying, writing an email, watching a movie, or working on something important. You just need to check *one quick thing*—a recipe, an address, a quick translation, or an answer to a question.
+
+You open your regular browser, and chaos greets you: **dozens of open tabs staring back at you**, unread notifications, shopping carts, and video feeds screaming for attention. Twenty minutes later, you’re trapped down an internet rabbit hole and completely forgot what you were doing.
+
+**Lucent is the antidote.**
+
+It’s not a giant window you get lost in—it’s an ethereal, floating lens over your desktop:
+
+* ⚡ **A Reflex, Not a Chore:** Press **`Alt + Space`** (or **`⌥ + Space`** on Mac). A luminous, frosted glass capsule glides to the center of your screen. Ask your question, get your answer, and tap **`Esc`**.
+* 🫧 **Appears When Needed, Vanishes When Done:** The second you’re finished, Lucent smoothly contracts into a glowing orb and evaporates back into your desktop. No messy leftover windows. No taskbar clutter. Clean desk, clean mind.
+* 🖥️ **Need More Space? Go Fullscreen Anytime:** Found an article you actually want to read, or a video you want to watch? Tap **`F11`** (or **`⌃⌘F`** on Mac), and Lucent effortlessly blooms into an ultra-clean, full-featured fullscreen browser with multi-tabs and private browsing—free of toolbars and visual noise.
+* ✨ **Pure Content, Zero Distraction:** No clunky bookmarks bar, no blinking extension badges, no clutter. Just pure Liquid Glass aesthetics wrapped around what you actually want to see.
+
+> **Need a 2-second answer?** Summon it and dismiss it.  
+> **Want deep, focused reading?** Expand to fullscreen and browse without distractions.  
+> **Keep your traditional browser for all-day tab chaos—use Lucent for everything else.**
+
 ---
 
 ## ✨ Key Features
