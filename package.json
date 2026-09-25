@@ -1,0 +1,93 @@
+{
+  "name": "lucent-browser",
+  "version": "1.0.0",
+  "description": "Ultra-minimalist, floating Liquid Glass Spotlight browser for macOS, Windows & Linux.",
+  "main": "main.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BBencht/Lucent-Browser.git"
+  },
+  "scripts": {
+    "start": "electron .",
+    "pack": "CSC_IDENTITY_AUTO_DISCOVERY=false electron-builder --dir",
+    "dist:mac": "CSC_IDENTITY_AUTO_DISCOVERY=false electron-builder --mac",
+    "dist:win": "CSC_IDENTITY_AUTO_DISCOVERY=false electron-builder --win",
+    "dist:linux": "CSC_IDENTITY_AUTO_DISCOVERY=false electron-builder --linux",
+    "dist:all": "CSC_IDENTITY_AUTO_DISCOVERY=false electron-builder -mwl"
+  },
+  "keywords": [
+    "lucent",
+    "browser",
+    "spotlight",
+    "liquid-glass",
+    "glassmorphism",
+    "visionos",
+    "macos",
+    "electron"
+  ],
+  "author": "Bence Bodori",
+  "license": "MIT",
+  "type": "commonjs",
+  "devDependencies": {
+    "electron": "^44.4.3",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "com.lucent.browser",
+    "productName": "Lucent Browser",
+    "directories": {
+      "output": "dist",
+      "buildResources": "assets"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "spotlight.html",
+      "package.json",
+      "assets/**/*"
+    ],
+    "mac": {
+      "identity": null,
+      "category": "public.app-category.productivity",
+      "icon": "assets/icon.png",
+      "target": [
+        {
+          "target": "zip",
+          "arch": [
+            "arm64"
+          ]
+        }
+      ]
+    },
+    "win": {
+      "icon": "assets/icon.png",
+      "signAndEditExecutable": false,
+      "target": [
+        {
+          "target": "zip",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "linux": {
+      "icon": "assets/icon.png",
+      "category": "Network;WebBrowser;",
+      "target": [
+        {
+          "target": "AppImage",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "tar.gz",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    }
+  }
+}
