@@ -69,8 +69,9 @@ Because Lucent Browser is an independent open-source project without expensive c
 
 ### Windows (SmartScreen)
 1. When opening the installer or `.exe`, Windows Defender SmartScreen may display a protection dialog.
-2. Click **"More info"** *(További információk)* under the warning text.
-3. Click the **"Run anyway"** *(Futtatás mindenesetre)* button.
+2. Click **"More info"** under the warning text.
+3. Click the **"Run anyway"** button.
+4. The application will start immediately.
 
 ### macOS (Gatekeeper)
 Gatekeeper flags unsigned downloaded applications by default. Choose whichever option is easiest:

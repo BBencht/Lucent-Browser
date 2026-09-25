@@ -749,7 +749,7 @@ html, body {
   pointer-events: none !important;
 }
 
-/* Transition from browser back to search mode (via ⌘K / Keresés button) */
+/* Transition from browser back to search mode (via ⌘K / Search button) */
 #shell.browser-mode.transitioning-to-search {
   opacity: 1 !important;
   left: 50% !important;
@@ -2982,7 +2982,7 @@ body[data-theme="oled-black"] .loader-label {
         <div class="toolbar-actions">
           <button class="action-search-btn" id="btn-action-search" title="New Search (⌘K or Esc)">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-            <span>Keresés</span>
+            <span>Search</span>
           </button>
           <button class="action-fullscreen-btn" id="btn-action-fullscreen" title="Toggle Fullscreen (F11)">
             <svg id="icon-fs-enter" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -3008,14 +3008,14 @@ body[data-theme="oled-black"] .loader-label {
             <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M2 10h20M7 10l2-6h6l2 6"/><circle cx="7" cy="16" r="3.5"/><circle cx="17" cy="16" r="3.5"/><path d="M10.5 16h3"/>
             </svg>
-            <span>Privát</span>
+            <span>Private</span>
           </span>
           <svg class="lock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
           <span id="url-text">https://...</span>
           <input type="text" id="browser-url-input" class="browser-url-input" spellcheck="false" autocomplete="off" placeholder="Search Google or enter a web address..." />
           <button class="btn-copy-url" id="btn-copy-url" title="Copy page link">
             <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            <span class="copy-label">Másolás</span>
+            <span class="copy-label">Copy</span>
           </button>
         </div>
 
@@ -3032,7 +3032,7 @@ body[data-theme="oled-black"] .loader-label {
       <div id="page-loader">
         <div class="loader-card">
           <div class="spinner-ring"></div>
-          <div class="loader-label" id="loader-label">Oldal betöltése...</div>
+          <div class="loader-label" id="loader-label">Loading page...</div>
         </div>
       </div>
     </div>
@@ -3043,11 +3043,11 @@ body[data-theme="oled-black"] .loader-label {
 
     <!-- Navigation History Context Popup (Right Click Back/Forward) -->
     <div id="nav-history-popup" class="nav-history-popup hidden">
-      <div class="nav-history-header" id="nav-history-title">Előzmények</div>
+      <div class="nav-history-header" id="nav-history-title">History</div>
       <div class="nav-history-list" id="nav-history-items"></div>
       <div class="nav-history-footer" id="nav-history-footer" style="display: none;">
         <button class="nav-history-action-btn" id="btn-reopen-closed-menu">
-          <span>⎌</span> <span id="label-reopen-closed">Nemrég bezárt lap újranyitása</span>
+          <span>⎌</span> <span id="label-reopen-closed">Reopen closed tab</span>
         </button>
       </div>
     </div>
@@ -3653,7 +3653,7 @@ function buildResults(query) {
     const directUrl = q.startsWith('http') ? q : 'https://' + q;
     if (!ac || (ac.url !== directUrl && !directUrl.endsWith('/' + ac.domain))) {
       results.push({
-        name: `Ugrás a webcímre: ${q}`,
+        name: `Go to web address: ${q}`,
         url: directUrl,
         icon: '🌐',
         badge: 'top',
@@ -3796,14 +3796,14 @@ function renderResults(customResults = null) {
 
     const badge = document.createElement('span');
     badge.className = 'item-badge ' + (
-      r.badge === 'aktív' ? 'badge-active' :
+      r.badge === 'active' ? 'badge-active' :
       r.badge === 'top' ? 'badge-top' :
       r.badge === 'hist' ? 'badge-hist' :
       r.badge === 'google' ? 'badge-google' : 'badge-web'
     );
-    badge.textContent = r.badge === 'aktív' ? '● Aktív' :
-      r.badge === 'top' ? '★ Ugrás' :
-      r.badge === 'hist' ? 'Előzmény' :
+    badge.textContent = r.badge === 'active' ? '● Active' :
+      r.badge === 'top' ? '★ Jump' :
+      r.badge === 'hist' ? 'History' :
       r.badge === 'google' ? 'Google' : 'Web';
 
     row.appendChild(favWrap);
@@ -3937,7 +3937,7 @@ function createTab(url, isPrivate = false) {
   }
   const id = 'tab_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4);
 
-  let initialTitle = isPrivate ? 'Privát lap' : 'Új lap';
+  let initialTitle = isPrivate ? 'Private Tab' : 'New Tab';
   let initialIcon = isPrivate ? '🕶️' : '🌐';
   try {
     const u = new URL(url);
@@ -4414,7 +4414,7 @@ function renderTabs() {
   state.tabs.forEach(tab => {
     const el = document.createElement('div');
     el.className = 'glass-tab' + (tab.id === state.activeTabId ? ' active' : '') + (tab.isPrivate ? ' private-tab' : '');
-    el.title = (tab.isPrivate ? '[Privát] ' : '') + tab.title + ' — ' + tab.url;
+    el.title = (tab.isPrivate ? '[Private] ' : '') + tab.title + ' — ' + tab.url;
 
     const favEl = document.createElement('div');
     favEl.className = 'tab-favicon';
@@ -4870,7 +4870,7 @@ function buildUrlBarBaseSuggestions(rawQuery) {
       title: ac.name,
       url: ac.url,
       icon: ac.icon,
-      badge: '★ Ugrás',
+      badge: '★ Jump',
       domain: ac.domain,
     });
   }
@@ -4881,10 +4881,10 @@ function buildUrlBarBaseSuggestions(rawQuery) {
     const directUrl = cleanQ.startsWith('http') ? q : 'https://' + q;
     if (!ac || ac.url !== directUrl) {
       suggestions.push({
-        title: `Ugrás a webcímre: ${q}`,
+        title: `Go to web address: ${q}`,
         url: directUrl,
         icon: '🌐',
-        badge: 'Webcím',
+        badge: 'URL',
         domain: directUrl,
       });
     }
@@ -5099,10 +5099,10 @@ function copyCurrentUrl(e) {
     if ($btnCopyUrl) {
       $btnCopyUrl.classList.add('copied');
       const label = $btnCopyUrl.querySelector('.copy-label');
-      if (label) label.textContent = 'Másolva!';
+      if (label) label.textContent = 'Copied!';
       setTimeout(() => {
         $btnCopyUrl.classList.remove('copied');
-        if (label) label.textContent = 'Másolás';
+        if (label) label.textContent = 'Copy';
       }, 2000);
     }
     showToast('📋 Link copied to clipboard!');
@@ -5207,7 +5207,7 @@ function showNavHistory(direction, mouseEvent) {
       const lastClosed = state.recentlyClosed[state.recentlyClosed.length - 1];
       const lbl = document.getElementById('label-reopen-closed');
       if (lbl) {
-        lbl.textContent = `Nemrég bezárt lap (${lastClosed.title || 'lap'}) újranyitása`;
+        lbl.textContent = `Reopen closed tab (${lastClosed.title || 'tab'})`;
       }
     } else {
       $navHistoryFooter.style.display = 'none';
@@ -5488,12 +5488,12 @@ API.onFullscreenChange((isFs) => {
     $shell.classList.add('fullscreen');
     if ($iconFsEnter) $iconFsEnter.style.display = 'none';
     if ($iconFsExit) $iconFsExit.style.display = 'block';
-    if ($btnFullscreen) $btnFullscreen.title = 'Kilépés a teljes képernyőből (⌃⌘F vagy F11 vagy Esc)';
+    if ($btnFullscreen) $btnFullscreen.title = 'Exit Fullscreen (⌃⌘F or F11 or Esc)';
   } else {
     $shell.classList.remove('fullscreen');
     if ($iconFsEnter) $iconFsEnter.style.display = 'block';
     if ($iconFsExit) $iconFsExit.style.display = 'none';
-    if ($btnFullscreen) $btnFullscreen.title = 'Teljes képernyő (⌃⌘F vagy F11)';
+    if ($btnFullscreen) $btnFullscreen.title = 'Toggle Fullscreen (⌃⌘F or F11)';
     if (state.pendingCloseAfterExitFs) {
       const cb = state.pendingCloseAfterExitFs;
       state.pendingCloseAfterExitFs = null;
@@ -5755,11 +5755,11 @@ function renderSettingsInto(container, onClose) {
     clearHistBtn.addEventListener('click', () => {
       state.history = [];
       localStorage.removeItem('glass_history');
-      clearHistBtn.textContent = '✓ Törölve!';
+      clearHistBtn.textContent = '✓ Cleared!';
       clearHistBtn.style.borderColor = '#10b981';
       clearHistBtn.style.color = '#34d399';
       setTimeout(() => {
-        clearHistBtn.textContent = 'Előzmények törlése';
+        clearHistBtn.textContent = 'Clear History';
         clearHistBtn.style.borderColor = '';
         clearHistBtn.style.color = '';
       }, 1500);
@@ -5774,21 +5774,21 @@ function renderSettingsInto(container, onClose) {
   if (clearDataBtn) {
     clearDataBtn.addEventListener('click', async () => {
       clearDataBtn.disabled = true;
-      clearDataBtn.textContent = 'Törlés folyamatban...';
+      clearDataBtn.textContent = 'Clearing...';
       try {
         if (window.GlassAPI?.clearBrowserData) {
           await window.GlassAPI.clearBrowserData();
         }
-        clearDataBtn.textContent = '✓ Adatok törölve!';
+        clearDataBtn.textContent = '✓ Data Cleared!';
         clearDataBtn.style.borderColor = '#10b981';
         clearDataBtn.style.color = '#34d399';
         showToast('🛡️ Browsing data, cookies, and cache cleared successfully');
       } catch (err) {
-        clearDataBtn.textContent = 'Hiba történt';
+        clearDataBtn.textContent = 'Error Occurred';
       }
       setTimeout(() => {
         clearDataBtn.disabled = false;
-        clearDataBtn.textContent = 'Minden adat törlése';
+        clearDataBtn.textContent = 'Clear All Data';
         clearDataBtn.style.borderColor = '';
         clearDataBtn.style.color = '';
       }, 2000);
@@ -5804,11 +5804,11 @@ function renderSettingsInto(container, onClose) {
       if (API?.registerGlobalShortcut) {
         await API.registerGlobalShortcut(DEFAULT_SHORTCUTS.toggleWindow);
       }
-      resetShortcutsBtn.textContent = '✓ Visszaállítva!';
+      resetShortcutsBtn.textContent = '✓ Reset!';
       resetShortcutsBtn.style.color = '#34d399';
       resetShortcutsBtn.style.borderColor = '#10b981';
       setTimeout(() => {
-        resetShortcutsBtn.textContent = 'Alaphelyzet';
+        resetShortcutsBtn.textContent = 'Reset to Defaults';
         resetShortcutsBtn.style.color = '';
         resetShortcutsBtn.style.borderColor = '';
       }, 1500);
@@ -5842,7 +5842,7 @@ function renderSettingsInto(container, onClose) {
 
       activeRecordingBtn = btn;
       btn.classList.add('recording');
-      btn.innerHTML = `<span>Nyomd le...</span> <kbd style="font-size: 10px;">Esc: mégse</kbd>`;
+      btn.innerHTML = `<span>Press keys...</span> <kbd style="font-size: 10px;">Esc: cancel</kbd>`;
 
       activeKeydownHandler = async (evt) => {
         evt.preventDefault();
@@ -5901,7 +5901,7 @@ function renderSettingsInto(container, onClose) {
 
         if (def.isGlobal) {
           if (parts.length === 1 && !/^F\d{1,2}$/i.test(parts[0])) {
-            btn.innerHTML = `<span style="color:#f59e0b;font-size:10px;">Adj meg módosítót is!</span>`;
+            btn.innerHTML = `<span style="color:#f59e0b;font-size:10px;">Include modifier key!</span>`;
             setTimeout(() => {
               stopShortcutRecording();
             }, 1300);
@@ -5911,7 +5911,7 @@ function renderSettingsInto(container, onClose) {
           if (API?.registerGlobalShortcut) {
             const regOk = await API.registerGlobalShortcut(accelerator);
             if (!regOk) {
-              btn.innerHTML = `<span style="color:#ef4444;font-size:10px;">Nem regisztrálható!</span>`;
+              btn.innerHTML = `<span style="color:#ef4444;font-size:10px;">Cannot register!</span>`;
               setTimeout(() => {
                 stopShortcutRecording();
               }, 1300);
