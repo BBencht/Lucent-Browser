@@ -12,6 +12,10 @@
 [![License](https://img.shields.io/badge/license-MIT-0984e3?style=for-the-badge)](LICENSE)
 [![Electron](https://img.shields.io/badge/Electron-44.4.3-47a248?style=for-the-badge&logo=electron&logoColor=white)](https://electronjs.org)
 
+<br/>
+
+<img src="assets/lucent_themes.gif" alt="Lucent Search Capsule Themes" width="820" style="border-radius: 14px; margin-top: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.5);" />
+
 </div>
 
 ---
@@ -41,6 +45,13 @@ It’s not a giant window you get lost in—it’s an ethereal, floating lens ov
 > **Want deep, focused reading?** Expand to fullscreen and browse without distractions.  
 > **Keep your traditional browser for all-day tab chaos—use Lucent for everything else.**
 
+<br/>
+
+<div align="center">
+  <img src="assets/screenshot_browser.png" alt="Lucent Floating Browser Window" width="840" style="border-radius: 14px; box-shadow: 0 20px 50px rgba(0,0,0,0.5);" />
+  <p><em>Floating Liquid Glass browser mode with multi-tabs, isolated private browsing, and borderless canvas.</em></p>
+</div>
+
 ---
 
 ## ✨ Key Features
@@ -60,7 +71,14 @@ It’s not a giant window you get lost in—it’s an ethereal, floating lens ov
 - **Precision Touchpad & Gesture Navigation:**  
   Natural two-finger horizontal swipe navigation on Windows precision touchpads and Mac trackpads for fluid back and forward history navigation.
 - **Customizable Shortcuts & Glass Themes:**  
-  Configure your global summon hotkey, in-app navigation shortcuts, and choose between 5 glass themes (Deep Obsidian Frost, Apple Liquid Glass, Apple VisionOS Crystal, Midnight Neon Aurora, Pure OLED Minimal) through the built-in visual settings panel.
+  Configure your global summon hotkey, in-app navigation shortcuts, and choose between 6 glass themes (Obsidian Ice, Apple Liquid Glass, Apple VisionOS Crystal, Midnight Aurora, Sunset Amber, OLED Titanium) through the built-in visual settings panel.
+
+<br/>
+
+<div align="center">
+  <img src="assets/screenshot_settings.png" alt="Lucent Visual Settings and Themes" width="840" style="border-radius: 14px; box-shadow: 0 20px 50px rgba(0,0,0,0.5);" />
+  <p><em>Integrated settings panel: instant theme switching, search engine selection, and shortcut personalization.</em></p>
+</div>
 
 ---
 
