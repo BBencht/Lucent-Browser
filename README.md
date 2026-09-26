@@ -2,12 +2,12 @@
 
 <img src="assets/lucent_horizontal_logo.png" alt="Lucent Browser" width="520" style="border-radius: 14px; margin-bottom: 20px; box-shadow: 0 16px 40px rgba(0,0,0,0.4);" />
 
-# Lucent Browser (v1.1.1)
+# Lucent Browser (v1.2.0)
 
-### *Ultra-minimalist, floating Liquid Glass HUD browser for Windows, macOS & Linux.*
-**Universal floating search capsule and full-featured desktop web browser in one sleek, modern translucent interface.**
+### *Ultra-minimalist, floating Liquid Glass HUD browser with Instant Smart Answers for Windows, macOS & Linux.*
+**Universal floating search capsule, zero-config AI quick answers, and full-featured desktop web browser in one sleek translucent interface.**
 
-[![Version](https://img.shields.io/badge/version-1.1.1-00f0ff?style=for-the-badge)](https://github.com/BBencht/Lucent-Browser/releases)
+[![Version](https://img.shields.io/badge/version-1.2.0-00f0ff?style=for-the-badge)](https://github.com/BBencht/Lucent-Browser/releases)
 [![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-blue?style=for-the-badge)](https://github.com/BBencht/Lucent-Browser)
 [![License](https://img.shields.io/badge/license-MIT-0984e3?style=for-the-badge)](LICENSE)
 [![Electron](https://img.shields.io/badge/Electron-44.4.3-47a248?style=for-the-badge&logo=electron&logoColor=white)](https://electronjs.org)
@@ -54,8 +54,31 @@ It’s not a giant window you get lost in—it’s an ethereal, floating lens ov
 
 ---
 
+## ⚡ Flagship Feature: Instant Smart Answers & AI Knowledge Hub
+
+> **Why open slow search result pages or juggle cluttered tabs just to answer a simple question?**  
+> Lucent Browser's floating Spotlight capsule (`Alt + Space`) is equipped with a built-in, **zero-configuration Smart Answer engine** that computes math, converts currencies and units, and delivers real-time encyclopedia knowledge summaries **as you type**, directly inside the HUD.
+
+### 🌟 How It Works — 100% Zero-Config, Out of the Box:
+* 🧮 **Instant Local Calculator (0ms Offline Engine):**  
+  Type any arithmetic expression, percentage, square root, or exponent (e.g. `150 * 4 + 20`, `15% of 850`, `sqrt(144)`, `2^10`). Lucent calculates the exact result instantaneously with zero network lag and displays it in prominent typography.
+* ⚖️ **Real-Time Unit & Currency Conversions:**  
+  Type natural conversions (e.g. `100 cm in inch`, `50 kg in lbs`, `100 eur to huf`). Powered by real-time smart suggestions, the accurate converted value appears immediately above your search suggestions.
+* ✦ **Instant AI & World Knowledge Overviews:**  
+  Query people, places, historical figures, biology, geography, or science concepts (e.g. `Petőfi Sándor`, `Fotoszintézis`, `Albert Einstein`, `Quantum computing`, `Budapest`). Lucent fetches and formats concise summaries, entity thumbnails, and subtitles in real time (supporting Hungarian and English queries) with a 1-click **Source (Forrás)** link.
+* 📋 **1-Click Copy with Liquid Glass Feedback:**  
+  Click the **"Másolás" (Copy)** button on any answer card to copy the clean result or summary directly to your clipboard, confirmed with a luminous glass toast notification.
+* 🛡️ **Zero Setup, Pure Privacy:**  
+  **No API keys, no Google Cloud setup, no account creation, and no subscription.** It works immediately for every user without configuration.
+* 🎛️ **Full User Control:**  
+  Prefer raw web results only? You can toggle Instant Smart Answers ON or OFF at any time in **Settings** (`⌘,` or gear icon $\rightarrow$ **General** $\rightarrow$ `Instant Smart Answers`).
+
+---
+
 ## ✨ Key Features
 
+- **Instant Smart Answers & AI Knowledge Engine (Flagship):**  
+  Zero-latency calculator, real-time currency/unit conversions, and instant Wikipedia knowledge summaries with thumbnails and copy actions right in the floating capsule.
 - **Modern Liquid Glass & Acrylic Aesthetics:**  
   Engineered with multi-layered `backdrop-filter` blur, chromatic diffusion, specular edge highlights, and deep glassmorphic refractions that feel right at home on modern desktop interfaces (Windows Acrylic & Mica, macOS Liquid Glass, and Linux desktop environments).
 - **Fluid Morphing Physics:**  
@@ -88,12 +111,12 @@ Pre-built, standalone application packages for **Windows**, **macOS**, and **Lin
 
 | Platform | Architecture | Package Format | Download |
 | :--- | :--- | :--- | :--- |
-| **Windows** | 64-bit (Windows 10+) | Setup Installer | [**Installer (.exe)**](https://github.com/BBencht/Lucent-Browser/releases/download/v1.1.1/Lucent-Browser-Setup-1.1.1.exe) |
-| **Windows** | 64-bit (Windows 10+) | Portable Archive | [**Portable (.zip)**](https://github.com/BBencht/Lucent-Browser/releases/download/v1.1.1/Lucent-Browser-1.1.1-win.zip) |
-| **macOS** | Apple Silicon | Disk Image | [**Apple Silicon (.dmg)**](https://github.com/BBencht/Lucent-Browser/releases/download/v1.1.1/Lucent-Browser-1.1.1-arm64.dmg) |
-| **macOS** | Intel | Disk Image | [**Intel (.dmg)**](https://github.com/BBencht/Lucent-Browser/releases/download/v1.1.1/Lucent-Browser-1.1.1.dmg) |
-| **Linux** | x86_64 | Standalone Package | [**AppImage (.AppImage)**](https://github.com/BBencht/Lucent-Browser/releases/download/v1.1.1/Lucent-Browser-1.1.1.AppImage) |
-| **Linux** | x86_64 | Compressed Tarball | [**Tarball (.tar.gz)**](https://github.com/BBencht/Lucent-Browser/releases/download/v1.1.1/lucent-browser-1.1.1.tar.gz) |
+| **Windows** | 64-bit (Windows 10+) | Setup Installer | [**Installer (.exe)**](https://github.com/BBencht/Lucent-Browser/releases/download/v1.2.0/Lucent-Browser-Setup-1.2.0.exe) |
+| **Windows** | 64-bit (Windows 10+) | Portable Archive | [**Portable (.zip)**](https://github.com/BBencht/Lucent-Browser/releases/download/v1.2.0/Lucent-Browser-1.2.0-win.zip) |
+| **macOS** | Apple Silicon | Disk Image | [**Apple Silicon (.dmg)**](https://github.com/BBencht/Lucent-Browser/releases/download/v1.2.0/Lucent-Browser-1.2.0-arm64.dmg) |
+| **macOS** | Intel | Disk Image | [**Intel (.dmg)**](https://github.com/BBencht/Lucent-Browser/releases/download/v1.2.0/Lucent-Browser-1.2.0.dmg) |
+| **Linux** | x86_64 | Standalone Package | [**AppImage (.AppImage)**](https://github.com/BBencht/Lucent-Browser/releases/download/v1.2.0/Lucent-Browser-1.2.0.AppImage) |
+| **Linux** | x86_64 | Compressed Tarball | [**Tarball (.tar.gz)**](https://github.com/BBencht/Lucent-Browser/releases/download/v1.2.0/lucent-browser-1.2.0.tar.gz) |
 
 > **Tip for macOS users:** You can also install and launch directly from Terminal with:  
 > `curl -fsSL https://raw.githubusercontent.com/BBencht/Lucent-Browser/main/install.sh | bash`
@@ -144,6 +167,17 @@ Gatekeeper flags unsigned downloaded applications by default. Choose whichever o
 | **`Alt + Left`** / **`Alt + Right`** | **`⌘ + [`** / **`⌘ + ]`** | Navigate Back / Forward in History |
 | **`Ctrl + R`** or **`F5`** | **`⌘ + R`** | Reload Current Web Page |
 | **`Escape`** | **`Escape`** | Dismiss Search Results / Close Settings / Exit Fullscreen |
+
+---
+
+## 🆕 What's New in v1.2.0
+
+- 🚀 **Flagship Instant Smart Answers Engine:** Real-time calculator, unit & currency conversion, and AI encyclopedia knowledge summaries directly inside the floating Spotlight search bar.
+- 🧮 **Instant Local Math Evaluator:** 0ms instant arithmetic, percentages (`15% of 850`), powers (`2^10`), and square roots offline with zero network latency.
+- ✦ **Live Knowledge Cards:** Automatic entity detection for historical figures, scientific concepts, biology, geography, and definitions (supporting Hungarian & English) with rich thumbnails, extracts, and direct source links.
+- 📋 **One-Click Clipboard Action:** Copy answers and formulas with a single tap, accompanied by Liquid Glass toast confirmation.
+- ⚙️ **User Preference Toggle:** New toggle in `Settings` -> `General` to easily turn Instant Smart Answers on/off.
+- 🫧 **Dynamic Glass Resizing:** Window spring physics dynamically scale Spotlight height to fit instant answers without visual clipping.
 
 ---
 

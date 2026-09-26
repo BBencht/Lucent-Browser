@@ -1057,6 +1057,178 @@ html, body {
   flex-shrink: 0;
 }
 
+/* ── Instant Smart Answer Card (Gemini / Spotlight Smart AI) ── */
+#instant-answer-card {
+  margin: 10px 10px 4px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: answerSlideIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes answerSlideIn {
+  from { opacity: 0; transform: translateY(-8px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+#instant-answer-card.hidden {
+  display: none !important;
+}
+
+.answer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.answer-badge-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(124, 143, 255, 0.16);
+  border: 1px solid rgba(124, 143, 255, 0.28);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #a5b4fc;
+}
+
+.answer-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.answer-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 9px;
+  border-radius: 7px;
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.75);
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.answer-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.answer-body {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.answer-thumb {
+  width: 52px;
+  height: 52px;
+  border-radius: 10px;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.answer-main-content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.answer-title-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.answer-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.answer-subtitle {
+  font-size: 11.5px;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.answer-calc-big {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  line-height: 1.15;
+  text-shadow: 0 0 24px rgba(255, 255, 255, 0.25);
+  font-feature-settings: "tnum";
+}
+
+.answer-text {
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.88);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Light / Apple Liquid theme overrides */
+body[data-theme="apple-liquid"] #instant-answer-card,
+body[data-theme="apple-vision-light"] #instant-answer-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.75) 0%, rgba(240, 240, 245, 0.55) 100%);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+body[data-theme="apple-liquid"] .answer-title,
+body[data-theme="apple-vision-light"] .answer-title,
+body[data-theme="apple-liquid"] .answer-calc-big,
+body[data-theme="apple-vision-light"] .answer-calc-big {
+  color: #111827;
+  text-shadow: none;
+}
+body[data-theme="apple-liquid"] .answer-text,
+body[data-theme="apple-vision-light"] .answer-text {
+  color: #374151;
+}
+body[data-theme="apple-liquid"] .answer-subtitle,
+body[data-theme="apple-vision-light"] .answer-subtitle {
+  color: #6b7280;
+}
+body[data-theme="apple-liquid"] .answer-btn,
+body[data-theme="apple-vision-light"] .answer-btn {
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  color: #374151;
+}
+body[data-theme="apple-liquid"] .answer-btn:hover,
+body[data-theme="apple-vision-light"] .answer-btn:hover {
+  background: rgba(0, 0, 0, 0.1);
+  color: #111827;
+}
+
 #results-list {
   flex: 1;
   overflow-y: auto;
@@ -2934,6 +3106,32 @@ body[data-theme="oled-black"] .loader-label {
 
     <div id="results-panel">
       <div id="results-divider"></div>
+      <div id="instant-answer-card" class="hidden">
+        <div class="answer-header">
+          <span class="answer-badge-wrap" id="answer-badge">✦ Smart Answer</span>
+          <div class="answer-header-actions">
+            <button class="answer-btn" id="btn-copy-answer" title="Válasz másolása">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              <span>Másolás</span>
+            </button>
+            <button class="answer-btn" id="btn-open-answer" title="Forrás megnyitása" style="display:none;">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+              <span>Forrás</span>
+            </button>
+          </div>
+        </div>
+        <div class="answer-body">
+          <img id="answer-thumb" class="answer-thumb" src="" alt="Thumbnail" style="display:none;">
+          <div class="answer-main-content">
+            <div class="answer-title-row">
+              <span id="answer-title" class="answer-title"></span>
+              <span id="answer-subtitle" class="answer-subtitle"></span>
+            </div>
+            <div id="answer-calc-big" class="answer-calc-big" style="display:none;"></div>
+            <div id="answer-text" class="answer-text"></div>
+          </div>
+        </div>
+      </div>
       <div id="results-list"></div>
       <div id="results-footer">
         <span class="footer-hint"><kbd>↵</kbd> open</span>
@@ -3080,6 +3278,16 @@ const $searchInput      = document.getElementById('search-input');
 const $searchGhost      = document.getElementById('search-ghost');
 const $resultsPnl       = document.getElementById('results-panel');
 const $resultsList      = document.getElementById('results-list');
+const $instantAnswerCard = document.getElementById('instant-answer-card');
+const $answerBadge       = document.getElementById('answer-badge');
+const $answerThumb       = document.getElementById('answer-thumb');
+const $answerTitle       = document.getElementById('answer-title');
+const $answerSubtitle    = document.getElementById('answer-subtitle');
+const $answerCalcBig     = document.getElementById('answer-calc-big');
+const $answerText        = document.getElementById('answer-text');
+const $btnCopyAnswer     = document.getElementById('btn-copy-answer');
+const $btnOpenAnswer     = document.getElementById('btn-open-answer');
+let currentAnswerData    = null;
 const $footerTabHint    = document.getElementById('footer-tab-hint');
 const $btnResume        = document.getElementById('btn-resume-page');
 const $lblResume        = document.getElementById('resume-page-label');
@@ -3355,6 +3563,7 @@ function matchesShortcut(e, shortcutStr) {
 const DEFAULT_SETTINGS = {
   theme: 'deep-frost',
   searchEngine: 'google',
+  instantAnswers: true,
   autoClearOnOpen: true,
   saveHistory: true,
   shortcuts: { ...DEFAULT_SHORTCUTS },
@@ -3833,11 +4042,15 @@ function renderResults(customResults = null) {
   if (hasResults) {
     $resultsPnl.classList.add('visible');
     $shell.classList.add('has-results');
-    API.resize('results', state.results.length);
+    API.resize('results', state.results.length, !!currentAnswerData);
+  } else if (currentAnswerData) {
+    $resultsPnl.classList.add('visible');
+    $shell.classList.add('has-results');
+    API.resize('results', 0, true);
   } else {
     $resultsPnl.classList.remove('visible');
     $shell.classList.remove('has-results');
-    API.resize('search', 0);
+    API.resize('search', 0, false);
   }
 }
 
@@ -3846,11 +4059,26 @@ function scheduleSpotlightLiveSearch(rawQuery) {
   clearTimeout(liveSearchDebounce);
   const q = (rawQuery || '').trim();
   if (!q || q.length < 2 || q.startsWith('http://') || q.startsWith('https://') || (q.includes('.') && !q.includes(' '))) {
+    hideInstantAnswer();
     return;
   }
 
   liveSearchDebounce = setTimeout(async () => {
     if (state.query.trim() !== q) return;
+
+    // 1. Fetch Instant Smart Answer (Calculator, Conversions, Wiki Knowledge)
+    if (state.settings?.instantAnswers !== false && window.GlassAPI?.getInstantAnswer) {
+      window.GlassAPI.getInstantAnswer(q).then((ans) => {
+        if (state.query.trim() === q && ans) {
+          showInstantAnswer(ans);
+        } else if (state.query.trim() === q && !ans) {
+          hideInstantAnswer();
+        }
+      }).catch(() => {});
+    } else {
+      hideInstantAnswer();
+    }
+
     try {
       const suggestions = await API.getSearchSuggestions(q);
       if (state.query.trim() !== q) return;
@@ -3885,6 +4113,119 @@ function scheduleSpotlightLiveSearch(rawQuery) {
       }
     } catch (e) {}
   }, 130);
+}
+
+function showInstantAnswer(data) {
+  if (!data || state.settings?.instantAnswers === false) {
+    hideInstantAnswer();
+    return;
+  }
+  currentAnswerData = data;
+  if ($answerBadge) $answerBadge.textContent = data.badge || '✦ Smart Answer';
+
+  const isCalc = data.type === 'calc' || data.type === 'calculator' || data.type === 'conversion';
+
+  if (isCalc) {
+    if ($answerThumb) $answerThumb.style.display = 'none';
+    if ($answerTitle) $answerTitle.textContent = data.title || '';
+    if ($answerSubtitle) $answerSubtitle.textContent = data.detail || '';
+    if ($answerCalcBig) {
+      $answerCalcBig.textContent = data.answer || '';
+      $answerCalcBig.style.display = 'block';
+    }
+    if ($answerText) $answerText.style.display = 'none';
+    if ($btnOpenAnswer) $btnOpenAnswer.style.display = 'none';
+  } else {
+    // Wiki / Knowledge
+    if ($answerThumb) {
+      if (data.thumbnail) {
+        $answerThumb.src = data.thumbnail;
+        $answerThumb.style.display = 'block';
+      } else {
+        $answerThumb.style.display = 'none';
+      }
+    }
+    if ($answerTitle) $answerTitle.textContent = data.title || '';
+    if ($answerSubtitle) $answerSubtitle.textContent = data.description || '';
+    if ($answerCalcBig) $answerCalcBig.style.display = 'none';
+    if ($answerText) {
+      $answerText.textContent = data.answer || '';
+      $answerText.style.display = 'block';
+    }
+    if ($btnOpenAnswer) {
+      if (data.url) {
+        $btnOpenAnswer.style.display = 'inline-flex';
+        $btnOpenAnswer.onclick = (e) => {
+          e.stopPropagation();
+          openUrlInTab(data.url);
+        };
+      } else {
+        $btnOpenAnswer.style.display = 'none';
+      }
+    }
+  }
+
+  if ($instantAnswerCard) {
+    $instantAnswerCard.classList.remove('hidden');
+  }
+  $resultsPnl.classList.add('visible');
+  $shell.classList.add('has-results');
+  API.resize('results', state.results.length, true);
+}
+
+function hideInstantAnswer() {
+  const hadAnswer = !!currentAnswerData;
+  currentAnswerData = null;
+  if ($instantAnswerCard) {
+    $instantAnswerCard.classList.add('hidden');
+  }
+  if (!hadAnswer) return;
+
+  const q = state.query ? state.query.trim() : '';
+  if (state.results.length > 0 && q.length > 0) {
+    API.resize('results', state.results.length, false);
+  } else {
+    $resultsPnl.classList.remove('visible');
+    $shell.classList.remove('has-results');
+    API.resize('search', 0, false);
+  }
+}
+
+function copyCurrentAnswer() {
+  if (!currentAnswerData) return;
+  const isCalc = currentAnswerData.type === 'calc' || currentAnswerData.type === 'calculator' || currentAnswerData.type === 'conversion';
+  const textToCopy = isCalc
+    ? currentAnswerData.answer
+    : `${currentAnswerData.title}: ${currentAnswerData.answer}`;
+  navigator.clipboard.writeText(textToCopy).then(() => {
+    const origSpan = $btnCopyAnswer ? $btnCopyAnswer.querySelector('span') : null;
+    if (origSpan) origSpan.textContent = '✓ Másolva!';
+    showToast('📋 Válasz másolva a vágólapra!');
+    setTimeout(() => {
+      if (origSpan) origSpan.textContent = 'Másolás';
+    }, 1800);
+  }).catch(() => {
+    showToast('Nem sikerült másolni a vágólapra');
+  });
+}
+
+if ($btnCopyAnswer) {
+  $btnCopyAnswer.addEventListener('click', (e) => {
+    e.stopPropagation();
+    copyCurrentAnswer();
+  });
+}
+
+if ($instantAnswerCard) {
+  $instantAnswerCard.addEventListener('click', (e) => {
+    if (e.target.closest('.answer-btn')) return;
+    const isCalc = currentAnswerData?.type === 'calc' || currentAnswerData?.type === 'calculator' || currentAnswerData?.type === 'conversion';
+    if (currentAnswerData?.url) {
+      openUrlInTab(currentAnswerData.url);
+    } else if (isCalc) {
+      copyCurrentAnswer();
+    }
+  });
 }
 
 function updateSelection() {
@@ -5604,6 +5945,17 @@ function renderSettingsInto(container, onClose) {
           <div class="settings-section-title">Search & History Preferences</div>
           <div class="general-option-row">
             <div class="general-option-info">
+              <span class="general-option-label">Instant Smart Answers (AI & Tudás)</span>
+              <span class="general-option-hint">Azonnali válaszok, számolás és Wikipédia kártya keresés nélkül</span>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="setting-instantanswers" ${state.settings?.instantAnswers !== false ? 'checked' : ''}>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <div class="general-option-row">
+            <div class="general-option-info">
               <span class="general-option-label">Auto-clear search input</span>
               <span class="general-option-hint">Clears the search input when opening Spotlight bar</span>
             </div>
@@ -5732,6 +6084,17 @@ function renderSettingsInto(container, onClose) {
       saveSettings({ searchEngine: engineId });
     });
   });
+
+  // Instant Smart Answers toggle
+  const instantAnswersInput = container.querySelector('#setting-instantanswers');
+  if (instantAnswersInput) {
+    instantAnswersInput.addEventListener('change', (e) => {
+      saveSettings({ instantAnswers: e.target.checked });
+      if (!e.target.checked) {
+        hideInstantAnswer();
+      }
+    });
+  }
 
   // Auto-clear toggle
   const autoclearInput = container.querySelector('#setting-autoclear');
@@ -6012,6 +6375,9 @@ $searchInput.addEventListener('input', () => {
     state.isSettingsOpen = false;
   }
   state.query = $searchInput.value;
+  if (!state.query.trim()) {
+    hideInstantAnswer();
+  }
   updateGhost(state.query);
   updateResumeButton();
   renderResults();
@@ -6160,14 +6526,15 @@ document.addEventListener('keydown', (e) => {
       closeSettings();
       return;
     }
-    if (state.results.length > 0 || state.query.trim()) {
+    if (state.results.length > 0 || state.query.trim() || currentAnswerData) {
+      hideInstantAnswer();
       $resultsPnl.classList.remove('visible');
       $shell.classList.remove('has-results');
       $searchInput.value = '';
       state.query = '';
       clearGhost();
       updateResumeButton();
-      API.resize('search', 0);
+      API.resize('search', 0, false);
       return;
     }
     animateClose();
@@ -6245,13 +6612,14 @@ API.onOpen((mode) => {
     $browserView.classList.remove('active');
     $searchView.classList.remove('hidden');
     $resultsPnl.classList.remove('visible');
+    hideInstantAnswer();
     if (state.settings?.autoClearOnOpen) {
       $searchInput.value = '';
       state.query = '';
       clearGhost();
     }
     updateResumeButton();
-    API.resize('search', 0);
+    API.resize('search', 0, false);
 
     // Launch smooth circle pop & capsule morph
     animateOpen();

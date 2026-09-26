@@ -3,7 +3,7 @@ const { contextBridge, ipcRenderer } = require('electron');
 contextBridge.exposeInMainWorld('GlassAPI', {
   platform: process.platform,
 
-  resize: (mode, count) => ipcRenderer.send('resize', mode, count),
+  resize: (mode, count, hasAnswer) => ipcRenderer.send('resize', mode, count, hasAnswer),
   hide: () => ipcRenderer.send('hide'),
   hideNow: () => ipcRenderer.send('hide-now'),
   toggleFullscreen: () => ipcRenderer.send('toggle-fullscreen'),
@@ -15,6 +15,7 @@ contextBridge.exposeInMainWorld('GlassAPI', {
   onClose: (cb) => ipcRenderer.on('close', () => cb()),
   onFullscreenChange: (cb) => ipcRenderer.on('fullscreen-change', (_e, isFs) => cb(isFs)),
   getSearchSuggestions: (query) => ipcRenderer.invoke('get-search-suggestions', query),
+  getInstantAnswer: (query) => ipcRenderer.invoke('get-instant-answer', query),
   onGestureNav: (cb) => ipcRenderer.on('gesture-nav', (_e, dir) => cb(dir)),
   clearPrivateSession: () => ipcRenderer.invoke('clear-private-session'),
   clearBrowserData: () => ipcRenderer.invoke('clear-browser-data'),

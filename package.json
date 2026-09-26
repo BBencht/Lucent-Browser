@@ -1,6 +1,6 @@
 {
   "name": "lucent-browser",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "Ultra-minimalist, floating Liquid Glass HUD browser for Windows, macOS & Linux.",
   "main": "main.js",
   "repository": {

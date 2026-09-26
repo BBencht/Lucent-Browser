@@ -142,7 +142,7 @@ let currentGlobalShortcut = 'Alt+Space';
 const W_SEARCH = 780;
 const H_SEARCH = 70;
 
-function layout(mode, count = 0) {
+function layout(mode, count = 0, hasAnswer = false) {
   const currentBounds = (win && !win.isDestroyed()) ? win.getBounds() : { x: 0, y: 0, width: 1, height: 1 };
   const display = screen.getDisplayMatching(currentBounds) || screen.getPrimaryDisplay();
   const { width: sw, height: sh } = display.workAreaSize;
@@ -173,7 +173,8 @@ function layout(mode, count = 0) {
   }
 
   if (mode === 'results') {
-    const h = Math.min(540, H_SEARCH + Math.max(1, count) * 52 + 36);
+    const extraAnswer = hasAnswer ? 140 : 0;
+    const h = Math.min(640, H_SEARCH + Math.max(1, count) * 52 + 36 + extraAnswer);
     return { x: cx, y: cy, width: W_SEARCH, height: h };
   }
 
@@ -422,7 +423,7 @@ function toggle() {
   }
 }
 
-ipcMain.on('resize', (_e, mode, count) => {
+ipcMain.on('resize', (_e, mode, count, hasAnswer) => {
   if (!win) return;
   currentMode = mode;
   browserMode = (mode === 'browser');
@@ -435,7 +436,7 @@ ipcMain.on('resize', (_e, mode, count) => {
   win.setResizable(browserMode);
   win.setHasShadow(false);
   if (!win.isFullScreen()) {
-    win.setBounds(layout(mode, count), false);
+    win.setBounds(layout(mode, count, hasAnswer), false);
   }
   if (browserMode) {
     win.focus();
@@ -491,6 +492,153 @@ ipcMain.handle('get-search-suggestions', async (_e, query) => {
   } catch (err) {
     return [];
   }
+});
+
+// ── Zero-Config Instant Answers Engine (Math, Conversions & Knowledge) ──
+function tryEvaluateMath(raw) {
+  if (!raw || typeof raw !== 'string') return null;
+  const s = raw.trim().toLowerCase();
+
+  // Percentage syntax: "15% of 850" or "15% * 850"
+  const pctMatch = s.match(/^(\d+(?:\.\d+)?)\s*%\s*(?:of|\*)\s*(\d+(?:\.\d+)?)$/i);
+  if (pctMatch) {
+    const val = (parseFloat(pctMatch[1]) / 100) * parseFloat(pctMatch[2]);
+    return {
+      type: 'calculator',
+      badge: 'Számológép',
+      icon: '🧮',
+      title: `${pctMatch[1]}% of ${pctMatch[2]} =`,
+      answer: String(Number(val.toFixed(6))),
+      copyable: String(Number(val.toFixed(6)))
+    };
+  }
+
+  // Sqrt syntax: "sqrt(144)" or "gyok(144)"
+  const sqrtMatch = s.match(/^(?:sqrt|gyök|gyok)\s*\(\s*(\d+(?:\.\d+)?)\s*\)$/i);
+  if (sqrtMatch) {
+    const val = Math.sqrt(parseFloat(sqrtMatch[1]));
+    return {
+      type: 'calculator',
+      badge: 'Számológép',
+      icon: '🧮',
+      title: `√${sqrtMatch[1]} =`,
+      answer: String(Number(val.toFixed(6))),
+      copyable: String(Number(val.toFixed(6)))
+    };
+  }
+
+  // Arithmetic expression check: digits, operators, parens
+  if (!/^[\d\s\.\+\-\*\/\^xX\:\(\)]+$/.test(s)) return null;
+  if (!/[\+\-\*\/\^xX\:]/.test(s)) return null;
+  if (!/\d/.test(s)) return null;
+
+  try {
+    const expr = s.replace(/x/gi, '*').replace(/:/g, '/').replace(/\^/g, '**');
+    if (/[^0-9\s\.\+\-\*\/\(\)]/.test(expr)) return null;
+    const fn = new Function(`"use strict"; return (${expr});`);
+    const res = fn();
+    if (typeof res === 'number' && !isNaN(res) && isFinite(res)) {
+      const formatted = Number(res.toFixed(6));
+      return {
+        type: 'calculator',
+        badge: 'Számológép',
+        icon: '🧮',
+        title: `${raw} =`,
+        answer: formatted.toLocaleString('hu-HU'),
+        copyable: String(formatted)
+      };
+    }
+  } catch (e) {}
+  return null;
+}
+
+const doFetch = (url, opts) => ((typeof net !== 'undefined' && net && net.fetch) ? net.fetch(url, opts) : fetch(url, opts));
+
+async function tryGoogleSuggestAnswer(q) {
+  try {
+    const url = `https://suggestqueries.google.com/complete/search?client=chrome&q=${encodeURIComponent(q)}`;
+    const res = await doFetch(url, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36'
+      }
+    });
+    if (!res.ok) return null;
+    const data = await res.json();
+    if (!Array.isArray(data) || !Array.isArray(data[1])) return null;
+
+    const suggestions = data[1];
+    for (const sug of suggestions) {
+      if (typeof sug === 'string' && sug.trim().startsWith('=')) {
+        const cleanAnswer = sug.replace(/^=\s*/, '').trim();
+        return {
+          type: 'calc',
+          badge: '⚡ Átváltás / Eredmény',
+          title: `${q} =`,
+          answer: cleanAnswer,
+          detail: 'Google Smart Suggest'
+        };
+      }
+    }
+  } catch (e) {}
+  return null;
+}
+
+async function tryWikiKnowledge(q) {
+  try {
+    if (q.length < 3 || (q.includes('.') && !q.includes(' ')) || q.startsWith('http')) return null;
+
+    const isHungarian = /[áéíóöőúüű]/i.test(q) || /^(mi|ki|hol|mikor|hogyan|volt|magyar|a|az)\b/i.test(q);
+    const lang = isHungarian ? 'hu' : 'en';
+
+    const searchUrl = `https://${lang}.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(q)}&srlimit=1&format=json`;
+    const sRes = await doFetch(searchUrl, {
+      headers: { 'User-Agent': 'LucentBrowser/1.1 (https://github.com/BBencht/Lucent-Browser; contact@lucent.dev)' }
+    });
+    if (!sRes.ok) return null;
+    const sData = await sRes.json();
+    const hit = sData.query?.search?.[0];
+    if (!hit || !hit.title) return null;
+
+    const sumUrl = `https://${lang}.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(hit.title)}`;
+    const sumRes = await doFetch(sumUrl, {
+      headers: { 'User-Agent': 'LucentBrowser/1.1 (https://github.com/BBencht/Lucent-Browser)' }
+    });
+    if (!sumRes.ok) return null;
+    const sumData = await sumRes.json();
+    if (!sumData.extract || sumData.extract.length < 20) return null;
+
+    return {
+      type: 'knowledge',
+      badge: '✨ Villámválasz',
+      icon: '✦',
+      title: sumData.title,
+      description: sumData.description || null,
+      answer: sumData.extract,
+      thumbnail: sumData.thumbnail?.source || null,
+      url: sumData.content_urls?.desktop?.page || `https://${lang}.wikipedia.org/wiki/${encodeURIComponent(hit.title)}`,
+      copyable: `${sumData.title}: ${sumData.extract}`
+    };
+  } catch (e) {}
+  return null;
+}
+
+ipcMain.handle('get-instant-answer', async (_e, query) => {
+  if (!query || typeof query !== 'string' || !query.trim()) return null;
+  const q = query.trim();
+
+  // 1. Safe math evaluation
+  const mathRes = tryEvaluateMath(q);
+  if (mathRes) return mathRes;
+
+  // 2. Google suggest unit/currency conversions
+  const googleRes = await tryGoogleSuggestAnswer(q);
+  if (googleRes) return googleRes;
+
+  // 3. Wikipedia knowledge summary
+  const wikiRes = await tryWikiKnowledge(q);
+  if (wikiRes) return wikiRes;
+
+  return null;
 });
 
 ipcMain.on('hide', hide);

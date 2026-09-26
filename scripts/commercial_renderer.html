@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lucent Commercial Frame Renderer</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      background: #04060a;
+      color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+      user-select: none;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    #stage {
+      position: relative;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+    }
+
+    /* Ambient Background System */
+    #ambient-bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 40%, #0d1527 0%, #03060d 100%);
+      transition: background 0.3s ease;
+    }
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      pointer-events: none;
+      opacity: 0.5;
+    }
+    #orb-1 {
+      width: 800px;
+      height: 800px;
+      top: -200px;
+      left: 15%;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.4), transparent 70%);
+    }
+    #orb-2 {
+      width: 900px;
+      height: 900px;
+      bottom: -250px;
+      right: 15%;
+      background: radial-gradient(circle, rgba(147, 51, 234, 0.35), transparent 70%);
+    }
+
+    /* Kinetic Typography Header / Caption */
+    #caption-container {
+      position: absolute;
+      top: 50px;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      z-index: 50;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      transition: opacity 0.3s ease;
+    }
+    #caption-badge {
+      display: inline-block;
+      padding: 5px 16px;
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(20px);
+      color: #38bdf8;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    }
+    #caption-title {
+      font-size: 48px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      text-shadow: 0 10px 40px rgba(0,0,0,0.8);
+      max-width: 1400px;
+    }
+    #caption-sub {
+      font-size: 22px;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.7);
+      letter-spacing: -0.01em;
+      max-width: 1000px;
+    }
+
+    /* SCENE 1: The Clutter (Messy Tabs) */
+    #scene-clutter {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding-top: 140px;
+    }
+    .clutter-window {
+      width: 1400px;
+      height: 720px;
+      background: #1e1e24;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 30px 100px rgba(0,0,0,0.9);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .clutter-tabstrip {
+      height: 48px;
+      background: #141418;
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      gap: 3px;
+      overflow: hidden;
+    }
+    .clutter-tab {
+      height: 34px;
+      padding: 0 14px;
+      border-radius: 8px 8px 0 0;
+      background: #25252d;
+      color: #888;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .clutter-tab.active {
+      background: #32323c;
+      color: #fff;
+    }
+    .unread-badge {
+      background: #ef4444;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 10px;
+    }
+    .clutter-body {
+      flex: 1;
+      background: #121316;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      padding: 30px;
+    }
+    .clutter-card {
+      background: #1c1d22;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .clutter-banner {
+      position: absolute;
+      bottom: 40px;
+      background: rgba(239, 68, 68, 0.9);
+      padding: 14px 32px;
+      border-radius: 40px;
+      font-weight: 800;
+      font-size: 20px;
+      letter-spacing: 0.05em;
+      box-shadow: 0 10px 40px rgba(239, 68, 68, 0.5);
+    }
+
+    /* SCENE 2: The Keypress & Capsule Awakening */
+    #scene-awakening {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .keycap-container {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 50px;
+    }
+    .keycap {
+      width: 110px;
+      height: 110px;
+      background: linear-gradient(180deg, #2a2d36, #15171e);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.8), inset 0 2px 4px rgba(255,255,255,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 38px;
+      font-weight: 700;
+      color: #fff;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .keycap.pressed {
+      transform: translateY(8px) scale(0.96);
+      box-shadow: 0 4px 15px rgba(56, 189, 248, 0.6), inset 0 1px 2px rgba(255,255,255,0.5);
+      border-color: #38bdf8;
+      color: #38bdf8;
+    }
+
+    /* THE HERO WHITE CRYSTAL CAPSULE */
+    .capsule-hero-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .capsule-glow-aura {
+      position: absolute;
+      width: 1000px;
+      height: 140px;
+      border-radius: 70px;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.45) 0%, rgba(56, 189, 248, 0.25) 50%, transparent 75%);
+      filter: blur(40px);
+      pointer-events: none;
+    }
+    .white-capsule {
+      position: relative;
+      width: 860px;
+      height: 72px;
+      border-radius: 36px;
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(50px) saturate(200%);
+      -webkit-backdrop-filter: blur(50px) saturate(200%);
+      border: 1.5px solid rgba(255, 255, 255, 1);
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.55), 0 0 40px rgba(255, 255, 255, 0.6), inset 0 1px 2px #fff;
+      display: flex;
+      align-items: center;
+      padding: 0 28px;
+      gap: 18px;
+      z-index: 10;
+    }
+    .capsule-icon {
+      width: 28px;
+      height: 28px;
+      color: #0f172a;
+    }
+    .capsule-input-text {
+      flex: 1;
+      font-size: 24px;
+      font-weight: 500;
+      color: #0f172a;
+      letter-spacing: -0.015em;
+    }
+    .capsule-cursor {
+      display: inline-block;
+      width: 3px;
+      height: 28px;
+      background: #0284c7;
+      border-radius: 2px;
+      vertical-align: middle;
+      margin-left: 2px;
+      animation: blink 0.9s infinite;
+    }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+    .capsule-shortcut {
+      padding: 6px 14px;
+      border-radius: 12px;
+      background: rgba(0, 0, 0, 0.08);
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      font-size: 14px;
+      font-weight: 600;
+      color: #334155;
+    }
+
+    /* SCENE 3: Everyday Reflex Answer Card */
+    #everyday-card {
+      position: absolute;
+      top: 86px;
+      left: 0;
+      width: 860px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(50px);
+      -webkit-backdrop-filter: blur(50px);
+      border: 1.5px solid rgba(255, 255, 255, 1);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5), 0 0 30px rgba(255, 255, 255, 0.4);
+      padding: 24px 28px;
+      color: #0f172a;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      z-index: 9;
+    }
+    .answer-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .answer-food-icon {
+      font-size: 36px;
+    }
+    .answer-title-group h3 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+    .answer-title-group p {
+      font-size: 15px;
+      color: #64748b;
+    }
+    .answer-highlight {
+      font-size: 42px;
+      font-weight: 800;
+      color: #059669;
+      letter-spacing: -0.02em;
+    }
+    .answer-stats {
+      display: flex;
+      gap: 20px;
+      background: rgba(0, 0, 0, 0.04);
+      padding: 12px 18px;
+      border-radius: 14px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #334155;
+    }
+
+    /* SCENE 4: Developer Flow & Fullscreen Browser */
+    #scene-developer {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .vscode-window {
+      position: absolute;
+      width: 1720px;
+      height: 920px;
+      border-radius: 18px;
+      background: #181824;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 40px 120px rgba(0,0,0,0.9);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .vscode-titlebar {
+      height: 42px;
+      background: #11111a;
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      gap: 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .traffic-dots {
+      display: flex;
+      gap: 8px;
+    }
+    .dot { width: 12px; height: 12px; border-radius: 50%; }
+    .dot-red { background: #ff5f56; }
+    .dot-yellow { background: #ffbd2e; }
+    .dot-green { background: #27c93f; }
+    .vscode-content {
+      flex: 1;
+      padding: 30px 40px;
+      font-family: "SF Mono", Menlo, Monaco, Consolas, monospace;
+      font-size: 19px;
+      line-height: 1.7;
+      color: #94a3b8;
+    }
+    .code-kw { color: #f43f5e; font-weight: 600; }
+    .code-fn { color: #60a5fa; }
+    .code-str { color: #34d399; }
+    .code-comm { color: #475569; font-style: italic; }
+
+    /* Floating Browser Window inside Scene 4 */
+    .floating-browser-modal {
+      position: absolute;
+      width: 1400px;
+      height: 800px;
+      border-radius: 20px;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(40px);
+      -webkit-backdrop-filter: blur(40px);
+      border: 1.5px solid rgba(255, 255, 255, 0.18);
+      box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8), 0 0 60px rgba(56, 189, 248, 0.2);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      z-index: 30;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .browser-glass-toolbar {
+      height: 52px;
+      background: rgba(255, 255, 255, 0.05);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 14px;
+    }
+    .url-pill {
+      flex: 1;
+      height: 36px;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      font-size: 14px;
+      color: #38bdf8;
+      font-weight: 500;
+    }
+    .browser-frame-body {
+      flex: 1;
+      background: #0f172a;
+      display: flex;
+      flex-direction: column;
+      padding: 30px;
+      gap: 20px;
+    }
+    .doc-headline {
+      font-size: 32px;
+      font-weight: 800;
+      color: #fff;
+    }
+    .doc-code-block {
+      background: #090d16;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 24px;
+      font-family: monospace;
+      font-size: 18px;
+      color: #38bdf8;
+    }
+
+    /* SCENE 5: Theme Morph Spectrum */
+    #scene-themes {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .theme-preview-card {
+      width: 900px;
+      height: 340px;
+      border-radius: 30px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8);
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    .theme-pill-tag {
+      position: absolute;
+      bottom: 30px;
+      padding: 8px 24px;
+      border-radius: 30px;
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* SCENE 6: Grand Finale Packshot */
+    #scene-finale {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 22px;
+    }
+    .finale-logo-img {
+      width: 340px;
+      border-radius: 28px;
+      mix-blend-mode: screen;
+      filter: drop-shadow(0 15px 40px rgba(56, 189, 248, 0.6));
+    }
+    .finale-tagline {
+      font-size: 40px;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 10px 40px rgba(0,0,0,0.6);
+    }
+    .finale-badges {
+      display: flex;
+      gap: 16px;
+      margin-top: 10px;
+    }
+    .f-badge {
+      padding: 10px 24px;
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      font-size: 16px;
+      font-weight: 600;
+      color: #e2e8f0;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    }
+  </style>
+</head>
+<body>
+  <div id="stage">
+    <!-- Ambient Lighting & Glow -->
+    <div id="ambient-bg"></div>
+    <div class="orb" id="orb-1"></div>
+    <div class="orb" id="orb-2"></div>
+
+    <!-- Master Kinetic Header -->
+    <div id="caption-container">
+      <div id="caption-badge">LUCENT LAUNCH</div>
+      <div id="caption-title">Think in Flow</div>
+      <div id="caption-sub">A floating liquid glass browser for modern desktops.</div>
+    </div>
+
+    <!-- SCENE 1: Chaos -->
+    <div id="scene-clutter" style="display: none;">
+      <div class="clutter-window">
+        <div class="clutter-tabstrip">
+          <div class="clutter-tab active"><span>🔍 Google: quick answer</span></div>
+          <div class="clutter-tab"><span>📺 YouTube (playing)</span> <span class="unread-badge">3</span></div>
+          <div class="clutter-tab"><span>🛒 Cart: 2 items</span></div>
+          <div class="clutter-tab"><span>📧 Inbox (1,420)</span> <span class="unread-badge">!</span></div>
+          <div class="clutter-tab"><span>📄 StackOverflow</span></div>
+          <div class="clutter-tab"><span>📈 Analytics Live</span></div>
+          <div class="clutter-tab"><span>📰 News: Breaking</span></div>
+          <div class="clutter-tab"><span>🎨 Figma Untitled</span></div>
+          <div class="clutter-tab"><span>💬 Slack Web (5)</span></div>
+          <div class="clutter-tab"><span>+ 38 more tabs</span></div>
+        </div>
+        <div class="clutter-body">
+          <div class="clutter-card">
+            <h4 style="color:#ef4444;">⚠️ Browser Memory High</h4>
+            <p style="font-size:14px; color:#888;">Chrome is using 6.4 GB RAM across 48 tabs and 18 extensions.</p>
+          </div>
+          <div class="clutter-card">
+            <h4>🔴 9+ Notifications Waiting</h4>
+            <p style="font-size:14px; color:#888;">Do you want to allow cookies and accept popups?</p>
+          </div>
+          <div class="clutter-card">
+            <h4>⏳ Slow Page Response</h4>
+            <p style="font-size:14px; color:#888;">Waiting for ad-service.doubleclick.net...</p>
+          </div>
+          <div class="clutter-card">
+            <h4>🔄 Update Ready</h4>
+            <p style="font-size:14px; color:#888;">Relaunch to complete installation.</p>
+          </div>
+        </div>
+      </div>
+      <div class="clutter-banner">48 OPEN TABS • PURE DISTRACTION</div>
+    </div>
+
+    <!-- SCENE 2: Awakening & Hero Capsule -->
+    <div id="scene-awakening" style="display: none;">
+      <div class="keycap-container" id="keycaps">
+        <div class="keycap" id="key-alt">⌥ Alt</div>
+        <div class="keycap" id="key-space">Space</div>
+      </div>
+      <div class="capsule-hero-wrap" id="awakening-capsule-wrap">
+        <div class="capsule-glow-aura" id="capsule-glow"></div>
+        <div class="white-capsule" id="hero-capsule">
+          <svg class="capsule-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <div class="capsule-input-text">
+            <span id="capsule-text-content">Search or type a URL...</span>
+            <span class="capsule-cursor"></span>
+          </div>
+          <div class="capsule-shortcut">⌥ Space</div>
+        </div>
+
+        <!-- Everyday card attaches here for scene 3 -->
+        <div id="everyday-card" style="display: none;">
+          <div class="answer-header">
+            <div class="answer-food-icon">🥑</div>
+            <div class="answer-title-group">
+              <h3>Avocado Toast (Whole Grain, 1 Slice)</h3>
+              <p>Nutrition & Calorie breakdown • Google Nutrition DB</p>
+            </div>
+          </div>
+          <div class="answer-highlight">195 Calories</div>
+          <div class="answer-stats">
+            <span>🥩 4g Protein</span>
+            <span>🌾 18g Complex Carbs</span>
+            <span>🥑 12g Healthy Fats</span>
+            <span>🌱 7g Dietary Fiber</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCENE 4: Developer Flow & Fullscreen -->
+    <div id="scene-developer" style="display: none;">
+      <div class="vscode-window">
+        <div class="vscode-titlebar">
+          <div class="traffic-dots">
+            <div class="dot dot-red"></div>
+            <div class="dot dot-yellow"></div>
+            <div class="dot dot-green"></div>
+          </div>
+          <span style="font-size:13px; color:#888; margin-left:14px;">app.js — Visual Studio Code</span>
+        </div>
+        <div class="vscode-content">
+          <p><span class="code-kw">import</span> { GlassEngine } <span class="code-kw">from</span> <span class="code-str">'@lucent/core'</span>;</p>
+          <p><span class="code-kw">import</span> { LiquidBackdrop } <span class="code-kw">from</span> <span class="code-str">'@lucent/glass'</span>;</p>
+          <br/>
+          <p><span class="code-comm">// Initialize ultra-responsive liquid HUD</span></p>
+          <p><span class="code-kw">export async function</span> <span class="code-fn">mountHUD</span>() {</p>
+          <p>&nbsp;&nbsp;<span class="code-kw">const</span> engine = <span class="code-kw">new</span> <span class="code-fn">GlassEngine</span>({ theme: <span class="code-str">'apple-vision-light'</span> });</p>
+          <p>&nbsp;&nbsp;<span class="code-kw">await</span> engine.<span class="code-fn">summon</span>({ animation: <span class="code-str">'spring-overshoot'</span> });</p>
+          <p>&nbsp;&nbsp;<span class="code-comm">// Zero context switching: instant answer overlay</span></p>
+          <p>&nbsp;&nbsp;console.<span class="code-fn">log</span>(<span class="code-str">'Deep flow preserved unbroken.'</span>);</p>
+          <p>}</p>
+        </div>
+      </div>
+
+      <!-- Floating or Fullscreen Browser Modal -->
+      <div class="floating-browser-modal" id="dev-browser-modal">
+        <div class="browser-glass-toolbar">
+          <div class="traffic-dots">
+            <div class="dot dot-red"></div>
+            <div class="dot dot-yellow"></div>
+            <div class="dot dot-green"></div>
+          </div>
+          <div class="url-pill">
+            <span style="color:#64748b; margin-right:8px;">🔒 https://</span>tailwindcss.com/docs/backdrop-blur
+          </div>
+          <div style="background:rgba(56,189,248,0.2); border:1px solid rgba(56,189,248,0.4); padding:4px 12px; border-radius:8px; font-size:12px; font-weight:700; color:#38bdf8;" id="fs-badge-indicator">
+            F11 FULLSCREEN
+          </div>
+        </div>
+        <div class="browser-frame-body">
+          <div class="doc-headline">Backdrop Blur — Tailwind CSS</div>
+          <p style="color:#94a3b8; font-size:18px;">Utilities for applying backdrop-blur filters to an element's background.</p>
+          <div class="doc-code-block">
+            &lt;div class="backdrop-blur-xl bg-white/40 border border-white/60 rounded-3xl"&gt;<br/>
+            &nbsp;&nbsp;&lt;!-- Ethereal Liquid Glass Effect --&gt;<br/>
+            &lt;/div&gt;
+          </div>
+          <div style="display:flex; gap:16px; margin-top:10px;">
+            <div style="flex:1; height:120px; background:rgba(255,255,255,0.04); border-radius:12px; padding:16px;">
+              <span style="font-weight:700; color:#fff;">backdrop-blur-sm</span>
+              <p style="font-size:14px; color:#64748b; margin-top:4px;">blur(4px)</p>
+            </div>
+            <div style="flex:1; height:120px; background:rgba(56,189,248,0.08); border:1px solid rgba(56,189,248,0.3); border-radius:12px; padding:16px;">
+              <span style="font-weight:700; color:#38bdf8;">backdrop-blur-2xl (Lucent Glass)</span>
+              <p style="font-size:14px; color:#94a3b8; margin-top:4px;">blur(40px) saturate(180%)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCENE 5: Theme Morph Spectrum -->
+    <div id="scene-themes" style="display: none;">
+      <div class="theme-preview-card" id="theme-morph-box">
+        <div class="white-capsule" id="theme-morph-capsule" style="transform: scale(1.1);">
+          <svg class="capsule-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <div class="capsule-input-text" id="theme-capsule-input">Lucent Liquid Glass</div>
+          <div class="capsule-shortcut">6 Themes</div>
+        </div>
+        <div class="theme-pill-tag" id="theme-tag">
+          <span style="width:12px; height:12px; border-radius:50%; background:#38bdf8;" id="theme-tag-dot"></span>
+          <span id="theme-tag-name">Apple VisionOS Crystal</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCENE 6: Grand Finale Packshot -->
+    <div id="scene-finale" style="display: none;">
+      <img src="../assets/lucent_horizontal_logo.png" alt="Lucent Logo" class="finale-logo-img">
+      <div class="finale-tagline">Think in Flow.</div>
+      <div class="capsule-hero-wrap">
+        <div class="white-capsule" style="box-shadow: 0 30px 80px rgba(0,0,0,0.6), 0 0 50px rgba(255,255,255,0.7);">
+          <svg class="capsule-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <div class="capsule-input-text" style="color:#0f172a; font-weight:600;">The web, when you need it. Gone when you don’t.</div>
+          <div class="capsule-shortcut" style="background:#0f172a; color:#fff;">⌥ Space</div>
+        </div>
+      </div>
+      <div class="finale-badges">
+        <div class="f-badge">⚡ Windows • macOS • Linux</div>
+        <div class="f-badge">💎 100% Free & Open Source</div>
+        <div class="f-badge">⭐ GitHub: BBencht/Lucent-Browser</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Master Deterministic Timeline Engine
+    window.renderAtTime = function(t) {
+      const $badge = document.getElementById('caption-badge');
+      const $title = document.getElementById('caption-title');
+      const $sub   = document.getElementById('caption-sub');
+      const $bg    = document.getElementById('ambient-bg');
+      const $orb1  = document.getElementById('orb-1');
+      const $orb2  = document.getElementById('orb-2');
+
+      const s1 = document.getElementById('scene-clutter');
+      const s2 = document.getElementById('scene-awakening');
+      const s4 = document.getElementById('scene-developer');
+      const s5 = document.getElementById('scene-themes');
+      const s6 = document.getElementById('scene-finale');
+
+      const keyAlt = document.getElementById('key-alt');
+      const keySpace = document.getElementById('key-space');
+      const keyContainer = document.getElementById('keycaps');
+      const heroCapsule = document.getElementById('hero-capsule');
+      const capsuleGlow = document.getElementById('capsule-glow');
+      const capsuleText = document.getElementById('capsule-text-content');
+      const everydayCard = document.getElementById('everyday-card');
+
+      const devModal = document.getElementById('dev-browser-modal');
+      const fsBadge  = document.getElementById('fs-badge-indicator');
+
+      const themeBox = document.getElementById('theme-morph-box');
+      const themeCapsule = document.getElementById('theme-morph-capsule');
+      const themeTagDot = document.getElementById('theme-tag-dot');
+      const themeTagName = document.getElementById('theme-tag-name');
+      const themeInput = document.getElementById('theme-capsule-input');
+
+      const captionContainer = document.getElementById('caption-container');
+      captionContainer.style.display = 'flex';
+      captionContainer.style.opacity = '1';
+
+      // Hide all scenes by default
+      s1.style.display = 'none';
+      s2.style.display = 'none';
+      s4.style.display = 'none';
+      s5.style.display = 'none';
+      s6.style.display = 'none';
+
+      // ─────────────────────────────────────────────────────────
+      // SCENE 1: The Clutter (0.0s - 6.2s)
+      // ─────────────────────────────────────────────────────────
+      if (t < 6.2) {
+        s1.style.display = 'flex';
+        $badge.textContent = 'THE PROBLEM';
+        $badge.style.color = '#ef4444';
+        $badge.style.borderColor = 'rgba(239, 68, 68, 0.4)';
+        $title.textContent = 'You just wanted a quick answer.';
+        $sub.textContent = 'Instead, the modern web demands your entire afternoon.';
+        $bg.style.background = 'radial-gradient(circle at 50% 50%, #200808 0%, #060202 100%)';
+        $orb1.style.background = 'radial-gradient(circle, rgba(239, 68, 68, 0.35), transparent 70%)';
+        $orb2.style.background = 'radial-gradient(circle, rgba(245, 158, 11, 0.25), transparent 70%)';
+        return true;
+      }
+
+      // ─────────────────────────────────────────────────────────
+      // SCENE 2: The White Crystal Awakening (6.2s - 11.0s)
+      // ─────────────────────────────────────────────────────────
+      if (t >= 6.2 && t < 11.0) {
+        s2.style.display = 'flex';
+        everydayCard.style.display = 'none';
+        keyContainer.style.display = 'flex';
+        $badge.textContent = 'THE REVOLUTION';
+        $badge.style.color = '#38bdf8';
+        $badge.style.borderColor = 'rgba(56, 189, 248, 0.4)';
+        $title.textContent = 'Meet Lucent.';
+        $sub.textContent = 'Not another browser you get lost in — an ethereal liquid glass HUD.';
+        $bg.style.background = 'radial-gradient(circle at 50% 40%, #0c1830 0%, #03060f 100%)';
+        $orb1.style.background = 'radial-gradient(circle, rgba(56, 189, 248, 0.4), transparent 70%)';
+        $orb2.style.background = 'radial-gradient(circle, rgba(147, 51, 234, 0.3), transparent 70%)';
+
+        // Keycap press animation at 6.3s - 7.0s
+        if (t >= 6.3 && t < 7.2) {
+          keyAlt.classList.add('pressed');
+          keySpace.classList.add('pressed');
+        } else {
+          keyAlt.classList.remove('pressed');
+          keySpace.classList.remove('pressed');
+        }
+
+        // Capsule spring expansion
+        const capProgress = Math.min(1, Math.max(0, (t - 6.6) / 0.8));
+        const scale = 0.5 + 0.5 * Math.sin(capProgress * Math.PI * 0.5);
+        heroCapsule.style.transform = `scale(${scale})`;
+        heroCapsule.style.opacity = `${capProgress}`;
+        capsuleGlow.style.opacity = `${capProgress * 0.9}`;
+        capsuleText.textContent = 'Search or type a URL...';
+        capsuleText.style.color = '#64748b';
+        return true;
+      }
+
+      // ─────────────────────────────────────────────────────────
+      // SCENE 3: Everyday Reflex (11.0s - 18.2s)
+      // ─────────────────────────────────────────────────────────
+      if (t >= 11.0 && t < 18.2) {
+        s2.style.display = 'flex';
+        keyContainer.style.display = 'none'; // hide keys to focus on card
+        $badge.textContent = 'EVERYDAY SPEED';
+        $badge.style.color = '#34d399';
+        $badge.style.borderColor = 'rgba(52, 211, 153, 0.4)';
+        $title.textContent = 'Appear when curious. Evaporate when done.';
+        $sub.textContent = 'Instant lookup. Tap Escape to vanish. Zero leftover tabs.';
+        $bg.style.background = 'radial-gradient(circle at 50% 40%, #061e1b 0%, #020b0a 100%)';
+        $orb1.style.background = 'radial-gradient(circle, rgba(52, 211, 153, 0.35), transparent 70%)';
+        $orb2.style.background = 'radial-gradient(circle, rgba(56, 189, 248, 0.25), transparent 70%)';
+
+        // Typewriter effect "avocado toast calories" (11.2s - 13.0s)
+        const fullQuery = 'avocado toast calories';
+        if (t < 13.2) {
+          const charCount = Math.floor(Math.min(1, Math.max(0, (t - 11.2) / 1.8)) * fullQuery.length);
+          capsuleText.textContent = fullQuery.substring(0, charCount);
+          capsuleText.style.color = '#0f172a';
+          everydayCard.style.display = 'none';
+        } else {
+          capsuleText.textContent = fullQuery;
+          capsuleText.style.color = '#0f172a';
+          everydayCard.style.display = 'flex';
+
+          // Card slide down reveal
+          const cardProg = Math.min(1, (t - 13.2) / 0.5);
+          everydayCard.style.opacity = `${cardProg}`;
+          everydayCard.style.transform = `translateY(${(1 - cardProg) * -20}px)`;
+        }
+
+        // Dissolve / evaporate on Escape (16.6s - 18.0s)
+        if (t >= 16.6) {
+          const vanishProg = Math.min(1, (t - 16.6) / 0.6);
+          const s = 1 - vanishProg * 0.6;
+          heroCapsule.style.transform = `scale(${s})`;
+          heroCapsule.style.opacity = `${1 - vanishProg}`;
+          capsuleGlow.style.opacity = `${(1 - vanishProg) * 0.5}`;
+          everydayCard.style.opacity = `${1 - vanishProg}`;
+        } else {
+          heroCapsule.style.transform = 'scale(1)';
+          heroCapsule.style.opacity = '1';
+        }
+        return true;
+      }
+
+      // ─────────────────────────────────────────────────────────
+      // SCENE 4: Developer Flow State & Fullscreen (18.2s - 24.2s)
+      // ─────────────────────────────────────────────────────────
+      if (t >= 18.2 && t < 24.2) {
+        s4.style.display = 'flex';
+        $badge.textContent = 'DEEP WORK & FLOW';
+        $badge.style.color = '#a78bfa';
+        $badge.style.borderColor = 'rgba(167, 139, 250, 0.4)';
+        $title.textContent = 'Zero context-switching. Pure focus.';
+        $sub.textContent = 'Tap F11 anytime to bloom into a distraction-free fullscreen canvas.';
+        $bg.style.background = 'radial-gradient(circle at 50% 40%, #160d2b 0%, #06030c 100%)';
+        $orb1.style.background = 'radial-gradient(circle, rgba(167, 139, 250, 0.4), transparent 70%)';
+        $orb2.style.background = 'radial-gradient(circle, rgba(56, 189, 248, 0.3), transparent 70%)';
+
+        // Floating window -> Fullscreen bloom (at 21.0s)
+        if (t < 21.0) {
+          // Floating mode
+          captionContainer.style.opacity = '1';
+          devModal.style.width = '1280px';
+          devModal.style.height = '720px';
+          devModal.style.borderRadius = '20px';
+          devModal.style.boxShadow = '0 40px 100px rgba(0, 0, 0, 0.8), 0 0 60px rgba(56, 189, 248, 0.2)';
+          fsBadge.textContent = 'PRESS F11 FOR FULLSCREEN';
+          fsBadge.style.background = 'rgba(255, 255, 255, 0.1)';
+          fsBadge.style.color = '#cbd5e1';
+        } else {
+          // Fullscreen bloom
+          const bloomProg = Math.min(1, (t - 21.0) / 0.6);
+          captionContainer.style.opacity = `${Math.max(0, 1 - bloomProg * 2)}`;
+          const w = 1280 + (1920 - 1280) * bloomProg;
+          const h = 720 + (1080 - 720) * bloomProg;
+          const r = 20 * (1 - bloomProg);
+          devModal.style.width = `${w}px`;
+          devModal.style.height = `${h}px`;
+          devModal.style.borderRadius = `${r}px`;
+          fsBadge.textContent = '⚡ FULLSCREEN CANVAS ACTIVE';
+          fsBadge.style.background = 'rgba(56, 189, 248, 0.25)';
+          fsBadge.style.color = '#38bdf8';
+        }
+        return true;
+      }
+
+      // ─────────────────────────────────────────────────────────
+      // SCENE 5: 6 Glass Themes Morph Spectrum (24.2s - 28.6s)
+      // ─────────────────────────────────────────────────────────
+      if (t >= 24.2 && t < 28.6) {
+        captionContainer.style.display = 'flex';
+        captionContainer.style.opacity = '1';
+        s5.style.display = 'flex';
+        $badge.textContent = 'AESTHETIC FREEDOM';
+        $badge.style.color = '#f59e0b';
+        $badge.style.borderColor = 'rgba(245, 158, 11, 0.4)';
+        $title.textContent = 'Six Luminous Glass Themes.';
+        $sub.textContent = 'Designed with refractive glassmorphism to harmonize with every desktop.';
+
+        // Rapid theme cycling
+        if (t < 25.4) {
+          // Midnight Aurora
+          themeBox.style.background = 'linear-gradient(135deg, rgba(6, 78, 59, 0.8), rgba(2, 44, 34, 0.95))';
+          themeBox.style.borderColor = 'rgba(52, 211, 153, 0.5)';
+          themeCapsule.style.background = 'rgba(16, 185, 129, 0.25)';
+          themeCapsule.style.borderColor = 'rgba(52, 211, 153, 0.8)';
+          themeInput.textContent = 'Theme: Midnight Aurora (Emerald)';
+          themeInput.style.color = '#a7f3d0';
+          themeTagDot.style.background = '#34d399';
+          themeTagName.textContent = 'Midnight Aurora';
+        } else if (t < 26.6) {
+          // Sunset Amber
+          themeBox.style.background = 'linear-gradient(135deg, rgba(120, 53, 15, 0.8), rgba(69, 26, 3, 0.95))';
+          themeBox.style.borderColor = 'rgba(251, 191, 36, 0.5)';
+          themeCapsule.style.background = 'rgba(245, 158, 11, 0.25)';
+          themeCapsule.style.borderColor = 'rgba(251, 191, 36, 0.8)';
+          themeInput.textContent = 'Theme: Sunset Amber (Liquid Gold)';
+          themeInput.style.color = '#fde68a';
+          themeTagDot.style.background = '#fbbf24';
+          themeTagName.textContent = 'Sunset Amber';
+        } else if (t < 27.6) {
+          // Obsidian Ice
+          themeBox.style.background = 'linear-gradient(135deg, rgba(46, 16, 101, 0.8), rgba(15, 7, 36, 0.95))';
+          themeBox.style.borderColor = 'rgba(167, 139, 250, 0.5)';
+          themeCapsule.style.background = 'rgba(139, 92, 246, 0.25)';
+          themeCapsule.style.borderColor = 'rgba(167, 139, 250, 0.8)';
+          themeInput.textContent = 'Theme: Obsidian Ice (Cosmic Violet)';
+          themeInput.style.color = '#ddd6fe';
+          themeTagDot.style.background = '#a78bfa';
+          themeTagName.textContent = 'Obsidian Ice';
+        } else {
+          // HERO: Apple VisionOS Crystal (Pure White)
+          themeBox.style.background = 'linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.08))';
+          themeBox.style.borderColor = 'rgba(255, 255, 255, 0.9)';
+          themeCapsule.style.background = 'rgba(255, 255, 255, 0.9)';
+          themeCapsule.style.borderColor = '#ffffff';
+          themeInput.textContent = 'Hero: Apple VisionOS Crystal (Pure Frost)';
+          themeInput.style.color = '#0f172a';
+          themeTagDot.style.background = '#ffffff';
+          themeTagName.textContent = 'Apple VisionOS Crystal';
+        }
+        return true;
+      }
+
+      // ─────────────────────────────────────────────────────────
+      // SCENE 6: Grand Finale Packshot (28.6s - 34.0s)
+      // ─────────────────────────────────────────────────────────
+      if (t >= 28.6) {
+        captionContainer.style.display = 'none';
+        s6.style.display = 'flex';
+        $bg.style.background = 'radial-gradient(circle at 50% 50%, #0f1d3a 0%, #03050c 100%)';
+        $orb1.style.background = 'radial-gradient(circle, rgba(56, 189, 248, 0.45), transparent 70%)';
+        $orb2.style.background = 'radial-gradient(circle, rgba(147, 51, 234, 0.35), transparent 70%)';
+        return true;
+      }
+
+      return true;
+    };
+  </script>
+</body>
+</html>
