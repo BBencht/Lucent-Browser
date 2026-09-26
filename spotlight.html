@@ -1186,13 +1186,16 @@ html, body {
 }
 
 .answer-text {
-  font-size: 12.5px;
-  line-height: 1.5;
-  color: rgba(255, 255, 255, 0.88);
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  font-size: 13px;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.92);
+  white-space: pre-line;
+  max-height: 190px;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+.answer-text::-webkit-scrollbar {
+  display: none;
 }
 
 /* Light / Apple Liquid theme overrides */
@@ -4146,7 +4149,7 @@ function showInstantAnswer(data) {
       }
     }
     if ($answerTitle) $answerTitle.textContent = data.title || '';
-    if ($answerSubtitle) $answerSubtitle.textContent = data.description || '';
+    if ($answerSubtitle) $answerSubtitle.textContent = data.detail || data.description || '';
     if ($answerCalcBig) $answerCalcBig.style.display = 'none';
     if ($answerText) {
       $answerText.textContent = data.answer || '';

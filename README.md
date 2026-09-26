@@ -2,12 +2,12 @@
 
 <img src="assets/lucent_horizontal_logo.png" alt="Lucent Browser" width="520" style="border-radius: 14px; margin-bottom: 20px; box-shadow: 0 16px 40px rgba(0,0,0,0.4);" />
 
-# Lucent Browser (v1.2.0)
+# Lucent Browser (v1.2.1)
 
 ### *Ultra-minimalist, floating Liquid Glass HUD browser with Instant Smart Answers for Windows, macOS & Linux.*
 **Universal floating search capsule, zero-config AI quick answers, and full-featured desktop web browser in one sleek translucent interface.**
 
-[![Version](https://img.shields.io/badge/version-1.2.0-00f0ff?style=for-the-badge)](https://github.com/BBencht/Lucent-Browser/releases)
+[![Version](https://img.shields.io/badge/version-1.2.1-00f0ff?style=for-the-badge)](https://github.com/BBencht/Lucent-Browser/releases)
 [![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-blue?style=for-the-badge)](https://github.com/BBencht/Lucent-Browser)
 [![License](https://img.shields.io/badge/license-MIT-0984e3?style=for-the-badge)](LICENSE)
 [![Electron](https://img.shields.io/badge/Electron-44.4.3-47a248?style=for-the-badge&logo=electron&logoColor=white)](https://electronjs.org)
@@ -54,22 +54,24 @@ It’s not a giant window you get lost in—it’s an ethereal, floating lens ov
 
 ---
 
-## ⚡ Flagship Feature: Instant Smart Answers & AI Knowledge Hub
+## ⚡ Flagship Feature: Instant Smart Answers & Google Gemini AI Overview
 
 > **Why open slow search result pages or juggle cluttered tabs just to answer a simple question?**  
-> Lucent Browser's floating Spotlight capsule (`Alt + Space`) is equipped with a built-in, **zero-configuration Smart Answer engine** that computes math, converts currencies and units, and delivers real-time encyclopedia knowledge summaries **as you type**, directly inside the HUD.
+> Lucent Browser's floating Spotlight capsule (`Alt + Space`) is equipped with a built-in, **zero-configuration Smart Answer engine** that computes math, converts currencies and units, delivers encyclopedia summaries, and extracts **live Google AI Overviews (Gemini)** directly inside the HUD.
 
 ### 🌟 How It Works — 100% Zero-Config, Out of the Box:
+* 🧠 **Live Google AI Overviews (Gemini) & Direct Answers:**  
+  Ask genuine, natural-language questions (e.g. `miért kék az ég?`, `hogyan kell palacsintát csinálni?`, `why is the sky blue?`, `how do black holes form?`). Lucent queries Google in an invisible background Chromium session with automated EU cookie consent handling, extracts the live **AI-alapú áttekintés (AI Overview / Gemini)** or Featured Snippet, and presents clear, multi-paragraph answers and recipe steps directly in your HUD capsule.
 * 🧮 **Instant Local Calculator (0ms Offline Engine):**  
   Type any arithmetic expression, percentage, square root, or exponent (e.g. `150 * 4 + 20`, `15% of 850`, `sqrt(144)`, `2^10`). Lucent calculates the exact result instantaneously with zero network lag and displays it in prominent typography.
 * ⚖️ **Real-Time Unit & Currency Conversions:**  
   Type natural conversions (e.g. `100 cm in inch`, `50 kg in lbs`, `100 eur to huf`). Powered by real-time smart suggestions, the accurate converted value appears immediately above your search suggestions.
-* ✦ **Instant AI & World Knowledge Overviews:**  
-  Query people, places, historical figures, biology, geography, or science concepts (e.g. `Petőfi Sándor`, `Fotoszintézis`, `Albert Einstein`, `Quantum computing`, `Budapest`). Lucent fetches and formats concise summaries, entity thumbnails, and subtitles in real time (supporting Hungarian and English queries) with a 1-click **Source (Forrás)** link.
+* ✦ **Instant Encyclopedia & World Knowledge:**  
+  Query people, places, historical figures, biology, geography, or science concepts (e.g. `Petőfi Sándor`, `Fotoszintézis`, `Albert Einstein`, `Quantum computing`, `Budapest`). Lucent formats concise summaries, entity thumbnails, and subtitles in real time (supporting Hungarian and English) with a 1-click **Source (Forrás)** link.
 * 📋 **1-Click Copy with Liquid Glass Feedback:**  
-  Click the **"Másolás" (Copy)** button on any answer card to copy the clean result or summary directly to your clipboard, confirmed with a luminous glass toast notification.
-* 🛡️ **Zero Setup, Pure Privacy:**  
-  **No API keys, no Google Cloud setup, no account creation, and no subscription.** It works immediately for every user without configuration.
+  Click the **"Másolás" (Copy)** button on any answer card to copy the clean result, recipe, or AI summary directly to your clipboard, confirmed with a luminous glass toast notification.
+* 🛡️ **100% Download and Play — Zero API Keys or Setup:**  
+  **No API keys, no Google Cloud or OpenAI accounts, no subscriptions, and no registration.** Download the app, press `Alt + Space`, and it just works out of the box for everyone!
 * 🎛️ **Full User Control:**  
   Prefer raw web results only? You can toggle Instant Smart Answers ON or OFF at any time in **Settings** (`⌘,` or gear icon $\rightarrow$ **General** $\rightarrow$ `Instant Smart Answers`).
 
@@ -111,12 +113,12 @@ Pre-built, standalone application packages for **Windows**, **macOS**, and **Lin
 
 | Platform | Architecture | Package Format | Download |
 | :--- | :--- | :--- | :--- |
-| **Windows** | 64-bit (Windows 10+) | Setup Installer | [**Installer (.exe)**](https://github.com/BBencht/Lucent-Browser/releases/download/v1.2.0/Lucent-Browser-Setup-1.2.0.exe) |
-| **Windows** | 64-bit (Windows 10+) | Portable Archive | [**Portable (.zip)**](https://github.com/BBencht/Lucent-Browser/releases/download/v1.2.0/Lucent-Browser-1.2.0-win.zip) |
-| **macOS** | Apple Silicon | Disk Image | [**Apple Silicon (.dmg)**](https://github.com/BBencht/Lucent-Browser/releases/download/v1.2.0/Lucent-Browser-1.2.0-arm64.dmg) |
-| **macOS** | Intel | Disk Image | [**Intel (.dmg)**](https://github.com/BBencht/Lucent-Browser/releases/download/v1.2.0/Lucent-Browser-1.2.0.dmg) |
-| **Linux** | x86_64 | Standalone Package | [**AppImage (.AppImage)**](https://github.com/BBencht/Lucent-Browser/releases/download/v1.2.0/Lucent-Browser-1.2.0.AppImage) |
-| **Linux** | x86_64 | Compressed Tarball | [**Tarball (.tar.gz)**](https://github.com/BBencht/Lucent-Browser/releases/download/v1.2.0/lucent-browser-1.2.0.tar.gz) |
+| **Windows** | 64-bit (Windows 10+) | Setup Installer | [**Installer (.exe)**](https://github.com/BBencht/Lucent-Browser/releases/download/v1.2.1/Lucent-Browser-Setup-1.2.1.exe) |
+| **Windows** | 64-bit (Windows 10+) | Portable Archive | [**Portable (.zip)**](https://github.com/BBencht/Lucent-Browser/releases/download/v1.2.1/Lucent-Browser-1.2.1-win.zip) |
+| **macOS** | Apple Silicon | Disk Image | [**Apple Silicon (.dmg)**](https://github.com/BBencht/Lucent-Browser/releases/download/v1.2.1/Lucent-Browser-1.2.1-arm64.dmg) |
+| **macOS** | Intel | Disk Image | [**Intel (.dmg)**](https://github.com/BBencht/Lucent-Browser/releases/download/v1.2.1/Lucent-Browser-1.2.1.dmg) |
+| **Linux** | x86_64 | Standalone Package | [**AppImage (.AppImage)**](https://github.com/BBencht/Lucent-Browser/releases/download/v1.2.1/Lucent-Browser-1.2.1.AppImage) |
+| **Linux** | x86_64 | Compressed Tarball | [**Tarball (.tar.gz)**](https://github.com/BBencht/Lucent-Browser/releases/download/v1.2.1/lucent-browser-1.2.1.tar.gz) |
 
 > **Tip for macOS users:** You can also install and launch directly from Terminal with:  
 > `curl -fsSL https://raw.githubusercontent.com/BBencht/Lucent-Browser/main/install.sh | bash`
@@ -167,6 +169,16 @@ Gatekeeper flags unsigned downloaded applications by default. Choose whichever o
 | **`Alt + Left`** / **`Alt + Right`** | **`⌘ + [`** / **`⌘ + ]`** | Navigate Back / Forward in History |
 | **`Ctrl + R`** or **`F5`** | **`⌘ + R`** | Reload Current Web Page |
 | **`Escape`** | **`Escape`** | Dismiss Search Results / Close Settings / Exit Fullscreen |
+
+---
+
+## 🆕 What's New in v1.2.1
+
+- 🧠 **Live Google AI Overview (Gemini) Extraction for Natural Questions:** Lucent now answers actual, natural-language questions (e.g. *"miért kék az ég?"*, *"hogyan kell palacsintát csinálni?"*, *"how do airplanes fly?"*) directly inside the floating Spotlight capsule.
+- ⚡ **100% Download and Play — Zero API Keys Required:** Runs a headless, lightweight Chromium search session in the background with automated EU cookie consent handling. Delivers Google's real-time AI Overview (Gemini) and Featured Snippets with zero configuration, no sign-ups, and no paid API subscriptions.
+- 📜 **Multi-Line & Step-by-Step AI Explanations:** Enhanced answer card typography with `pre-line` layout and custom scrolling so detailed explanations, bullet points, and recipe instructions render cleanly without truncation.
+- 🫧 **Dynamic Glass Capsule Expansion:** The Spotlight capsule dynamically expands up to 680px with fluid spring animations to accommodate rich answers while keeping web suggestions readily accessible underneath.
+- 🌐 **Intelligent Language Routing:** Automatically detects Hungarian and English queries, applying appropriate language headers (`hl=hu` / `hl=en`) to guarantee natively localized AI answers.
 
 ---
 

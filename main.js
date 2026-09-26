@@ -173,8 +173,8 @@ function layout(mode, count = 0, hasAnswer = false) {
   }
 
   if (mode === 'results') {
-    const extraAnswer = hasAnswer ? 140 : 0;
-    const h = Math.min(640, H_SEARCH + Math.max(1, count) * 52 + 36 + extraAnswer);
+    const extraAnswer = hasAnswer ? 200 : 0;
+    const h = Math.min(680, H_SEARCH + Math.max(1, count) * 52 + 36 + extraAnswer);
     return { x: cx, y: cy, width: W_SEARCH, height: h };
   }
 
@@ -622,19 +622,175 @@ async function tryWikiKnowledge(q) {
   return null;
 }
 
+// ── Google Background Live Search & AI Overview Extraction ──────────
+let bgSearchWin = null;
+let currentSearchRequestId = 0;
+
+function getBgSearchWindow() {
+  if (!bgSearchWin || bgSearchWin.isDestroyed()) {
+    const bgSession = session.fromPartition('persist:google_ai_search');
+
+    bgSession.webRequest.onBeforeSendHeaders((details, callback) => {
+      const headers = { ...details.requestHeaders };
+      headers['User-Agent'] = chromeUA;
+      headers['Accept-Language'] = 'hu-HU,hu;q=0.9,en-US;q=0.8,en;q=0.7';
+      callback({ requestHeaders: headers });
+    });
+
+    bgSearchWin = new BrowserWindow({
+      show: false,
+      width: 1200,
+      height: 900,
+      webPreferences: {
+        session: bgSession,
+        backgroundThrottling: false,
+        javascript: true,
+        images: false,
+      }
+    });
+
+    bgSearchWin.webContents.setUserAgent(chromeUA);
+
+    // Auto-accept EU consent if redirected to consent page
+    bgSearchWin.webContents.on('did-finish-load', async () => {
+      try {
+        await bgSearchWin.webContents.executeJavaScript(`
+          (() => {
+            const btn = document.getElementById('L2AGLb') ||
+                        document.querySelector('button[aria-label*="elfogad"], button[aria-label*="Accept"], form[action*="consent"] button');
+            if (btn) btn.click();
+          })()
+        `);
+      } catch (e) {}
+    });
+  }
+  return bgSearchWin;
+}
+
+async function tryGoogleAIOverview(q) {
+  const reqId = ++currentSearchRequestId;
+  try {
+    const isHungarian = /[áéíóöőúüű]/i.test(q) || /^(mi|ki|hol|mikor|hogyan|miért|mit|milyen|hány|mennyi|volt|magyar|a|az)\b/i.test(q);
+    const hl = isHungarian ? 'hu' : 'en';
+    const bw = getBgSearchWindow();
+
+    const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(q)}&hl=${hl}&gl=${hl}`;
+
+    try {
+      bw.webContents.stop();
+    } catch (_) {}
+
+    await bw.loadURL(searchUrl);
+
+    // Give Google up to 3.2 seconds to generate the AI overview or featured snippet
+    const startTime = Date.now();
+    while (Date.now() - startTime < 3200) {
+      if (reqId !== currentSearchRequestId) return null;
+      await new Promise(r => setTimeout(r, 200));
+      if (reqId !== currentSearchRequestId) return null;
+
+      try {
+        const res = await bw.webContents.executeJavaScript(`
+          (() => {
+            // Auto accept consent on consent dialogs
+            if (window.location.hostname.includes('consent.google')) {
+              const b = document.getElementById('L2AGLb') ||
+                        Array.from(document.querySelectorAll('button')).find(el => /elfogad|accept|agree/i.test(el.textContent));
+              if (b) b.click();
+              return null;
+            }
+
+            // 1. Check for AI-alapú áttekintés / AI Overview (Gemini)
+            const allElements = Array.from(document.querySelectorAll('div, section, h2, h3, span'));
+            const aiHeader = allElements.find(el => {
+              const t = (el.textContent || '').trim();
+              return t.startsWith('AI-alapú áttekintés') || t.startsWith('AI Overview');
+            });
+
+            if (aiHeader) {
+              let cur = aiHeader.parentElement;
+              for (let i = 0; i < 8 && cur; i++) {
+                if (cur.textContent.length > 70) {
+                  const items = [];
+                  const paras = Array.from(cur.querySelectorAll('p, li, div.wDYX2c, div[data-attrid="wa:/description"]'));
+                  for (const p of paras) {
+                    const txt = p.innerText.trim();
+                    if (txt && txt.length > 10 && !txt.includes('AI-alapú áttekintés') && !txt.includes('Az AI hibázhat') && !items.includes(txt)) {
+                      items.push(txt);
+                    }
+                  }
+
+                  if (items.length === 0) {
+                    const cleanText = cur.innerText
+                      .replace(/AI-alapú áttekintés/g, '')
+                      .replace(/Az AI hibázhat[^\n]*/g, '')
+                      .trim();
+                    if (cleanText.length > 40) {
+                      items.push(cleanText);
+                    }
+                  }
+
+                  if (items.length > 0) {
+                    return {
+                      type: 'ai',
+                      badge: '✦ AI Áttekintés',
+                      title: '${q.replace(/'/g, "\\'")}',
+                      answer: items.slice(0, 6).join('\\n\\n'),
+                      detail: 'Google Gemini AI',
+                      url: window.location.href
+                    };
+                  }
+                }
+                cur = cur.parentElement;
+              }
+            }
+
+            // 2. Check for Google Featured Snippet (Kiemelt kivonat / Direct Answer)
+            const snippetEl = document.querySelector('.hgKElc, [data-attrid*="description"], .Z0LcW, .LGOjzf, .kno-rdesc, .V3FYCf');
+            if (snippetEl) {
+              const text = snippetEl.innerText.trim();
+              if (text && text.length > 25) {
+                return {
+                  type: 'ai',
+                  badge: '✦ Kiemelt Válasz',
+                  title: '${q.replace(/'/g, "\\'")}',
+                  answer: text,
+                  detail: 'Google Keresés',
+                  url: window.location.href
+                };
+              }
+            }
+
+            return null;
+          })()
+        `);
+
+        if (res && res.answer) {
+          return res;
+        }
+      } catch (err) {}
+    }
+  } catch (e) {}
+  return null;
+}
+
 ipcMain.handle('get-instant-answer', async (_e, query) => {
   if (!query || typeof query !== 'string' || !query.trim()) return null;
   const q = query.trim();
 
-  // 1. Safe math evaluation
+  // 1. Safe math evaluation (0ms)
   const mathRes = tryEvaluateMath(q);
   if (mathRes) return mathRes;
 
-  // 2. Google suggest unit/currency conversions
+  // 2. Google suggest unit/currency conversions (~80ms)
   const googleRes = await tryGoogleSuggestAnswer(q);
   if (googleRes) return googleRes;
 
-  // 3. Wikipedia knowledge summary
+  // 3. Live Google AI-alapú áttekintés & Kiemelt kivonat (background search)
+  const aiRes = await tryGoogleAIOverview(q);
+  if (aiRes) return aiRes;
+
+  // 4. Wikipedia knowledge summary fallback
   const wikiRes = await tryWikiKnowledge(q);
   if (wikiRes) return wikiRes;
 
