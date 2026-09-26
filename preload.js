@@ -15,7 +15,7 @@ contextBridge.exposeInMainWorld('GlassAPI', {
   onClose: (cb) => ipcRenderer.on('close', () => cb()),
   onFullscreenChange: (cb) => ipcRenderer.on('fullscreen-change', (_e, isFs) => cb(isFs)),
   getSearchSuggestions: (query) => ipcRenderer.invoke('get-search-suggestions', query),
-  getInstantAnswer: (query) => ipcRenderer.invoke('get-instant-answer', query),
+  getInstantAnswer: (query, apiKey) => ipcRenderer.invoke('get-instant-answer', query, apiKey),
   onGestureNav: (cb) => ipcRenderer.on('gesture-nav', (_e, dir) => cb(dir)),
   clearPrivateSession: () => ipcRenderer.invoke('clear-private-session'),
   clearBrowserData: () => ipcRenderer.invoke('clear-browser-data'),

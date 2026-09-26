@@ -3113,13 +3113,13 @@ body[data-theme="oled-black"] .loader-label {
         <div class="answer-header">
           <span class="answer-badge-wrap" id="answer-badge">✦ Smart Answer</span>
           <div class="answer-header-actions">
-            <button class="answer-btn" id="btn-copy-answer" title="Válasz másolása">
+            <button class="answer-btn" id="btn-copy-answer" title="Copy answer">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              <span>Másolás</span>
+              <span>Copy</span>
             </button>
-            <button class="answer-btn" id="btn-open-answer" title="Forrás megnyitása" style="display:none;">
+            <button class="answer-btn" id="btn-open-answer" title="Open source" style="display:none;">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-              <span>Forrás</span>
+              <span>Source</span>
             </button>
           </div>
         </div>
@@ -3567,6 +3567,7 @@ const DEFAULT_SETTINGS = {
   theme: 'deep-frost',
   searchEngine: 'google',
   instantAnswers: true,
+  geminiApiKey: '',
   autoClearOnOpen: true,
   saveHistory: true,
   shortcuts: { ...DEFAULT_SHORTCUTS },
@@ -3875,16 +3876,47 @@ function buildResults(query) {
     }
   }
 
-  // 3. YouTube prefix commands
-  if (q.startsWith('yt ') || q.startsWith('youtube ')) {
-    const searchTerm = query.replace(/^(yt|youtube)\s+/i, '').trim();
-    if (searchTerm) {
-      results.push({
-        name: `YouTube search: “${searchTerm}”`,
-        url: `https://www.youtube.com/results?search_query=${encodeURIComponent(searchTerm)}`,
-        icon: '🎬',
-        badge: 'top',
-      });
+  // 2b. Localhost & Local IP detection
+  if (q.startsWith('localhost') || q.startsWith('127.0.0.1') || /^192\.168\.\d+\.\d+/.test(q)) {
+    const localUrl = q.startsWith('http') ? q : 'http://' + q;
+    results.unshift({
+      name: `Open local server: ${localUrl}`,
+      url: localUrl,
+      icon: '💻',
+      badge: 'local',
+      subtitle: 'Local Development Server',
+      direct: true,
+      isTopMatch: true
+    });
+  }
+
+  // 3. Smart Search Engine Bangs & Prefixes
+  const BANGS = [
+    { prefix: /^(?:!yt|yt)\s+/i, name: 'YouTube', icon: '🎬', url: (s) => `https://www.youtube.com/results?search_query=${encodeURIComponent(s)}` },
+    { prefix: /^(?:!gh|gh)\s+/i, name: 'GitHub', icon: '🐙', url: (s) => `https://github.com/search?q=${encodeURIComponent(s)}` },
+    { prefix: /^(?:!w|w)\s+/i, name: 'Wikipedia', icon: '📚', url: (s) => `https://en.wikipedia.org/wiki/Special:Search?search=${encodeURIComponent(s)}` },
+    { prefix: /^(?:!r|r)\s+/i, name: 'Reddit', icon: '💬', url: (s) => `https://www.reddit.com/search/?q=${encodeURIComponent(s)}` },
+    { prefix: /^(?:!maps|maps)\s+/i, name: 'Google Maps', icon: '📍', url: (s) => `https://www.google.com/maps/search/${encodeURIComponent(s)}` },
+    { prefix: /^(?:!g|g)\s+/i, name: 'Google', icon: '🔍', url: (s) => `https://www.google.com/search?q=${encodeURIComponent(s)}` },
+    { prefix: /^(?:!d|d)\s+/i, name: 'DuckDuckGo', icon: '🦆', url: (s) => `https://duckduckgo.com/?q=${encodeURIComponent(s)}` },
+    { prefix: /^(?:!b|b)\s+/i, name: 'Bing', icon: '🌐', url: (s) => `https://www.bing.com/search?q=${encodeURIComponent(s)}` },
+    { prefix: /^(?:!x|x)\s+/i, name: 'X / Twitter', icon: '𝕏', url: (s) => `https://x.com/search?q=${encodeURIComponent(s)}` }
+  ];
+
+  for (const b of BANGS) {
+    if (b.prefix.test(query)) {
+      const searchTerm = query.replace(b.prefix, '').trim();
+      if (searchTerm) {
+        results.unshift({
+          name: `${b.name} search: “${searchTerm}”`,
+          url: b.url(searchTerm),
+          icon: b.icon,
+          badge: 'bang',
+          subtitle: `Direct ${b.name} Search Shortcut`,
+          isTopMatch: true
+        });
+      }
+      break;
     }
   }
 
@@ -4069,13 +4101,26 @@ function scheduleSpotlightLiveSearch(rawQuery) {
   liveSearchDebounce = setTimeout(async () => {
     if (state.query.trim() !== q) return;
 
-    // 1. Fetch Instant Smart Answer (Calculator, Conversions, Wiki Knowledge)
+    // 1. Fetch Instant Smart Answer (Calculator, Conversions, Wiki Knowledge, Gemini AI)
     if (state.settings?.instantAnswers !== false && window.GlassAPI?.getInstantAnswer) {
-      window.GlassAPI.getInstantAnswer(q).then((ans) => {
+      const apiKey = state.settings?.geminiApiKey || '';
+      window.GlassAPI.getInstantAnswer(q, apiKey).then((ans) => {
         if (state.query.trim() === q && ans) {
           showInstantAnswer(ans);
         } else if (state.query.trim() === q && !ans) {
-          hideInstantAnswer();
+          const isQuestion = /^(what|how|why|who|where|when|which|is|can|do|does|tell|explain|miért|hogyan|ki|hol|mikor|mit|milyen)\b/i.test(q) || q.endsWith('?');
+          if (isQuestion && !apiKey) {
+            showInstantAnswer({
+              type: 'ai-prompt',
+              badge: '✦ Gemini AI',
+              title: q,
+              answer: '💡 Want instant AI answers for questions like this?\nAdd your free Google Gemini API key in Settings (⌘, → Gemini AI) to unlock live answers directly in Spotlight!',
+              detail: 'Google Gemini 2.0 Flash',
+              isPrompt: true
+            });
+          } else {
+            hideInstantAnswer();
+          }
         }
       }).catch(() => {});
     } else {
@@ -4168,6 +4213,20 @@ function showInstantAnswer(data) {
     }
   }
 
+  if (data.isPrompt) {
+    if ($btnCopyAnswer) $btnCopyAnswer.style.display = 'none';
+    if ($instantAnswerCard) {
+      $instantAnswerCard.style.cursor = 'pointer';
+      $instantAnswerCard.onclick = () => openSettings('ai');
+    }
+  } else {
+    if ($btnCopyAnswer) $btnCopyAnswer.style.display = 'inline-flex';
+    if ($instantAnswerCard) {
+      $instantAnswerCard.style.cursor = 'default';
+      $instantAnswerCard.onclick = null;
+    }
+  }
+
   if ($instantAnswerCard) {
     $instantAnswerCard.classList.remove('hidden');
   }
@@ -4202,13 +4261,13 @@ function copyCurrentAnswer() {
     : `${currentAnswerData.title}: ${currentAnswerData.answer}`;
   navigator.clipboard.writeText(textToCopy).then(() => {
     const origSpan = $btnCopyAnswer ? $btnCopyAnswer.querySelector('span') : null;
-    if (origSpan) origSpan.textContent = '✓ Másolva!';
-    showToast('📋 Válasz másolva a vágólapra!');
+    if (origSpan) origSpan.textContent = '✓ Copied!';
+    showToast('📋 Answer copied to clipboard!');
     setTimeout(() => {
-      if (origSpan) origSpan.textContent = 'Másolás';
+      if (origSpan) origSpan.textContent = 'Copy';
     }, 1800);
   }).catch(() => {
-    showToast('Nem sikerült másolni a vágólapra');
+    showToast('Failed to copy to clipboard');
   });
 }
 
@@ -5928,6 +5987,7 @@ function renderSettingsInto(container, onClose) {
       <div class="settings-tabs-bar">
         <button class="settings-nav-tab active" data-tab="themes">🎨 Themes</button>
         <button class="settings-nav-tab" data-tab="search">🔍 Search Engine</button>
+        <button class="settings-nav-tab" data-tab="ai">✦ Gemini AI</button>
         <button class="settings-nav-tab" data-tab="general">⚙️ General</button>
         <button class="settings-nav-tab" data-tab="shortcuts">⌨️ Shortcuts</button>
         <button class="settings-nav-tab" data-tab="security">🛡️ Security</button>
@@ -5944,12 +6004,47 @@ function renderSettingsInto(container, onClose) {
           <div class="engine-options-list">${enginesHtml}</div>
         </div>
 
+        <div class="settings-tab-pane" data-tab-content="ai">
+          <div class="settings-section-title">Google Gemini AI Integration</div>
+          <p style="font-size:12px; color:var(--text-muted); margin:0 0 16px; line-height:1.5;">
+            Unlock instant conversational AI answers for natural questions (recipes, explanations, guides, science) directly inside your Spotlight capsule using Google's ultra-fast Gemini 2.0 Flash model.
+          </p>
+
+          <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1); border-radius:12px; padding:16px; margin-bottom:16px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+              <span style="font-weight:600; font-size:13px; color:#60a5fa;">🔑 Google Gemini API Key</span>
+              <span id="gemini-key-status" style="font-size:11px; font-weight:500; color:${state.settings?.geminiApiKey ? '#34d399' : 'var(--text-muted)'};">
+                ${state.settings?.geminiApiKey ? '● Configured' : '○ Not set'}
+              </span>
+            </div>
+            <p style="font-size:11.5px; color:var(--text-muted); margin:0 0 12px; line-height:1.4;">
+              100% Free with no credit card required. Generate your personal API key in seconds at Google AI Studio.
+            </p>
+            <div style="display:flex; gap:8px;">
+              <input type="password" id="setting-gemini-key" placeholder="AIzaSy..." value="${escapeHtml(state.settings?.geminiApiKey || '')}" style="flex:1; padding:8px 12px; border-radius:8px; border:1px solid rgba(255,255,255,0.15); background:rgba(0,0,0,0.3); color:#fff; font-family:monospace; font-size:12px;">
+              <button class="settings-action-btn" id="btn-save-gemini-key" style="padding:8px 16px; border-radius:8px; background:linear-gradient(135deg, #3b82f6, #6366f1); color:#fff; border:none; font-weight:600; font-size:12px; cursor:pointer;">Save</button>
+            </div>
+            <div style="margin-top:12px; font-size:11.5px;">
+              <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color:#93c5fd; text-decoration:none; display:inline-flex; align-items:center; gap:4px;">
+                ↗ Get your free API key at aistudio.google.com
+              </a>
+            </div>
+          </div>
+
+          <div class="general-option-row">
+            <div class="general-option-info">
+              <span class="general-option-label">Offline & Free Knowledge Fallback</span>
+              <span class="general-option-hint">Calculator (0ms offline), unit/currency conversions, and Wikipedia knowledge cards always work out-of-the-box without an API key.</span>
+            </div>
+          </div>
+        </div>
+
         <div class="settings-tab-pane" data-tab-content="general">
           <div class="settings-section-title">Search & History Preferences</div>
           <div class="general-option-row">
             <div class="general-option-info">
-              <span class="general-option-label">Instant Smart Answers (AI & Tudás)</span>
-              <span class="general-option-hint">Azonnali válaszok, számolás és Wikipédia kártya keresés nélkül</span>
+              <span class="general-option-label">Instant Smart Answers</span>
+              <span class="general-option-hint">Quick math calculator, unit/currency conversions, and encyclopedia cards</span>
             </div>
             <label class="toggle-switch">
               <input type="checkbox" id="setting-instantanswers" ${state.settings?.instantAnswers !== false ? 'checked' : ''}>
@@ -6088,7 +6183,27 @@ function renderSettingsInto(container, onClose) {
     });
   });
 
-  // Instant Smart Answers toggle
+  // Gemini AI Key configuration
+  const geminiInput = container.querySelector('#setting-gemini-key');
+  const saveGeminiBtn = container.querySelector('#btn-save-gemini-key');
+  const geminiStatus = container.querySelector('#gemini-key-status');
+  if (saveGeminiBtn && geminiInput) {
+    saveGeminiBtn.addEventListener('click', () => {
+      const val = geminiInput.value.trim();
+      saveSettings({ geminiApiKey: val });
+      saveGeminiBtn.textContent = '✓ Saved!';
+      saveGeminiBtn.style.background = '#10b981';
+      if (geminiStatus) {
+        geminiStatus.textContent = val ? '● Configured' : '○ Not set';
+        geminiStatus.style.color = val ? '#34d399' : 'var(--text-muted)';
+      }
+      showToast(val ? '🔑 Gemini API Key saved!' : '🔑 Gemini API Key removed');
+      setTimeout(() => {
+        saveGeminiBtn.textContent = 'Save';
+        saveGeminiBtn.style.background = 'linear-gradient(135deg, #3b82f6, #6366f1)';
+      }, 2000);
+    });
+  }
   const instantAnswersInput = container.querySelector('#setting-instantanswers');
   if (instantAnswersInput) {
     instantAnswersInput.addEventListener('change', (e) => {
@@ -6303,12 +6418,20 @@ function renderSettingsInto(container, onClose) {
   });
 }
 
-function openSettings() {
+function openSettings(initialTab) {
   state.isSettingsOpen = true;
   updateResumeButton();
 
+  const activateTab = (root) => {
+    if (initialTab) {
+      const targetBtn = root.querySelector(`.settings-nav-tab[data-tab="${initialTab}"]`);
+      if (targetBtn) targetBtn.click();
+    }
+  };
+
   if (state.mode === 'browser') {
     renderSettingsInto($browserSettingsModalCard, () => closeSettings());
+    activateTab($browserSettingsModalCard);
     $browserSettingsOverlay.classList.add('visible');
   } else {
     // Search mode
@@ -6317,6 +6440,7 @@ function openSettings() {
     $shell.classList.add('has-settings');
     $settingsPanel.classList.remove('hidden');
     renderSettingsInto($settingsPanel, () => closeSettings());
+    activateTab($settingsPanel);
     API.resize('settings');
   }
 }
