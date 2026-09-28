@@ -3,6 +3,7 @@ const path = require('path');
 
 app.commandLine.appendSwitch('enable-features', 'TouchpadOverscrollHistoryNavigation');
 app.commandLine.appendSwitch('disable-blink-features', 'AutomationControlled');
+app.commandLine.appendSwitch('exclude-switches', 'enable-automation');
 if (process.platform === 'linux') {
   app.commandLine.appendSwitch('enable-transparent-visuals');
   app.commandLine.appendSwitch('disable-gpu-sandbox');
@@ -10,11 +11,11 @@ if (process.platform === 'linux') {
 
 const getChromeUA = () => {
   if (process.platform === 'darwin') {
-    return 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36';
+    return 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36';
   } else if (process.platform === 'win32') {
-    return 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36';
+    return 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36';
   } else {
-    return 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36';
+    return 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36';
   }
 };
 
@@ -111,21 +112,10 @@ function configureSecureSession(targetSession) {
       }
     }
 
-    const isGoogleAuth = isGoogleAuthUrl(details.url);
-
-    if (isGoogleAuth) {
-      // Use clean modern Firefox identity on Google Auth domains:
-      // Completely bypasses Google's embedded Chromium webview block!
-      headers['User-Agent'] = firefoxUA;
-      delete headers['sec-ch-ua'];
-      delete headers['sec-ch-ua-mobile'];
-      delete headers['sec-ch-ua-platform'];
-    } else {
-      headers['User-Agent'] = chromeUA;
-      headers['sec-ch-ua'] = '"Google Chrome";v="131", "Chromium";v="131", "Not_A Brand";v="24"';
-      headers['sec-ch-ua-mobile'] = '?0';
-      headers['sec-ch-ua-platform'] = getPlatformHint();
-    }
+    headers['User-Agent'] = chromeUA;
+    headers['sec-ch-ua'] = '"Not(A:Brand";v="99", "Google Chrome";v="133", "Chromium";v="133"';
+    headers['sec-ch-ua-mobile'] = '?0';
+    headers['sec-ch-ua-platform'] = getPlatformHint();
 
     // Enhanced Privacy Headers
     headers['DNT'] = '1';
@@ -598,38 +588,66 @@ async function tryGoogleSuggestAnswer(q) {
 async function tryGeminiAI(q, apiKey) {
   if (!apiKey || typeof apiKey !== 'string' || apiKey.trim().length < 10) return null;
   try {
-    const cleanKey = apiKey.trim();
+    const cleanKey = apiKey.trim().replace(/^["']|["']$/g, '');
     const prompt = `You are a concise, helpful assistant inside a sleek desktop Spotlight browser capsule. Answer the user's question clearly, accurately, and concisely in 2 to 4 sentences or brief bullet points. Respond in the same language as the question (e.g. Hungarian if Hungarian, English if English). Avoid markdown headers (#), keep formatting crisp.\n\nQuestion: ${q}`;
 
-    const makeReq = async (model) => {
-      const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(cleanKey)}`;
-      return doFetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          contents: [{ parts: [{ text: prompt }] }],
-          generationConfig: { temperature: 0.3, maxOutputTokens: 350 }
-        })
-      });
-    };
+    // Evergreen alias models supported by Google Gemini API
+    const models = [
+      'gemini-flash-latest',
+      'gemini-flash-lite-latest',
+      'gemini-3.8-flash',
+      'gemini-3.5-flash-lite',
+      'gemini-3.1-flash-lite'
+    ];
 
-    let res = await makeReq('gemini-2.0-flash');
-    if (!res.ok) {
-      res = await makeReq('gemini-1.5-flash');
+    let lastError = null;
+
+    for (const model of models) {
+      try {
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(cleanKey)}`;
+        const res = await doFetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: prompt }] }],
+            generationConfig: { temperature: 0.3, maxOutputTokens: 350 }
+          })
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+          if (text && text.trim()) {
+            return {
+              type: 'ai',
+              badge: '✦ Gemini AI',
+              title: q,
+              answer: text.trim(),
+              detail: 'Google Gemini Flash',
+              copyable: text.trim()
+            };
+          }
+        } else {
+          const errData = await res.json().catch(() => null);
+          const errMsg = errData?.error?.message || '';
+          if (res.status === 400 && (errMsg.includes('API key not valid') || errMsg.includes('API_KEY_INVALID'))) {
+            return {
+              type: 'ai-prompt',
+              badge: '✦ Gemini AI (Error)',
+              title: 'Invalid Gemini API Key',
+              answer: 'Google rejected this API key. Click here to check or re-enter your key in Settings (⌘, → Gemini AI).',
+              detail: 'Google AI Studio',
+              isPrompt: true
+            };
+          }
+          lastError = errMsg || `HTTP ${res.status}`;
+        }
+      } catch (reqErr) {
+        lastError = reqErr.message;
+      }
     }
-    if (!res.ok) return null;
-
-    const data = await res.json();
-    const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-    if (text && text.trim()) {
-      return {
-        type: 'ai',
-        badge: '✦ Gemini AI',
-        title: q,
-        answer: text.trim(),
-        detail: 'Google Gemini AI',
-        copyable: text.trim()
-      };
+    if (lastError) {
+      console.warn('Gemini API all models failed, last error:', lastError);
     }
   } catch (e) {
     console.error('Gemini API error:', e);
@@ -806,6 +824,10 @@ app.on('web-contents-created', (_event, contents) => {
       }
     }
   });
+});
+
+app.on('activate', () => {
+  show();
 });
 
 app.on('will-quit', () => globalShortcut.unregisterAll());

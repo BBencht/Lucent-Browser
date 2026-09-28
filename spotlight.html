@@ -170,8 +170,7 @@ body[data-theme="apple-liquid"] #shell.search-mode,
 body[data-theme="apple-vision-light"] #shell.search-mode {
   box-shadow:
     inset 0 1.5px 2px #ffffff,
-    inset 0 -1px 1.5px rgba(0, 0, 0, 0.06),
-    0 16px 44px rgba(0, 0, 0, 0.16) !important;
+    inset 0 -1px 1.5px rgba(0, 0, 0, 0.04) !important;
 }
 body[data-theme="apple-liquid"] #shell.browser-mode,
 body[data-theme="apple-vision-light"] #shell.browser-mode {
@@ -446,8 +445,7 @@ html, body {
   border: 1px solid var(--glass-border);
   box-shadow:
     inset 0 1px 1.5px var(--glass-shine),
-    inset 0 -1px 1px rgba(0, 0, 0, 0.28),
-    0 8px 24px rgba(0, 0, 0, 0.28);
+    inset 0 -1px 1px rgba(0, 0, 0, 0.15);
   opacity: 0;
   pointer-events: none;
   will-change: width, transform, opacity, border-radius;
@@ -476,8 +474,7 @@ html, body {
   pointer-events: auto !important;
   box-shadow:
     inset 0 1px 2px rgba(255, 255, 255, 0.5),
-    inset 0 -1px 1px rgba(0, 0, 0, 0.28),
-    0 10px 28px rgba(0, 0, 0, 0.35) !important;
+    inset 0 -1px 1px rgba(0, 0, 0, 0.15) !important;
   transition:
     opacity 0.18s ease,
     transform 0.24s cubic-bezier(0.34, 1.48, 0.64, 1) !important;
@@ -491,8 +488,7 @@ html, body {
   pointer-events: auto !important;
   box-shadow:
     inset 0 1px 1.5px var(--glass-shine),
-    inset 0 -1px 1px rgba(0, 0, 0, 0.28),
-    0 12px 32px rgba(0, 0, 0, 0.32) !important;
+    inset 0 -1px 1px rgba(0, 0, 0, 0.15) !important;
   transition:
     width 0.44s cubic-bezier(0.28, 1.35, 0.42, 1),
     transform 0.38s cubic-bezier(0.28, 1.35, 0.42, 1) !important;
@@ -577,8 +573,7 @@ html, body {
   pointer-events: auto !important;
   box-shadow:
     inset 0 1px 1.5px var(--glass-shine),
-    inset 0 -1px 1px rgba(0, 0, 0, 0.28),
-    0 16px 48px rgba(0, 0, 0, 0.45) !important;
+    inset 0 -1px 1px rgba(0, 0, 0, 0.15) !important;
   transition: height 0.28s cubic-bezier(0.25, 1.15, 0.45, 1), border-radius 0.2s ease !important;
 }
 #shell.search-mode.has-results .search-input-wrap {
@@ -4115,7 +4110,7 @@ function scheduleSpotlightLiveSearch(rawQuery) {
               badge: '✦ Gemini AI',
               title: q,
               answer: '💡 Want instant AI answers for questions like this?\nAdd your free Google Gemini API key in Settings (⌘, → Gemini AI) to unlock live answers directly in Spotlight!',
-              detail: 'Google Gemini 2.0 Flash',
+              detail: 'Google Gemini Flash',
               isPrompt: true
             });
           } else {
@@ -4367,20 +4362,7 @@ function createTab(url, isPrivate = false) {
         ? 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36'
         : 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36');
 
-  const firefoxUA = isMac
-    ? 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:133.0) Gecko/20100101 Firefox/133.0'
-    : (isWin
-        ? 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0'
-        : 'Mozilla/5.0 (X11; Linux x86_64; rv:133.0) Gecko/20100101 Firefox/133.0');
-
-  const isGoogleAuth = (u) => {
-    if (!u || typeof u !== 'string') return false;
-    const l = u.toLowerCase();
-    return l.includes('accounts.google.') || l.includes('myaccount.google.') || l.includes('accounts.youtube.') || l.includes('oauth.googleusercontent.');
-  };
-
-  const initialUA = isGoogleAuth(url) ? firefoxUA : chromeUA;
-  wv.setAttribute('useragent', initialUA);
+  wv.setAttribute('useragent', chromeUA);
   wv.src = url;
 
   wv.addEventListener('close', () => closeTab(id));
@@ -4451,61 +4433,40 @@ function createTab(url, isPrivate = false) {
             delete navigator.__proto__.webdriver;
           } catch (e) {}
 
-          // Chrome runtime & app mocks for Google Account sign-in compatibility
-          if (!window.chrome) {
-            window.chrome = {};
-          }
-          if (!window.chrome.app) {
-            window.chrome.app = {
-              isInstalled: false,
-              InstallState: { DISABLED: 'disabled', INSTALLED: 'installed', NOT_INSTALLED: 'not_installed' },
-              RunningState: { CANNOT_RUN: 'cannot_run', READY_TO_RUN: 'ready_to_run', RUNNING: 'running' },
-              getDetails: function() { return null; },
-              getIsInstalled: function() { return false; },
-              installState: function(cb) { if (cb) cb('not_installed'); },
-              runningState: function() { return 'cannot_run'; }
-            };
-          }
-          if (!window.chrome.runtime) {
-            window.chrome.runtime = {
-              OnInstalledReason: { CHROME_UPDATE: 'chrome_update', INSTALL: 'install', SHARED_MODULE_UPDATE: 'shared_module_update', UPDATE: 'update' },
-              OnRestartRequiredReason: { APP_UPDATE: 'app_update', OS_UPDATE: 'os_update', PERIODIC: 'periodic' },
-              PlatformArch: { ARM: 'arm', ARM64: 'arm64', MIPS: 'mips', MIPS64: 'mips64', X86_32: 'x86-32', X86_64: 'x86-64' },
-              PlatformNaclArch: { ARM: 'arm', MIPS: 'mips', MIPS64: 'mips64', X86_32: 'x86-32', X86_64: 'x86-64' },
-              PlatformOs: { ANDROID: 'android', CROS: 'cros', LINUX: 'linux', MAC: 'mac', OPENBSD: 'openbsd', WIN: 'win' },
-              RequestUpdateCheckStatus: { NO_UPDATE: 'no_update', THROTTLED: 'throttled', UPDATE_AVAILABLE: 'update_available' },
-              connect: function() { return { onDisconnect: { addListener: function() {} }, onMessage: { addListener: function() {} }, postMessage: function() {} }; },
-              sendMessage: function() {}
-            };
-          }
-          if (!window.chrome.loadTimes) {
-            window.chrome.loadTimes = function() {
-              return {
-                commitLoadTime: performance.timing ? performance.timing.responseStart / 1000 : Date.now() / 1000,
-                connectionInfo: 'h2',
-                finishDocumentLoadTime: performance.timing ? performance.timing.domContentLoadedEventEnd / 1000 : Date.now() / 1000,
-                finishLoadTime: performance.timing ? performance.timing.loadEventEnd / 1000 : Date.now() / 1000,
-                firstPaintAfterLoadTime: 0,
-                firstPaintTime: performance.timing ? performance.timing.responseEnd / 1000 : Date.now() / 1000,
-                navigationType: 'Other',
-                npnNegotiatedProtocol: 'h2',
-                requestTime: performance.timing ? performance.timing.navigationStart / 1000 : Date.now() / 1000,
-                startLoadTime: performance.timing ? performance.timing.navigationStart / 1000 : Date.now() / 1000,
-                wasAlternateProtocolAvailable: false,
-                wasFetchedViaSpdy: true,
-                wasNpnNegotiated: true
-              };
-            };
-          }
-          if (!window.chrome.csi) {
-            window.chrome.csi = function() {
-              return {
-                startE: performance.timing ? performance.timing.navigationStart : Date.now(),
-                onloadT: performance.timing ? performance.timing.loadEventEnd : Date.now(),
-                pageT: performance.timing ? (performance.timing.loadEventEnd - performance.timing.navigationStart) : 0,
-                tran: 15
-              };
-            };
+          // Sanitize userAgentData brands (remove Electron reference)
+          if (navigator.userAgentData) {
+            try {
+              Object.defineProperty(navigator, 'userAgentData', {
+                get: () => ({
+                  brands: [
+                    { brand: 'Not(A:Brand', version: '99' },
+                    { brand: 'Google Chrome', version: '133' },
+                    { brand: 'Chromium', version: '133' }
+                  ],
+                  mobile: false,
+                  platform: 'macOS',
+                  getHighEntropyValues: () => Promise.resolve({
+                    architecture: 'arm',
+                    bitness: '64',
+                    brands: [
+                      { brand: 'Not(A:Brand', version: '99' },
+                      { brand: 'Google Chrome', version: '133' },
+                      { brand: 'Chromium', version: '133' }
+                    ],
+                    fullVersionList: [
+                      { brand: 'Not(A:Brand', version: '99.0.0.0' },
+                      { brand: 'Google Chrome', version: '133.0.6943.53' },
+                      { brand: 'Chromium', version: '133.0.6943.53' }
+                    ],
+                    mobile: false,
+                    model: '',
+                    platform: 'macOS',
+                    platformVersion: '15.3.0'
+                  })
+                }),
+                configurable: true
+              });
+            } catch (e) {}
           }
 
           // Intercept links with target="_blank" and window.open to open inside Glass browser tabs
@@ -6188,8 +6149,9 @@ function renderSettingsInto(container, onClose) {
   const saveGeminiBtn = container.querySelector('#btn-save-gemini-key');
   const geminiStatus = container.querySelector('#gemini-key-status');
   if (saveGeminiBtn && geminiInput) {
-    saveGeminiBtn.addEventListener('click', () => {
-      const val = geminiInput.value.trim();
+    const handleSaveKey = () => {
+      const val = geminiInput.value.trim().replace(/^["']|["']$/g, '');
+      geminiInput.value = val;
       saveSettings({ geminiApiKey: val });
       saveGeminiBtn.textContent = '✓ Saved!';
       saveGeminiBtn.style.background = '#10b981';
@@ -6202,6 +6164,14 @@ function renderSettingsInto(container, onClose) {
         saveGeminiBtn.textContent = 'Save';
         saveGeminiBtn.style.background = 'linear-gradient(135deg, #3b82f6, #6366f1)';
       }, 2000);
+    };
+
+    saveGeminiBtn.addEventListener('click', handleSaveKey);
+    geminiInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        handleSaveKey();
+      }
     });
   }
   const instantAnswersInput = container.querySelector('#setting-instantanswers');

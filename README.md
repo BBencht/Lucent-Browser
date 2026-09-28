@@ -2,12 +2,12 @@
 
 <img src="assets/lucent_horizontal_logo.png" alt="Lucent Browser" width="520" style="border-radius: 14px; margin-bottom: 20px; box-shadow: 0 16px 40px rgba(0,0,0,0.4);" />
 
-# Lucent Browser (v1.2.2)
+# Lucent Browser (v1.3.1)
 
 ### *Ultra-minimalist, floating Liquid Glass HUD browser with Instant Smart Answers for Windows, macOS & Linux.*
 **Universal floating search capsule, zero-config quick answers, and full-featured desktop web browser in one sleek translucent interface.**
 
-[![Version](https://img.shields.io/badge/version-1.2.2-00f0ff?style=for-the-badge)](https://github.com/BBencht/Lucent-Browser/releases)
+[![Version](https://img.shields.io/badge/version-1.3.1-00f0ff?style=for-the-badge)](https://github.com/BBencht/Lucent-Browser/releases)
 [![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-blue?style=for-the-badge)](https://github.com/BBencht/Lucent-Browser)
 [![License](https://img.shields.io/badge/license-MIT-0984e3?style=for-the-badge)](LICENSE)
 [![Electron](https://img.shields.io/badge/Electron-44.4.3-47a248?style=for-the-badge&logo=electron&logoColor=white)](https://electronjs.org)
@@ -115,12 +115,12 @@ Pre-built, standalone application packages for **Windows**, **macOS**, and **Lin
 
 | Platform | Architecture | Package Format | Download |
 | :--- | :--- | :--- | :--- |
-| **Windows** | 64-bit (Windows 10+) | Setup Installer | [**Installer (.exe)**](https://github.com/BBencht/Lucent-Browser/releases/download/v1.2.2/Lucent.Browser.Setup.1.2.2.exe) |
-| **Windows** | 64-bit (Windows 10+) | Portable Archive | [**Portable (.zip)**](https://github.com/BBencht/Lucent-Browser/releases/download/v1.2.2/Lucent.Browser-1.2.2-win.zip) |
-| **macOS** | Apple Silicon | Disk Image | [**Apple Silicon (.dmg)**](https://github.com/BBencht/Lucent-Browser/releases/download/v1.2.2/Lucent.Browser-1.2.2-arm64.dmg) |
-| **macOS** | Intel | Disk Image | [**Intel (.dmg)**](https://github.com/BBencht/Lucent-Browser/releases/download/v1.2.2/Lucent.Browser-1.2.2.dmg) |
-| **Linux** | x86_64 | Standalone Package | [**AppImage (.AppImage)**](https://github.com/BBencht/Lucent-Browser/releases/download/v1.2.2/Lucent.Browser-1.2.2.AppImage) |
-| **Linux** | x86_64 | Compressed Tarball | [**Tarball (.tar.gz)**](https://github.com/BBencht/Lucent-Browser/releases/download/v1.2.2/lucent-browser-1.2.2.tar.gz) |
+| **Windows** | 64-bit (Windows 10+) | Setup Installer | [**Installer (.exe)**](https://github.com/BBencht/Lucent-Browser/releases/download/v1.3.1/Lucent.Browser.Setup.1.3.1.exe) |
+| **Windows** | 64-bit (Windows 10+) | Portable Archive | [**Portable (.zip)**](https://github.com/BBencht/Lucent-Browser/releases/download/v1.3.1/Lucent.Browser-1.3.1-win.zip) |
+| **macOS** | Apple Silicon | Disk Image | [**Apple Silicon (.dmg)**](https://github.com/BBencht/Lucent-Browser/releases/download/v1.3.1/Lucent.Browser-1.3.1-arm64.dmg) |
+| **macOS** | Intel | Disk Image | [**Intel (.dmg)**](https://github.com/BBencht/Lucent-Browser/releases/download/v1.3.1/Lucent.Browser-1.3.1.dmg) |
+| **Linux** | x86_64 | Standalone Package | [**AppImage (.AppImage)**](https://github.com/BBencht/Lucent-Browser/releases/download/v1.3.1/Lucent.Browser-1.3.1.AppImage) |
+| **Linux** | x86_64 | Compressed Tarball | [**Tarball (.tar.gz)**](https://github.com/BBencht/Lucent-Browser/releases/download/v1.3.1/lucent-browser-1.3.1.tar.gz) |
 
 > **Tip for macOS users:** You can also install and launch directly from Terminal with:  
 > `curl -fsSL https://raw.githubusercontent.com/BBencht/Lucent-Browser/main/install.sh | bash`
@@ -174,14 +174,12 @@ Gatekeeper flags unsigned downloaded applications by default. Choose whichever o
 
 ---
 
-## 🆕 What's New in v1.2.2
+## 🆕 What's New in v1.3.1
 
-- 🧠 **Google Gemini AI Integration:** Seamlessly connect your free Google Gemini API key in **Settings** (`⌘,` $\rightarrow$ **✦ Gemini AI**) to stream lightning-fast, highly accurate Gemini 2.0 Flash answers for recipes, questions, and code explanations directly inside Spotlight.
-- ⚡ **Smarter Search & Bang Shortcuts:** Quick prefixes for instant engine routing: `!yt` / `yt` for YouTube, `!gh` / `gh` for GitHub, `!w` for Wikipedia, `!r` for Reddit, `!maps` for Google Maps, `!d` for DuckDuckGo, `!b` for Bing, and `!x` for X/Twitter.
-- 💻 **Local Development Server Detection:** Typing `localhost:3000`, `127.0.0.1:8080`, or local LAN IPs opens your server directly in one click.
-- 🧮 **Advanced Math & Science Engine:** Added support for cube roots (`cbrt(27)`), powers (`2^10`), percentages (`15% of 850`), and constants (`pi`, `e`).
-- 🌐 **100% Complete English Localization:** All UI buttons, toasts, settings tabs, copy confirmations, and cards are fully localized to English.
-- 🛡️ **Zero-Block Fallback:** 0ms offline calculator, real-time unit/currency conversions, and Wikipedia knowledge cards always work out-of-the-box without requiring an API key.
+- 🫧 **Zero-Halo Transparent Window Aesthetics:** Completely eliminated clipped outer box-shadow artifacts across all themes (including Apple Vision Light and Liquid Glass). The floating Spotlight capsule now hovers seamlessly over your desktop with pure luminous glass highlights and zero dark outlines.
+- 🔑 **Google Sign-In Compatibility Fix:** Fixed embedded webview restrictions when logging in to Google accounts. Modernized client hints (`navigator.userAgentData`), aligned HTTP request headers, and removed legacy mock objects so Google Account authentication proceeds smoothly.
+- ⚡ **Evergreen Gemini Flash Model Integration:** Upgraded Gemini AI integration to Google's canonical alias models (`gemini-flash-latest` and `gemini-flash-lite-latest`, backed by Flash 3.8 and 3.5 fallbacks). Future-proof against model sunsetting with clear error diagnostics for invalid keys.
+- ⌨️ **Settings Convenience:** Pressing `Enter` in the Gemini API key input field now automatically saves the key and sanitizes whitespace and quotes.
 
 ---
 
